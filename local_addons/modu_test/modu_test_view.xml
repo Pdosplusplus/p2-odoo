@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_modu_test_form">
+            
+            <field name="name">modu_test_form</field>
+            <field name="model">modu.test</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="modu test">
+                    <sheet>
+                        <group>
+                            <field name="date" select="1"/>
+                            <field name="name" select="1"/>
+                            <field name="di" select="1"/>
+                            <field name="note" select="1"/>
+                            <field name="active" select="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            
+            </field>
+        
+        </record>
+        
+        <record model="ir.ui.view" id="modu_tree">
+
+            <field name="name">modu_test_tree</field>
+            <field name="model">modu.test</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                
+                <tree string="modu test">
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="di"/>
+                    <field name="note"/>
+                    <field name="active"/>
+                </tree>
+
+            </field>
+
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_modu_test">
+            <field name="name">modu test</field>
+            <field name="res_model">modu.test</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem name="modu test" id="menu_modu_test"  action="action_modu_test" sequence="10"/>
+
+        <menuitem name="sub menu" id="menu_modu_test_02" parent="menu_modu_test" action="action_modu_test" sequence="20"/>
+
+    </data>
+
+</openerp>
