@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--- Record que le dice a openerp que modelo
+              y que atributos de dicho se mostrara en un
+              formulario.
+        -->
+        <record model="ir.ui.view" id="view_scf_city_form">
+            
+            <field name="name">sfc_city_form</field>
+            <field name="model">scf.city</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="city">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="country_id" style="width: 30%"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            
+            </field>
+        
+        </record>
+        
+        <!--- Record que crea una vista le dice a 
+              openerp que mis mis registros una ves 
+              guardados se van a mostrar en una tabla 
+              como una lista.
+        -->
+        <record model="ir.ui.view" id="view_scf_city_tree">
+
+            <field name="name">sfc_city_tree</field>
+            <!-- Model aqui va el nombre exacto de mi modelo -->
+            <field name="model">scf.city</field>
+            <field name="type">tree</field>
+
+            <field name="arch" type="xml">
+                <!--Los titulos de cabecera de la tabla que
+                    sera creada por odoo.
+                -->
+                <tree string="city">
+                    <field name="name"/>
+                    <field name="country_id"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+
+        </record>
+        
+        <!--- Record que tiene como función crear
+              un menu en el panel lateral de odoo
+              que me permita acceder a esta vista
+              y realizar las acciones respectivas.
+        -->
+        <record model="ir.actions.act_window" id="action_scf_city">
+            <field name="name">SCF city</field>
+            <field name="res_model">scf.city</field>
+            <field name="view_type">form</field>
+            <!-- En este campo le especificamos las
+                 vistas que tenemos y en que orden
+                 se van a mostrar
+            -->
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem name="City" id="menu_scf_city" action="action_scf_city" parent="menu_scf_confi_address" sequence="10" />
+
+    </data>
+
+</openerp>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--- Record que le dice a openerp que modelo
+              y que atributos de ese se mostrara en un
+              formulario.
+        -->
+        <record model="ir.ui.view" id="view_scf_provider_form">
+            
+            <field name="name">sfc_provider_form</field>
+            <field name="model">scf.provider</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="provider">
+                    <sheet>
+                        
+                        <group col="4">
+
+                            <!-- Con el atributo readonly=1 estamos
+                                 indicando que el campo solo sea
+                                 de lectura.
+                            -->
+                            <field name="client_id" readonly="1"/>
+
+                            <field name="name"/>
+                            <field name="di"/>
+                            <!-- El campo widget=selection
+                            	 lo que hace es que bloquea
+                            	 la opcion de agregar un
+                            	 pais o ciudad desde esta
+                            	 vista.
+                           	-->
+                            <field 
+                            	name="country_id"  
+                            	on_change="clean_city()"
+                            	widget="selection"/>
+                            <!-- El campo domain es para que solo 
+                                 me filtre las ciudades que 
+                                 corresponden a dicho pais.
+                             -->
+                            <field 
+                            	name="city_id"
+                            	domain="[('country_id', '=', country_id)]"
+                            	widget="selection"/>
+                            <field name="active"/>
+                        </group>
+
+                        
+
+                    </sheet>
+                </form>
+            
+            </field>
+        
+        </record>
+        
+        <!--- Record que crea una vista le dice a 
+              openerp que mis mis registros una ves 
+              guardados se van a mostrar en una tabla 
+              como una lista.
+        -->
+        <record model="ir.ui.view" id="view_scf_provider_tree">
+
+            <field name="name">sfc_provider_tree</field>
+            <!-- Model aqui va el nombre exacto de mi modelo -->
+            <field name="model">scf.provider</field>
+            <field name="type">tree</field>
+
+            <field name="arch" type="xml">
+                <!--Los titulos de cabecera de la tabla que
+                    sera creada por odoo.
+
+                    Con el atributo create=0, estamos diciendo
+                    que en esta vista no puedan crear nuevos
+                    provider
+                -->
+                <tree string="provider">
+
+                    <field name="client_id"/>
+                    <field name="name"/>
+                    <field name="di"/>
+                    <field name="country_id"/>
+                    <field name="city_id"/>
+                    <field name="active"/>
+
+                </tree>
+
+            </field>
+
+        </record>
+        
+        <!--- Record que tiene como función crear
+              un menu en el panel lateral de odoo
+              que me permita acceder a esta vista
+              y realizar las acciones respectivas.
+        -->
+        <record model="ir.actions.act_window" id="action_scf_provider">
+            <field name="name">SCF provider</field>
+            <field name="res_model">scf.provider</field>
+            <field name="view_type">form</field>
+            <!-- En este campo le especificamos las
+                 vistas que tenemos y en que orden
+                 se van a mostrar
+            -->
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+ 
+        <menuitem name="Provider" id="menu_scf_provider" action="action_scf_provider" parent="menu_scf_home" sequence="10" />
+
+    </data>
+
+</openerp>

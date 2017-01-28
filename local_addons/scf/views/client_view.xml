@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--- Record que le dice a openerp que modelo
+              y que atributos de ese se mostrara en un
+              formulario.
+        -->
+        <record model="ir.ui.view" id="view_scf_client_form">
+            
+            <field name="name">sfc_client_form</field>
+            <field name="model">scf.client</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="client">
+                    <sheet>
+                        
+                        <group col="4">
+
+                            <field name="name"/>
+                            <field name="di"/>
+                            <field name="country_id" style="width: 30%" on_change="clean_city()"/>
+                            <!-- El campo domain es para que solo 
+                                 me filtre las ciudades que 
+                                 corresponden a dicho pais.
+                             -->
+                            <field name="city_id" style="width: 30%" domain="[('country_id', '=', country_id)]"/>
+                            <field name="active"/>
+                        </group>
+
+                        <!-- Notebook esta etiqueta te crea una tabla
+                             con pestañas como su mismo nombre lo dice
+                             un cuaderno donde cada page es una pestaña
+                         -->
+                        <notebook>
+
+                            <page string="Cell Phones">  
+                                <field name="cellphone_ids" />
+                            </page>
+
+                            <page string="Providers">  
+                                <field name="provider_ids" />
+                                <!-- Con el atributo create=1 
+                                     habilitamos la creacion
+                                     de nuevos proveedores
+                                     en esta vista
+                                -->
+                                <tree string="provider">
+
+                                    <field name="name"/>
+                                    <field name="di"/>
+                                    <field name="country_id"/>
+                                    <field name="city_id"/>
+
+                                </tree>
+                                
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+                </form>
+            
+            </field>
+        
+        </record>
+        
+        <!--- Record que crea una vista le dice a 
+              openerp que mis mis registros una ves 
+              guardados se van a mostrar en una tabla 
+              como una lista.
+        -->
+        <record model="ir.ui.view" id="view_scf_client_tree">
+
+            <field name="name">sfc_client_tree</field>
+            <!-- Model aqui va el nombre exacto de mi modelo -->
+            <field name="model">scf.client</field>
+            <field name="type">tree</field>
+
+            <field name="arch" type="xml">
+                <!--Los titulos de cabecera de la tabla que
+                    sera creada por odoo.
+                -->
+                <tree string="client">
+                    <field name="name"/>
+                    <field name="di"/>
+                    <field name="country_id"/>
+                    <field name="city_id"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+
+        </record>
+        
+        <!--- Record que tiene como función crear
+              un menu en el panel lateral de odoo
+              que me permita acceder a esta vista
+              y realizar las acciones respectivas.
+        -->
+        <record model="ir.actions.act_window" id="action_scf_client">
+            <field name="name">SCF client</field>
+            <field name="res_model">scf.client</field>
+            <field name="view_type">form</field>
+            <!-- En este campo le especificamos las
+                 vistas que tenemos y en que orden
+                 se van a mostrar
+            -->
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!--Creamos un item al menu horizontal de odoo-->
+        <menuitem name="SCF" id="menu_scf" sequence="10"/>
+
+        <menuitem name="Home" id="menu_scf_home" parent="menu_scf" sequence="10"/>
+
+        <menuitem name="Client" id="menu_scf_client" action="action_scf_client" parent="menu_scf_home" sequence="10" />
+
+    </data>
+
+</openerp>

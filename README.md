@@ -308,6 +308,72 @@ in the browser ```your-ip:8069``` or ```localhost:8069``` search in the input an
 
 And finnish test your module
 
+## Relation many2one
+
+La relacion many2one recibe 2 parametros esenciales:
+
+* 1: El objeto que queremos relacionar.
+* 2: Y una etiqueta.
+
+Nota: El name del campo many2one debe contener al final, el prefijo "_id" esto debido a acuerdos de la comunidad de odoo
+
+Example:
+
+```python
+'country_id':   fields.many2one('scf.country', 
+                'Name of state', 
+                required=True),
+```
+
+## Relation many2many
+
+La relacion many2many recibe 5 parametros esenciales:
+
+* 1: El objeto que queremos relacionar.
+* 2: Nombre de la nueva tabla que odoo creara.
+* 3: El id del objeto a quien va relacionado.
+* 4: El id del objeto a relacionar.
+* 5: Una etiqueta.
+
+Nota: El name del campo many2many debe contener al final, el prefijo "_ids" esto debido a acuerdos de la comunidad de odoo
+
+Example:
+
+```python
+'cellphone_ids': fields.many2many('scf.cellphone', 
+                            'scf.client_cellphone_rel',
+                            'client_id',
+                            'cellphone_id'),
+```
+
+## Relation one2many
+
+La relacion one2many recibe 3 parametros esenciales:
+
+* 1: El objeto que queremos relacionar.
+* 2: El id del objeto a quien va relacionado.
+* 3: Una etiqueta.
+
+Nota: El name del campo one2many debe contener al final, el prefijo "_ids" esto debido a acuerdos de la comunidad de odoo
+
+Example:
+
+```python
+'provider_ids': fields.one2many('scf.provider',
+                            'client_id',
+                            'Provider'),
+```
+
+Y agregar como many2one el id del objeto a quien va relacionado.
+en tu tabla muchos.
+
+Example:
+
+```python
+'client_id'     fields.many2one('scf.client',
+                            'Client',
+                            required=True),
+```
 ## SOURCES
 
 http://colibris.es/tutorial/como-instalar-odoo-8-para-debian/

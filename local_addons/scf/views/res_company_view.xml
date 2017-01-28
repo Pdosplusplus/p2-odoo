@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--- Record que le dice a openerp que modelo
+              y que atributos de ese se mostrara en un
+              formulario.
+        -->
+        <record model="ir.ui.view" id="view_scf_res_company_form">
+            
+            <field name="name">sfc_company_form</field>
+            <field name="model">res.company</field>
+            <!--En esta etiqueta le especificamos que
+                nuestra vista hereda de otra y con
+                el atributo ref especificamos de quien
+             -->
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <!-- Con esta etiqueta hago invisible
+                     una etiqueta que yo quiera, con el
+                     atributo expr le especifico la ruta
+                     donde esta esa etiqueta
+                -->
+                <xpath expr="/form/sheet/div/label" position="attributes">
+                    <attribute name="invisible">True</attribute>
+
+                </xpath>
+
+                <!-- Ahora a la misma le agrego el atributo 
+                     placeholder
+                -->
+                <xpath expr="/form/sheet/div/h1/field[@name='name']" position="attributes">
+                    <attribute name="placeholder">Cooperative</attribute>
+
+                </xpath>
+
+                <!-- Agrego el nuevo campo rif -->
+                <xpath expr="/form/sheet/div/h1" position="after">
+                    
+                    <h1>
+                        <field name="rif" class="oe_inline" placeholder="RIF"/>
+                    </h1>
+
+                </xpath>
+
+                <!-- Cambio la etiqueta lema -->
+                <xpath expr="/form/sheet/notebook/page/group/group/label[@for='rml_header1']" position="attributes">
+                    
+                    <attribute name="string"> Cooperative Tagline </attribute>
+
+                </xpath>
+
+                <!-- Cambio del company registry -->
+                <xpath expr="/form/sheet/notebook/page/group/group/field[@name='company_registry']" position="attributes">
+                    
+                    <attribute name="string">Cooperative Registry </attribute>
+
+                </xpath>
+
+            </field>
+        
+        </record>
+        
+        
+    </data>
+
+</openerp>

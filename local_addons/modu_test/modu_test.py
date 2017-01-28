@@ -25,6 +25,6 @@ class modu_test(osv.osv):
     }
 
     _defaults = {
-    'active': True,
+        'active': True,
     }
     
