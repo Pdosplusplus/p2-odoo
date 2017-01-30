@@ -15,6 +15,8 @@
         "views/city_view.xml",
         "views/cell_phone_view.xml",
         "views/provider_view.xml",
+        "reports/report_client.xml",
+        "views/template_report_client.xml",
         ],
     'installable': True,
     'auto_install': False,

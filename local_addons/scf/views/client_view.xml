@@ -38,22 +38,24 @@
                                 <field name="cellphone_ids" />
                             </page>
 
-                            <page string="Providers">  
-                                <field name="provider_ids" />
-                                <!-- Con el atributo create=1 
-                                     habilitamos la creacion
-                                     de nuevos proveedores
-                                     en esta vista
-                                -->
-                                <tree string="provider">
+                            <page string="Providers sabe">  
+                                <field name="provider_ids">
+                                    <!-- Con el atributo create=1 
+                                         habilitamos la creacion
+                                         de nuevos proveedores
+                                         en esta vista
+                                    -->
+                                    <tree create="1">
 
-                                    <field name="name"/>
-                                    <field name="di"/>
-                                    <field name="country_id"/>
-                                    <field name="city_id"/>
+                                        <field name="name"/>
+                                        <field name="di"/>
+                                        <field name="country_id"/>
+                                        <field name="city_id"/>
 
-                                </tree>
-                                
+                                    </tree>
+
+                                </field>
+
                             </page>
 
                         </notebook>

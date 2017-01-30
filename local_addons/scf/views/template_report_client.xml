@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- EL atributo id tiene que ser igual
+			al que colocamos en la variable _templtate
+			del archivo .py
+		-->
+		<template id="scf.client" name="Report of Client">
+			<!-- Llamos a un contenedor que contiene una
+				 estructura base ya echa de un reporte
+			-->
+			<t t-call="report.html_container">
+				
+				<t t-foreach="docs" t-as="0">
+					<!-- Con  report.external_layout
+						 configuramos el head y footer
+						 de nuestro reporte.
+					-->
+					<t t-call="report.external_layout">
+						<div class="page">
+							
+							<h1> Data client</h1>
+
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Document Identification</th>
+									</tr>
+						        </thead>
+
+								<tbody>
+									<tr>
+									
+										<td> 
+											<t t-esc="o.name"></t>
+										</td>
+
+										<td> 
+											<t t-esc="o.di"></t>
+										</td>
+
+									</tr>
+								
+								</tbody>
+
+							</table>
+
+						</div>
+					</t>
+
+				</t>
+
+			</t>
+
+
+		</template>
+
+	</data>
+</openerp>

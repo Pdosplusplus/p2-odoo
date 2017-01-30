@@ -75,7 +75,7 @@
                     que en esta vista no puedan crear nuevos
                     provider
                 -->
-                <tree string="provider">
+                <tree string="provider" create="0">
 
                     <field name="client_id"/>
                     <field name="name"/>

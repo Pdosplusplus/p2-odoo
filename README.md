@@ -374,6 +374,134 @@ Example:
                             'Client',
                             required=True),
 ```
+
+
+## Integridad Referencial 
+
+Para esto se utiliza el atributo ondelete para mantener la integridad de la base datos.
+
+Ejemplo
+
+Que borren la tabla ciudad y todos los registros que tenian asociada una ciudad queden erroneos. 
+
+El valor puede ser ```restrict``` para que no sea borrado o en ```cascada``` por si es borrado borre todo. ejemplo de uso:
+
+```python  
+'client_id'     fields.many2one('scf.client',
+                            'Client',
+                            required=True,
+                            ondelete="restrict"),
+
+```
+
+
+## Create a Report
+
+Install depencies.
+
+* Module Morot de informenes Webkit: Install with the interface of odoo search ```webkit```
+
+
+* Library ```wkhtmltopdf```: For this execute (If you used debian 8):
+
+```bash
+$ sudo wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-jessie-amd64.deb
+
+$ sudo dpkg -i wkhtmltox-0.12.2.1_linux-jessie-amd64.deb
+```
+
+
+## All ready to create a report
+
+Create a folder in the root directory:
+
+```
+$ mkdir reports
+```
+
+### To create a report There are four essential files
+
+1. The file ```__init__.py``` to import the reports.
+
+```bash
+$ touch __init__.py
+```
+
+Now the report file that containt the logic
+
+### 2 - Create file ```<name-report>.py``` with the following content:
+
+```python
+# -*- encoding: utf-8 -*-
+
+from openerp.report import report_sxw
+from openerp.osv import osv
+
+class report_scf (report_sxw.rml_parse):
+
+    def __init__(self, cr, uid, name, context):
+        super(report_scf, self).__init__(cr, uid, name, context)
+
+class report_client(osv.AbstractModel):
+
+    #Nombre del objeto
+    _name="report.scf.client"
+
+    #De quien hereda esta clase
+    _inherit="report.abstract_report"
+
+
+    _template="scf.client"
+
+    #Nombre de la class que hereda de report_sxw.rml_parse
+    _wrapped_report_class=report_scf
+
+```
+
+### 3 - Now the file ```<struct_report>.xml```
+
+In this file we define the structure of the report to odoo
+
+Create the file ```<struct_report>.xml``` with the following content:
+
+```xml
+<?<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+        <!-- Esta etiqueta recibe:
+            1. id.
+            2. Model al que le voy hacer el reporte
+            3. String: Nombre del menu con 
+               sale el reporte.
+            4. Tipo de reporte.
+            5. File: Nombre del archivo.
+            6. Menu: Si el reporte tendra menu.
+        -->
+        <report
+        id="report_client"
+        model="scf.client"
+        string="Report Client"
+        report_type="qweb-pdf"
+        file="scf.client"
+        name="scf.client"   
+        menu="True"
+        />
+        
+    </data>
+
+</openerp>
+```
+
+This file register on the file __openerp__.py
+
+
+### 4 - The view the report
+
+Into the directory ```views``` create a file xml to the view the report:
+
+
+
 ## SOURCES
 
 http://colibris.es/tutorial/como-instalar-odoo-8-para-debian/
