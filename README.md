@@ -1,17 +1,11 @@
-# Install ODOO 8.0 on Debian 8
+# Install ODOO 10 on Debian 8
 
-To install Odoo 8.0 on Debian-based distribution, execute the following commands as root:
+To install Odoo 10 on Debian-based distribution in mode production execute the following commands as root:
 
 ```bash
 $ wget -O - https://nightly.odoo.com/odoo.key | apt-key add -
-$ echo "deb http://nightly.odoo.com/8.0/nightly/deb/ ./" >> /etc/apt/sources.list
+$ echo "deb http://nightly.odoo.com/10.0/nightly/deb/ ./" >> /etc/apt/sources.list.d/odoo.list
 $ apt-get update && apt-get install odoo
-```
-
-## Create a user to Odoo
-
-```bash
-$ adduser --system --home=/opt/odoo --group odoo
 ```
 
 ## Configure Postgresql
@@ -22,14 +16,23 @@ Create a user and database to odoo
 $ createuser --createdb --username postgres --no-createrole --no-superuser --pwprompt odoo
 ```
 
-## Install the server to Odoo
+
+
+## Install Odoo mode development
+
+
+## Create a user to Odoo
+
+```bash
+$ adduser --system --home=/opt/odoo --group odoo
+```
 
 
 Login with the user odoo:
 
 ```bash
 $ su - odoo -s /bin/bash 
-$ cd ..
+$ cd /opt/
 ```
 
 Install git
@@ -41,30 +44,88 @@ $ sudo apt install git
 #### Clone the repository
 
 ```bash
-$ git clone https://github.com/odoo/odoo.git --depth 1 --branch 8.0
+$ git clone https://github.com/odoo/odoo.git --depth 1 --branch 10.0 --single-branch odoo
 ```
 
-#### Configuration Odoo
+#### Create a virtualenv:
 
-Copy the configuration base to ```/etc``` ,execute the following commands as root:
+First install virtualenv. ```Execute next command as root```:
 
 ```
-$ cp /opt/odoo/debian/openerp-server.conf /etc/odoo-server.conf
+$ apt install python-virtualenv
+```
+
+Now position in your home:
+
+```
+$ cd
+```
+
+Create virtualenv. 
+
+```
+$ virtualenv odoo-dev
+```
+
+Activate virtualenv. 
+
+```
+$ . odoo-dev/bin/activate
+```
+
+Make sure you have installed:
+
+```bash
+$ apt install python-dev libldap2-dev libsasl2-dev libssl-dev libxslt1-dev libxml2-dev
+```
+
+Now install dependencies. 
+
+```bash
+$ pip install -r /opt/odoo/requirements.txt 
+```
+
+Now move to /opt/
+
+```bash
+$ deactive
+```
+
+and 
+
+```bash
+$ mv odoo-dev /opt/
+```
+
+Change owner 
+
+```bash
+$ sudo choown odoo: odoo-dev
+```
+
+
+### Configuration Odoo
+
+Copy the configuration base to ```/etc/odoo``` ,execute the following commands as root:
+
+
+```
+$ cp /opt/odoo/debian/odoo.conf /etc/odoo/odoo.conf
 ```
 
 Change owner 
 
 ```
-$ chown odoo: /etc/odoo-server.conf
+$ chown odoo: /etc/odoo/odoo.conf
 ```
 
 Change permissions
 
 ```
-$ chmod 640 /etc/odoo-server.conf
+$ chmod 640 /etc/odoo/odoo.conf
 ```
 
-### Now edit file ```/etc/odoo-server.conf```
+### Now edit file ```/etc/odoo/odoo.conf```
 
 Change the field ```db_password = False``` for:
 
@@ -110,401 +171,21 @@ Login with the user odoo
 $ su - odoo -s /bin/bash
 ```
 
+Activate virtualenv:
+
+```bash
+$ . /opt/odoo-dev/bin/activate
+```
+
 Execute the server
 
 ```bash
-$ /opt/odoo/openerp-server
+$ /opt/odoo/odoo-bin
 ```
 
-##### Check your browser in ```your-ip:8069``` or ```localhost:8069```
-
-
-## Create a Module
-
-first create a directory to modules:
-
-```bash
-$ mkdir local_addons
-```
-
-Now the directory of the module:
-
-```bash
-$ cd local_addons
-$ mkdir modu_test
-```
-
-### The struct basic of a module is:
-
-
-```bash
-name_module/
-├── __init__.py
-├── __openerp__.py
-├── name_module.py 
-└── name_module_view.xml
-```
-
-
-### Now create the file ```__openerp__.py``` with the following content:
-
-
-```python
-{
-    'name':'Geekos',
-    'version': '1.0',
-    'depends': ['base_setup'],
-    'author': 'Victor Pino victopin0@gmail.com',
-    'category': '',
-    'description': """
-    Module the test
-    """,
-    'update_xml': [],
-    "data" : [
-        "modu_test_view.xml",
-        ],
-    'installable': True,
-    'auto_install': False,
-}
-```
-
-
-### Create the file ```modu_test.py``` with the following content:
-
-```python
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-
-from openerp.osv import fields, osv
-
-class modu_test(osv.osv):
-    """docstring for modu_test"""
-    _name="modu.test"
-
-    _columns={
-        'date': fields.date('date'),
-        'name': fields.char('name', 
-                            size=30, 
-                            required=True, 
-                            help="Name of the pupil"),
-        'di': fields.integer('di',
-                            size=10,
-                            required=True,
-                            help="Document Identification"),
-        'note': fields.float('note',
-                            size=20,
-                            help="Points the pupil"),
-        'active': fields.boolean('Active'),
-    }
-
-    _defaults = {
-    'active': True,
-    }
-```
-
-### Now cretae the view of the module ```modu_test_view.xml```:
-
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
-        <record model="ir.ui.view" id="view_modu_test_form">
-            
-            <field name="name">modu_test_form</field>
-            <field name="model">modu.test</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                
-                <form string="modu test">
-                    <sheet>
-                        <group>
-                            <field name="date" select="1"/>
-                            <field name="name" select="1"/>
-                            <field name="di" select="1"/>
-                            <field name="note" select="1"/>
-                            <field name="active" select="1"/>
-                        </group>
-                    </sheet>
-                </form>
-            
-            </field>
-        
-        </record>
-        
-        <record model="ir.ui.view" id="modu_tree">
-
-            <field name="name">modu_test_tree</field>
-            <field name="model">modu.tree</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                
-                <tree string="modu test">
-                    <field name="date"/>
-                    <field name="name"/>
-                    <field name="Document Identification"/>
-                    <field name="note"/>
-                    <field name="active"/>
-                </tree>
-
-            </field>
-
-        </record>
-        
-        <record model="ir.actions.act_window" id="action_modu_test">
-            <field name="name">modu test</field>
-            <field name="res_model">modu.test</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-        
-        <menuitem name="modu test" id="menu_modu_test"  action="action_modu_test" sequence="10"/>
-
-        <menuitem name="sub menu" id="menu_modu_test_02" parent="menu_modu_test" action="action_modu_test" sequence="20"/>
-
-    </data>
-
-</openerp>
-```
-
-The ```record_form``` is the data of model with of inputs field
-
-and the ```record_tree``` are the head titles
-
-## Create the file ```__init__.py```:
-
-```pyhton
-# -*- coding: utf-8 -*-
-
-import modu_test
-```
-
-and finnish of created the module
-
-## Install the module
-
-Now add the path the local_addons to the file ```/etc/odoo-server.conf```:
-
-```python
-addons_path = /opt/odoo/addons, path-of-local_addons
-```
-
-Restart all modules:
-
-```bash
-$ /opt/odoo/openerp-server -u all -d <name-database>
-```
-
-Install module for console:
-
-```
-$ /opt/odoo/openerp-server -d <name-database> -i <name-module>
-```
-
-and install for the web
-
-in the browser ```your-ip:8069``` or ```localhost:8069``` search in the input and click at button of install
-
-And finnish test your module
-
-## Relation many2one
-
-La relacion many2one recibe 2 parametros esenciales:
-
-* 1: El objeto que queremos relacionar.
-* 2: Y una etiqueta.
-
-Nota: El name del campo many2one debe contener al final, el prefijo "_id" esto debido a acuerdos de la comunidad de odoo
-
-Example:
-
-```python
-'country_id':   fields.many2one('scf.country', 
-                'Name of state', 
-                required=True),
-```
-
-## Relation many2many
-
-La relacion many2many recibe 5 parametros esenciales:
-
-* 1: El objeto que queremos relacionar.
-* 2: Nombre de la nueva tabla que odoo creara.
-* 3: El id del objeto a quien va relacionado.
-* 4: El id del objeto a relacionar.
-* 5: Una etiqueta.
-
-Nota: El name del campo many2many debe contener al final, el prefijo "_ids" esto debido a acuerdos de la comunidad de odoo
-
-Example:
-
-```python
-'cellphone_ids': fields.many2many('scf.cellphone', 
-                            'scf.client_cellphone_rel',
-                            'client_id',
-                            'cellphone_id'),
-```
-
-## Relation one2many
-
-La relacion one2many recibe 3 parametros esenciales:
-
-* 1: El objeto que queremos relacionar.
-* 2: El id del objeto a quien va relacionado.
-* 3: Una etiqueta.
-
-Nota: El name del campo one2many debe contener al final, el prefijo "_ids" esto debido a acuerdos de la comunidad de odoo
-
-Example:
-
-```python
-'provider_ids': fields.one2many('scf.provider',
-                            'client_id',
-                            'Provider'),
-```
-
-Y agregar como many2one el id del objeto a quien va relacionado.
-en tu tabla muchos.
-
-Example:
-
-```python
-'client_id'     fields.many2one('scf.client',
-                            'Client',
-                            required=True),
-```
-
-
-## Integridad Referencial 
-
-Para esto se utiliza el atributo ondelete para mantener la integridad de la base datos.
-
-Ejemplo
-
-Que borren la tabla ciudad y todos los registros que tenian asociada una ciudad queden erroneos. 
-
-El valor puede ser ```restrict``` para que no sea borrado o en ```cascada``` por si es borrado borre todo. ejemplo de uso:
-
-```python  
-'client_id'     fields.many2one('scf.client',
-                            'Client',
-                            required=True,
-                            ondelete="restrict"),
-
-```
-
-
-## Create a Report
-
-Install depencies.
-
-* Module Morot de informenes Webkit: Install with the interface of odoo search ```webkit```
-
-
-* Library ```wkhtmltopdf```: For this execute (If you used debian 8):
-
-```bash
-$ sudo wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-jessie-amd64.deb
-
-$ sudo dpkg -i wkhtmltox-0.12.2.1_linux-jessie-amd64.deb
-```
-
-
-## All ready to create a report
-
-Create a folder in the root directory:
-
-```
-$ mkdir reports
-```
-
-### To create a report There are four essential files
-
-1. The file ```__init__.py``` to import the reports.
-
-```bash
-$ touch __init__.py
-```
-
-Now the report file that containt the logic
-
-### 2 - Create file ```<name-report>.py``` with the following content:
-
-```python
-# -*- encoding: utf-8 -*-
-
-from openerp.report import report_sxw
-from openerp.osv import osv
-
-class report_scf (report_sxw.rml_parse):
-
-    def __init__(self, cr, uid, name, context):
-        super(report_scf, self).__init__(cr, uid, name, context)
-
-class report_client(osv.AbstractModel):
-
-    #Nombre del objeto
-    _name="report.scf.client"
-
-    #De quien hereda esta clase
-    _inherit="report.abstract_report"
-
-
-    _template="scf.client"
-
-    #Nombre de la class que hereda de report_sxw.rml_parse
-    _wrapped_report_class=report_scf
-
-```
-
-### 3 - Now the file ```<struct_report>.xml```
-
-In this file we define the structure of the report to odoo
-
-Create the file ```<struct_report>.xml``` with the following content:
-
-```xml
-<?<?xml version="1.0" encoding="UTF-8"?>
-
-<openerp>
-    <data>
-        <!-- Esta etiqueta recibe:
-            1. id.
-            2. Model al que le voy hacer el reporte
-            3. String: Nombre del menu con 
-               sale el reporte.
-            4. Tipo de reporte.
-            5. File: Nombre del archivo.
-            6. Menu: Si el reporte tendra menu.
-        -->
-        <report
-        id="report_client"
-        model="scf.client"
-        string="Report Client"
-        report_type="qweb-pdf"
-        file="scf.client"
-        name="scf.client"   
-        menu="True"
-        />
-        
-    </data>
-
-</openerp>
-```
-
-This file register on the file __openerp__.py
-
-
-### 4 - The view the report
-
-Into the directory ```views``` create a file xml to the view the report:
-
+##### Check your browser in ```https://your-ip:8069/``` or ```https://localhost:8069/```
 
 
 ## SOURCES
 
-http://colibris.es/tutorial/como-instalar-odoo-8-para-debian/
-
-http://juventudproductivabicentenaria.blogspot.com/2015/03/como-desarrollar-un-modulo-en-odoo-8-en.html
-
+http://odooperu.org/?p=944
