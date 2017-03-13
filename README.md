@@ -91,13 +91,13 @@ Now move to /opt/
 $ deactive
 ```
 
-and 
+and ```execute this comman as root```:
 
 ```bash
 $ mv odoo-dev /opt/
 ```
 
-Change owner 
+Change owner ```execute this comman as root```:
 
 ```bash
 $ sudo choown odoo: odoo-dev

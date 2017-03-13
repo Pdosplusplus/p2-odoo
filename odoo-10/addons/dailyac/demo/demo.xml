@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        
+        <record model="dailyac.activity" id="activity0">
+
+            <field name="name">Actividad 1</field>
+            <field name="description"> No se que estoy haciendo
+                con mi vida
+            </field>
+            
+        </record>
+
+        <record model="dailyac.activity" id="activity1">
+
+            <field name="name">activity 1</field>
+            <!-- no description for this one -->
+        </record>
+
+        <record model="dailyac.activity" id="activity2">
+
+            <field name="name">Actividad 2</field>
+            <field name="description">Actividad 2's description</field>
+
+        </record>
+
+    </data>
+</odoo>

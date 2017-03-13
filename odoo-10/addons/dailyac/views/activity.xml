@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+  
+      <!-- Data file para crear y modificar registros -->
+      <record model="ir.ui.view" id="activity_form_view">
+        
+        <field name="name">activity.form</field>
+        <field name="model">dailyac.activity</field>
+        
+        <field name="arch" type="xml">
+     
+          <form string="Activity Form">
+            <sheet>
+
+              <group>
+                <field name="day"/>
+                <field name="name"/>
+                <field name="objetive"/>
+                <field name="result"/>
+                <field name="responsible_id"/>
+              </group>
+
+
+              <!--Este data file nos permite crear
+                  un cuaderno con pestañas, cada page
+                  es una pestaña 
+              -->
+              <notebook>
+                
+                <page string="Descripción">
+                  <field name="description"/>
+                </page>
+
+                <page string="Quién generó la convocatoria ? ">
+                  <field name="who_summon"/>
+                </page>
+
+              </notebook>
+
+
+            </sheet>
+          </form>
+
+        </field>
+      
+      </record>
+
+      <!-- Record searh 
+          @ Para realizar la busqueda de los registros
+          @ Definimos por que campos se haran las busquedas
+       -->
+      <record model="ir.ui.view" id="activity_search_view">
+        
+        <field name="name">activity.search</field>
+        <field name="model">dailyac.activity</field>
+        
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="objetive"/>
+                <field name="description"/>
+            </search>
+        </field>
+
+      </record>
+
+      <!-- override the automatically generated list view for courses -->
+      <record model="ir.ui.view" id="activity_tree_view">
+          <field name="name">activity.tree</field>
+          <field name="model">dailyac.activity</field>
+          <field name="arch" type="xml">
+              <tree string="Actividad Tree">
+                <field name="day"/>
+                <field name="name"/>
+                <field name="objetive"/>
+                <field name="description"/>
+                <field name="result"/>
+                <field name="who_summon"/>
+                <field name="responsible_id"/>
+              </tree>
+          </field>
+      </record>
+
+
+      <!-- window action -->
+      <!--
+          The following tag is an action definition for a "window action",
+          that is an action opening a view or a set of views
+      -->
+      <record model="ir.actions.act_window" id="activity_list_action">
+          
+          <field name="name">Actividades</field>
+          <field name="res_model">dailyac.activity</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="html">
+              <p class="oe_view_nocontent_create">Registra la primera actividad
+              </p>
+          </field>
+
+      </record>
+
+      <!-- top level menu: no parent -->
+      <menuitem id="main_dailyac_menu" name="Actividad"/>
+      <!-- A first level in the left side menu is needed
+           before using action= attribute -->
+      <menuitem id="dailyac_menu" name="Actividades Diarias"
+                parent="main_dailyac_menu"/>
+      <!-- the following menuitem should appear *after*
+           its parent dailyac_menu and *after* its
+           action activity_list_action -->
+      <menuitem id="activity_menu" name="Actividad" 
+                parent="dailyac_menu"
+                action="activity_list_action"/>
+      <!-- Full id location:
+           action="dailyac.activity_list_action"
+           It is not required when it is the same module -->
+
+      <!-- session form view -->
+      <record model="ir.ui.view" id="session_form_view">
+          <field name="name">session.form</field>
+          <field name="model">dailyac.session</field>
+          <field name="arch" type="xml">
+              <form string="Session Form">
+                  <sheet>
+                      <group string="General">
+                          <field name="activity_id"/>
+                          <field name="name"/>
+                          <field name="instructor_id"/>
+                      </group>
+
+                      <group string="Schedule">
+                          <field name="start_date"/>
+                          <field name="duration"/>
+                          <field name="seats"/>
+                      </group>
+
+
+                  </sheet>
+              </form>
+          </field>
+        </record>
+
+        <!-- session tree/list view -->
+        <record model="ir.ui.view" id="session_tree_view">
+            <field name="name">session.tree</field>
+            <field name="model">dailyac.session</field>
+            <field name="arch" type="xml">
+                <tree string="Session Tree">
+                    <field name="name"/>
+                    <field name="activity_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="session_list_action">
+            <field name="name">Sessions</field>
+            <field name="res_model">dailyac.session</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="session_menu" name="Sessions"
+                  parent="dailyac_menu"
+                  action="session_list_action"/>
+
+    </data>
+</odoo>

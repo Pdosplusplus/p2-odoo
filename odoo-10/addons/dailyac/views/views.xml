@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="dailyac.list">
+      <field name="name">dailyac list</field>
+      <field name="model">dailyac.dailyac</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="dailyac.action_window">
+      <field name="name">dailyac window</field>
+      <field name="res_model">dailyac.dailyac</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="dailyac.action_server">
+      <field name="name">dailyac server</field>
+      <field name="model_id" ref="model_dailyac_dailyac"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="dailyac" id="dailyac.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="dailyac.menu_1" parent="dailyac.menu_root"/>
+    <menuitem name="Menu 2" id="dailyac.menu_2" parent="dailyac.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="dailyac.menu_1_list" parent="dailyac.menu_1"
+              action="dailyac.action_window"/>
+    <menuitem name="Server to list" id="dailyac" parent="dailyac.menu_2"
+              action="dailyac.action_server"/>
+    -->
+  </data>
+</odoo>
