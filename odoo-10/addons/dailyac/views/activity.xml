@@ -36,6 +36,22 @@
                   <field name="who_summon"/>
                 </page>
 
+                <!-- Añadimos una nueva pestaña al libro, con la
+                  @ relacion one2many del atributo session_ids que 
+                  @ hicimos en el modelo activity con el nombre de 
+                  @ sesion y el instructor al que pertence
+                -->
+                <page string="Sessions">
+                  
+                  <field name="session_ids">
+                    <tree string="Registered sessions">
+                      <field name="name"/>
+                      <field name="instructor_id"/>
+                    </tree>
+                  </field>
+
+                </page>
+
               </notebook>
 
 
@@ -135,8 +151,10 @@
                           <field name="duration"/>
                           <field name="seats"/>
                       </group>
-
-
+                      
+                      <label for="attendee_ids"/>
+                      <field name="attendee_ids"/>
+                      
                   </sheet>
               </form>
           </field>

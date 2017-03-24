@@ -91,7 +91,7 @@ Now move to /opt/
 $ deactive
 ```
 
-and ```execute this comman as root```:
+and ```execute this command as root```:
 
 ```bash
 $ mv odoo-dev /opt/

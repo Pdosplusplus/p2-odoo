@@ -22,6 +22,9 @@ class Activity(models.Model):
     responsible_id = fields.Many2one('res.users',
     ondelete='set null', string="Responsable", index=True)
 
+    session_ids = fields.One2many(
+        'dailyac.session', 'activity_id', string="Sessions")
+
     
 class Session(models.Model):
 
@@ -35,4 +38,5 @@ class Session(models.Model):
     instructor_id = fields.Many2one('res.partner', string="Instructor")
     activity_id = fields.Many2one('dailyac.activity',
         ondelete='cascade', string="Actividad", required=True)
+    attendee_ids = fields.Many2many('res.partner', string="Asistentes")
 
