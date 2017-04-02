@@ -144,12 +144,14 @@
                           <field name="activity_id"/>
                           <field name="name"/>
                           <field name="instructor_id"/>
+                          <field name="active"/>
                       </group>
 
                       <group string="Schedule">
                           <field name="start_date"/>
                           <field name="duration"/>
                           <field name="seats"/>
+                          <field name="taken_seats" widget="progressbar"/>
                       </group>
                       
                       <label for="attendee_ids"/>
@@ -165,18 +167,38 @@
             <field name="name">session.tree</field>
             <field name="model">dailyac.session</field>
             <field name="arch" type="xml">
-                <tree string="Session Tree">
+                <tree string="Session Tree" decoration-info="duration&lt;5" decoration-danger="duration&gt;15">
                     <field name="name"/>
                     <field name="activity_id"/>
+                    <field name="duration" invisible="1
+                      "/>
+                    <field name="taken_seats" widget="progressbar"/>
                 </tree>
             </field>
         </record>
+
+                <!-- calendar view -->
+        <record model="ir.ui.view" id="session_calendar_view">
+            <field name="name">session.calendar</field>
+            <field name="model">dailyac.session</field>
+            <field name="arch" type="xml">
+                <calendar string="Session Calendar" 
+                          date_start="start_date" 
+                          date_stop="end_date"
+                          color="instructor_id">
+                  
+                  <field name="name"/>
+
+                </calendar>
+            </field>
+        </record>
+
 
         <record model="ir.actions.act_window" id="session_list_action">
             <field name="name">Sessions</field>
             <field name="res_model">dailyac.session</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,calendar</field>
         </record>
 
         <menuitem id="session_menu" name="Sessions"
