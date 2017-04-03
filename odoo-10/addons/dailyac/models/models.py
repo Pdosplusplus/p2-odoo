@@ -98,6 +98,23 @@ class Session(models.Model):
 
     color = fields.Integer()
 
+    state = fields.Selection([
+        ('draft', "Draft"),
+        ('confirmed', "Confirmed"),
+        ('done', "Done"),
+    ], default='draft')
+
+    @api.multi
+    def action_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def action_confirm(self):
+        self.state = 'confirmed'
+
+    @api.multi
+    def action_done(self):
+        self.state = 'done'
 
     #Computed Field
     @api.depends('seats', 'attendee_ids')
