@@ -1,2 +1,5 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_dailyac_dailyac,dailyac.dailyac,model_dailyac_dailyac,,1,0,0,0
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+activity_manager,activity manager,model_dailyac_activity,group_manager,1,1,1,1
+session_manager,session manager,model_dailyac_session,group_manager,1,1,1,1
+activity_read_all,activity all,model_dailyac_activity,,1,0,0,0
+session_read_all,session all,model_dailyac_session,,1,0,0,0

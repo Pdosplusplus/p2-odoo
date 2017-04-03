@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <record id="group_manager" model="res.groups">
+            <field name="name">Dailyac / Manager</field>
+        </record>
+    </data>
+</odoo>
