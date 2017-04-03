@@ -62,7 +62,7 @@
       
       </record>
 
-      <!-- Record searh 
+      <!-- Record search 
           @ Para realizar la busqueda de los registros
           @ Definimos por que campos se haran las busquedas
        -->
@@ -76,12 +76,24 @@
                 <field name="name"/>
                 <field name="objetive"/>
                 <field name="description"/>
+                
+                <filter name="my_activities" 
+                        string="My activities"
+                        domain="[('responsible_id', '=', uid)]"/>
+                
+                <group string="Group By">
+                  <filter name="by_responsible" 
+                          string="Responsible" 
+                          context="{'group_by': 'responsible_id'}"
+                  />
+                </group>
+
             </search>
         </field>
 
       </record>
 
-      <!-- override the automatically generated list view for courses -->
+      <!-- override the automatically generated list view for activities -->
       <record model="ir.ui.view" id="activity_tree_view">
           <field name="name">activity.tree</field>
           <field name="model">dailyac.activity</field>
