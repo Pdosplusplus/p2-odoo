@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "dailyac",
+    'name': "agili",
 
     'summary': """
-        Registro de Actividades Diarias
+        Gestion y Control de las Cooperetivas
         """,
 
     'description': """
-        Modulo que permite tener un registro detallado de todas
-        las actividades diarias que realiza una persona en su
-        dia a dia.
+        Modulo que permite la gestion de todos los proyectos
+        que son llevados y ejecutados por la red de cooperativas
     """,
 
-    'author': "Victor Pino",
+    'author': "Geekos",
     'website': "http://geekos.co.ve/",
 
     # Categories can be used to filter modules in modules listing
@@ -26,15 +25,9 @@
 
     # always loaded
     'data': [
-        'security/security.xml',
-        'security/ir.model.access.csv',
-        'views/templates.xml',
+        # 'security/ir.model.access.csv',
+        'views/project.xml',
         'views/activity.xml',
-        'views/partner.xml',
-        'views/session_workflow.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    
 }

@@ -242,7 +242,7 @@
             <field name="model">dailyac.session</field>
             <field name="arch" type="xml">
                 <graph string="Participations by activitys">
-                    <field name="activity_id"/>
+                    <field name="activity_ids"/>
                     <field name="attendees_count" type="measure"/>
                 </graph>
             </field>
