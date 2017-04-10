@@ -72,6 +72,22 @@
                   </tree>
                 </field>
               </page>
+
+              <!-- Page Entregables 
+  
+                @Function: Añadir actividades a un proyecto
+
+                @Description: Esta page del notebook nos permite añadir entregables al proyecto y mostramos una lista de ellos solo con los campos necesarios.
+              -->
+              <page string="Entregables">
+                <field name="deliverable_ids">
+                  <tree string="Añade un entregable al proyecto">
+                    <field name="name"/>
+                    <field name="deliverable"/>
+                  </tree>
+                </field>
+              </page>
+
             </notebook>
 
           </sheet>

@@ -27,6 +27,10 @@ class Project(models.Model):
     activities_count = fields.Integer(string="Numero de actividades", 
         compute='_get_activities_count', store=True)
 
+    deliverable_ids = fields.One2many(
+        'agili.deliverable', 'project_id', string="Entregables")
+
+
     _sql_constraints = [
         ('name_description_check',
         'CHECK(name != description)',
@@ -85,3 +89,48 @@ class Activity(models.Model):
     project_id = fields.Many2one('agili.project',
         ondelete='cascade', string="Proyecto", required=True)
 
+    _sql_constraints = [
+        ('name_description_check',
+        'CHECK(name != description)',
+        "El nombre de la actividad no puede ser la descripción."),
+
+        ('name_unique',
+        'UNIQUE(name)',
+        "El nombre de la actividad es unica"),
+    ]
+
+    ac_state = fields.Selection([
+        ('process', "En proceso"),
+        ('stopped', "Detenida"),
+        ('done', "Terminada"),
+    ], string="Estado", default='process')
+
+    @api.multi
+    def action_process(self):
+        self.state = 'process'
+
+    @api.multi
+    def action_stopped(self):
+        self.state = 'stopped'
+
+    @api.multi
+    def action_done(self):
+        self.state = 'done'
+
+
+class Deliverable(models.Model):
+    
+    _name = 'agili.deliverable'
+
+    name = fields.Char(string="Nombre ", required=True)
+
+    deliverable = fields.Binary(string="Entregable", 
+                                  attachment=True)
+
+    project_id = fields.Many2one('agili.project',
+                                ondelete='cascade', 
+                                string="Proyecto", 
+                                required=True)
+
+    
+    
