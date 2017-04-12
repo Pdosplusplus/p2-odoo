@@ -69,6 +69,7 @@
                     <field name="objetive"/>
                     <field name="ac_hour_man"/>
                     <field name="ac_responsible_id"/>
+                    <field name="ac_state"/>
                   </tree>
                 </field>
               </page>
@@ -97,6 +98,30 @@
 
     </record>
 
+    <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. Em este caso define como sera el orden en que seran registrados los campos del modelo Deliverable
+    -->
+    <record model="ir.ui.view" id="deliverable_form_view">
+
+      <field name="name">deliverable.form</field>
+      <field name="model">agili.deliverable</field>
+      <field name="arch" type="xml">
+
+        <form string="Deliverable Form">
+          <sheet>
+            <group>
+              <field name="de_project_id" 
+                     invisible="0"/>
+              <field name="name"/>
+              <field name="deliverable"/>
+            </group>
+          </sheet>
+        </form>
+
+      </field>
+    </record>
 
     <!-- Record search 
       @Function: Para realizar la busqueda de los registros
@@ -141,7 +166,7 @@
 
       @Function: Listar la información en una tabla
 
-      @Description: Record para mostrar la información en una tabla, donde cada field es una columna.
+      @Description: Record para mostrar la información en un modelo, donde cada field es una columna.
     -->
     <record model="ir.ui.view" id="project_tree_view">
       <field name="name">project.tree</field>
@@ -155,6 +180,25 @@
           <field name="responsible_id"/>
           <field name="hour_man"/>
           <field name="porcen_project" widget="progressbar"/>
+        </tree>
+      </field>
+
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en un model, donde cada field es una columna. En te caso mostramos la lista de los elementos del modelo Deliverable
+    -->
+    <record model="ir.ui.view" id="deliverable_tree_view">
+      <field name="name">deliverable.tree</field>
+      <field name="model">agili.deliverable</field>
+
+      <field name="arch" type="xml">
+        <tree string="Deliverable Tree">
+          <field name="name"/>
+          <field name="deliverable"/>
         </tree>
       </field>
 

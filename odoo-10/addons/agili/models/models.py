@@ -19,16 +19,19 @@ class Project(models.Model):
     responsible_id = fields.Many2one('res.users',
     ondelete='set null', string="Responsable", index=True)
 
-    porcen_project = fields.Float(string="Avance del proyecto")
+    porcen_project = fields.Float(string="Avance del proyecto",
+                                  compute='_porcent_project', 
+                                  store=True)
 
     activity_ids = fields.One2many(
-        'agili.activity', 'project_id', string="Actividades")
+        'agili.activity', 'ac_project_id', string="Actividades")
 
     activities_count = fields.Integer(string="Numero de actividades", 
-        compute='_get_activities_count', store=True)
+                                    compute='_get_activities_count', 
+                                    store=True)
 
     deliverable_ids = fields.One2many(
-        'agili.deliverable', 'project_id', string="Entregables")
+        'agili.deliverable', 'de_project_id', string="Entregables")
 
 
     _sql_constraints = [
@@ -64,6 +67,28 @@ class Project(models.Model):
     def _get_activities_count(self):
         for r in self:
             r.activities_count = len(r.activity_ids)
+            print r.activities_count
+
+    #Funcion para calcular el porcentaje ejecutado de un proyecto
+    @api.depends('activity_ids')
+    def _porcent_project(self):
+        for r in self:
+            if not r.activity_ids:
+
+                r.porcen_project = 0.0
+            
+            else:
+
+                num_done = 0
+
+                for act in r.activity_ids:
+                    
+                    if act.ac_state == 'done':
+
+                        num_done +=1
+
+                r.porcen_project = 100 * num_done / len(r.activity_ids)
+
 
 class Activity(models.Model):
 
@@ -86,7 +111,7 @@ class Activity(models.Model):
     ac_responsible_id = fields.Many2one('res.users',
     ondelete='set null', string="Responsable", index=True)
 
-    project_id = fields.Many2one('agili.project',
+    ac_project_id = fields.Many2one('agili.project',
         ondelete='cascade', string="Proyecto", required=True)
 
     _sql_constraints = [
@@ -107,30 +132,30 @@ class Activity(models.Model):
 
     @api.multi
     def action_process(self):
-        self.state = 'process'
+        self.ac_state = 'process'
 
     @api.multi
     def action_stopped(self):
-        self.state = 'stopped'
+        self.ac_state = 'stopped'
 
     @api.multi
     def action_done(self):
-        self.state = 'done'
+        self.ac_state = 'done'
 
 
 class Deliverable(models.Model):
     
     _name = 'agili.deliverable'
 
-    name = fields.Char(string="Nombre ", required=True)
+    name = fields.Char(string="Nombre", 
+                       required=True)
 
     deliverable = fields.Binary(string="Entregable", 
-                                  attachment=True)
+                                attachment=True,
+                                required=True)
 
-    project_id = fields.Many2one('agili.project',
+    de_project_id = fields.Many2one('agili.project',
                                 ondelete='cascade', 
                                 string="Proyecto", 
                                 required=True)
-
-    
     

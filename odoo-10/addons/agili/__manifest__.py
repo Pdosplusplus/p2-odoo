@@ -28,6 +28,7 @@
         # 'security/ir.model.access.csv',
         'views/project.xml',
         'views/activity.xml',
+        'reports/report_project.xml',
     ],
     
 }
