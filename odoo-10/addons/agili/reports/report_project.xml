@@ -1,13 +1,13 @@
 <odoo>
 <data>
-    <report
-        id="report_project"
-        model="agili.project"
-        string="Reporte del Proyecto"
-        name="agili.report_project_view"
-        file="agili.report_project"
-        report_type="qweb-pdf" />
-
+  <report
+            id="report_project"
+            model="agili.project"
+            string="Reporte del Proyecto"
+            name="agili.report_project_view"
+            file="agili.report_project"
+            report_type="qweb-pdf" />
+            
   <template id="report_project_view">
     <t t-call="report.html_container">
       <t t-foreach="docs" t-as="o">
@@ -15,8 +15,6 @@
           
           <div class="page">
             
-            <br/> <br/> <br/> <br/> 
-
             <div class="page-header">
               <center>
                 <h3> Reporte del Proyecto, ID: 
@@ -62,9 +60,12 @@
                 </tr>
 
                 <tr>
-                    <td>Responsable:</td>
+                    <td>Responsables:</td>
                     <td>
-                        <t t-esc="o.responsible_id.name"/>
+                        <t t-foreach="o.responsible_ids" t-as="responsible">
+                           <t t-esc="responsible.name"/>
+                        </t>
+                       
                     </td>
                 </tr>
 
@@ -78,7 +79,7 @@
                 <tr>
                     <td>Porcentaje de Avance:</td>
                     <td>
-                        <t t-esc="o.porcen_project"/>
+                        <t t-esc="o.porcen_project"/> %
                     </td>
                 </tr>
 

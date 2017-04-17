@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="ListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <t t-if="widget.model=='agili.project'">
+                <button class="btn btn-sm btn-default btn-large agili_btn_print_report" name='print_report' type="button">Reporte de Avance</button>
+            </t>
+        </t>
+    </t>
+
+</templates>

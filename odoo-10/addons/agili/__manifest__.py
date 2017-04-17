@@ -25,10 +25,23 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/agili_security.xml',
+        'security/ir.model.access.csv',
         'views/project.xml',
         'views/activity.xml',
+        'views/report_general_js.xml',
+        'views/webclient_templates.xml',
         'reports/report_project.xml',
+        'reports/project_general_templates.xml',
+        'reports/project_reports.xml',
     ],
     
+    'qweb': [
+        'static/src/xml/custom_button_header_tree_qweb.xml',
+    ],
+    
+    'js': [
+        'static/src/js/action_button_header_tree.js',
+    ],
+
 }

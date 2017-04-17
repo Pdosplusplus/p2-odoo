@@ -162,7 +162,7 @@
 
       
       <!-- Añadimos un submenu al menu de gestion de proyectos -->
-      <menuitem id="activity_menu" name="Actividad" 
+      <menuitem id="activity_menu" name="Actividades" 
             parent="agili_menu"
             action="activity_list_action"/>
 

@@ -1,2 +1,10 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_agili_agili,agili.agili,model_agili_agili,,1,0,0,0
+project_agili_admin,agili.project access admin,model_agili_project,group_agili_manager,1,1,1,1
+project_agili_coordinator,agili.project access coordinator,model_agili_project,group_agili_coordinator,1,1,0,0
+project_agili_cooperative,agili.project access cooperative,model_agili_project,group_agili_cooperative,1,0,0,0
+activity_admin,agili.activity access admin,model_agili_activity,group_agili_manager,1,1,1,1
+activity_coordinator,agili.activity access coordinator,model_agili_activity,group_agili_coordinator,1,1,1,0
+activity_cooperative,agili.activity access cooperative,model_agili_activity,group_agili_cooperative,1,1,0,0
+deliverable_agili_admin,agili.deliverable access admin,model_agili_deliverable,group_agili_manager,1,1,1,1
+deliverable_agili_coordinator,agili.deliverable access coordinator,model_agili_deliverable,group_agili_coordinator,1,1,1,0
+deliverable_agili_cooperative,agili.deliverable access cooperative,model_agili_deliverable,group_agili_cooperative,1,1,1,0
