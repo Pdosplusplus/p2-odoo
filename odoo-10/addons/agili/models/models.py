@@ -22,8 +22,7 @@ class Project(models.Model):
 
 
     porcen_project = fields.Float(string="Avance del proyecto",
-                                  compute='_porcent_project', 
-                                  store=True)
+                                  compute='_porcent_project')
 
     activity_ids = fields.One2many(
         'agili.activity', 'ac_project_id', string="Actividades")
@@ -122,10 +121,10 @@ class Activity(models.Model):
 
     result = fields.Text(string="Resultado")
 
-    ac_hour_man = fields.Integer(string="Horas hombres")
+    ac_hour_man = fields.Integer(string="Horas hombres", required=True)
 
     ac_responsible_id = fields.Many2one('res.users',
-    ondelete='set null', string="Responsable", index=True)
+    ondelete='set null', string="Responsable", required=True, index=True)
 
     ac_project_id = fields.Many2one('agili.project',
         ondelete='cascade', string="Proyecto", required=True)
@@ -241,3 +240,5 @@ class report_project_general(models.AbstractModel):
         data['hour_porcen'] = data['hour_done'] * 100 / data['hour_total'] 
 
         return data
+
+
