@@ -7,6 +7,12 @@
             name="agili.report_project_view"
             file="agili.report_project"
             report_type="qweb-pdf" />
+
+  <template id="external_layout_header">
+    <div class="header">
+        <h1> Reporte General de los Proyectos </h1>
+    </div>
+  </template>
             
   <template id="report_project_view">
     <t t-call="report.html_container">

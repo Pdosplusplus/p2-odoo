@@ -72,5 +72,30 @@
       </t>
     </template>
 
+    <template id="web.login_layout" name="Login Layout">
+        <t t-call="web.layout">
+            <t t-set="html_data" t-value="{'style': 'height: 100%;'}"/>
+            <t t-set="head">
+                <t t-call-assets="web.assets_common" t-js="false"/>
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+                <t t-call-assets="web.assets_common" t-css="false"/>
+                <t t-call-assets="web.assets_frontend" t-css="false"/>
+            </t>
+            <t t-set="body_classname" t-value="'container'"/>
+
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 o_database_list">
+                    <t t-raw="0"/>
+                    <div class="text-center" t-if="not disable_footer">
+                        <t t-if="not disable_database_manager">
+                            <a class="" href="https://geekos.co.ve">Cooperativa Geekos</a> |
+                        </t>
+                        <a href="https://www.odoo.com" target="_blank">Powered by <span>Odoo</span></a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
   </data>
 </odoo>
