@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 from datetime import timedelta
 from odoo import models, fields, api, exceptions
+from odoo.exceptions import ValidationError
+
 
 class Project(models.Model):
 
@@ -45,7 +47,7 @@ class Project(models.Model):
         "El nombre del proyecto es unico"),
 
         ('hour_valid',
-        'CHECK(hour_man <= 0)',
+        'CHECK(hour_man > 0)',
         "Las horas hombre tienen que ser mayor a 0"),
     ]
 
@@ -94,6 +96,21 @@ class Project(models.Model):
 
                 r.porcen_project = 100 * num_done / len(r.activity_ids)
 
+    @api.constrains('activity_ids')
+    def _check_hour_activity(self):
+
+        for r in self:
+            
+            hour_total = 0
+
+            for act in r.activity_ids:
+                
+                hour_total += act.ac_hour_man
+
+                if act.ac_hour_man > r.hour_man or hour_total > r.hour_man:
+                    
+                    raise ValidationError('Las horas hombre declaradas sobrepasan a las horas hombre del proyecto')
+
     @api.model
     def print_report(self):
 
@@ -139,7 +156,7 @@ class Activity(models.Model):
         "El nombre de la actividad es unica"),
 
         ('hour_valid',
-        'CHECK(ac_hour_man <= 0)',
+        'CHECK(ac_hour_man > 0)',
         "Las horas hombre tienen que ser mayor a 0"),
         
     ]
