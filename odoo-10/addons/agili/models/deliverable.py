@@ -16,3 +16,8 @@ class Deliverable(models.Model):
                                 ondelete='cascade', 
                                 string="Proyecto", 
                                 required=True)
+
+    de_type = fields.Selection([
+        ('primer', "Primer nivel"),
+        ('segundo', "Segundo nivel"),
+    ], string="Nivel", default='primer')

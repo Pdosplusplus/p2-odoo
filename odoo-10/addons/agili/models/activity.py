@@ -6,6 +6,11 @@ class Activity(models.Model):
     _name = 'agili.activity'
 
     name = fields.Char(string="Nombre de Actividad", required=True)
+
+    ac_type = fields.Selection([
+        ('primer', "Primer nivel"),
+        ('segundo', "Segundo nivel"),
+    ], string="Nivel", default='primer')
     
     ac_start_date = fields.Date(string="Fecha de inicio", required=True)
 
