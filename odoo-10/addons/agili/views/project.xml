@@ -252,8 +252,12 @@
       <field name="name">agili.project.graph</field>
       <field name="model">agili.project</field>
       <field name="arch" type="xml">
-        <graph string="Actividades de un proyecto">
-            <field name="responsible_ids"/>
+        <graph string="Avance de los proyectos">
+          <field name="name"/>
+          <field name="hour_man"/>
+          <field name="activity_ids" type="measure"/>
+          <field name="deliverable_ids" type="measure"/>
+          <field name="porcen_project" type="measure"/>
         </graph>
       </field>
     </record>

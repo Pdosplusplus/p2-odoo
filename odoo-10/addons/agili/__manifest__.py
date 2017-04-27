@@ -44,4 +44,7 @@
         'static/src/js/action_button_header_tree.js',
     ],
 
+    'installable': True,
+    'application': True
+
 }

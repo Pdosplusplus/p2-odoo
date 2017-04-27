@@ -1,130 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<template id="report_general">
-  <t t-call="agili.report_layout"/>
-    <t t-call="report.html_container">
-      <t t-call="report.internal_layout">
+  <template id="report_general">
+    <t t-call="agili.report_layout"/>
+      <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+          <div class="page">
 
-    <div class="page">
+            <div class="panel panel-default">
 
-      <table class="table table-condensed">
-              
-        <thead>
-          <th colspan="2" class="center">
-            Proyectos: <strong t-esc="data['len_project']"/>
-          </th>
-        </thead>
+              <table class="table table-condensed">
+                
+                <thead>
+                  <th colspan="2" class="center">
 
-        <tbody>
-          
-          <tr>
-              <td>Culminados:</td>
-              <td>
-                  <strong t-esc="data['pro_done']"/>
-              </td>
-          </tr>
+                    Proyectos: <span class="badge" t-esc="data['len_project']"/>
 
-          <tr>
-              <td>En proceso: </td>
-              <td>
-                  <strong t-esc="data['pro_process']"/>
-              </td>
-          </tr>
+                  </th>
+                </thead>
 
-          <tr>
-              <td>Detenidos:</td>
-              <td>
-                  <strong t-esc="data['pro_stopped']"/>
-              </td>
-          </tr>
+                <tbody>
+                  
+                  <tr>
+                      <td>Culminados:</td>
+                      <td>
+                          <span class="badge" t-esc="data['pro_done']"/>
+                      </td>
+                  </tr>
 
-          <tr>
-              <td>Porcentaje de Avance:</td>
-              <td>
-                  <strong t-esc="data['pro_porcen']"/> %
-              </td>
-          </tr>
+                  <tr>
+                      <td>En proceso: </td>
+                      <td>
+                          <span class="badge" t-esc="data['pro_process']"/>
+                      </td>
+                  </tr>
 
-        </tbody>
-    
-      </table>
+                  <tr>
+                      <td>Detenidos:</td>
+                      <td>
+                          <span class="badge" t-esc="data['pro_stopped']"/>
+                      </td>
+                  </tr>
 
-      <table class="table table-condensed">
-              
-        <thead>
-          <th colspan="2" class="center">
-            Horas Hombres: <strong t-esc="data['hour_total']"/>
-          </th>
-        </thead>
+                  <tr>
+                      <td>Porcentaje de Avance:</td>
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+                            <t t-esc="data['pro_porcen']"/> %
+                          </div>
+                        </div>
+                      </td>
+                  </tr>
 
-        <tbody>
-          
-          <tr>
-              <td>Ejecutadas:</td>
-              <td>
-                  <strong t-esc="data['hour_done']"/>
-              </td>
-          </tr>
+                </tbody>
+            
+              </table>
 
-          <tr>
-              <td>En proceso: </td>
-              <td>
-                  <strong t-esc="data['hour_process']"/>
-              </td>
-          </tr>
+            </div>
 
-          <tr>
-              <td>Sin ejecutar:</td>
-              <td>
-                  <strong t-esc="data['hour_stopped']"/>
-              </td>
-          </tr>
+            <div class="panel panel-default">
 
-          <tr>
-              <td>Porcentaje de Avance:</td>
-              <td>
-                  <strong t-esc="data['hour_porcen']"/> %
-              </td>
-          </tr>
+              <table class="table table-condensed">
+                      
+                <thead>
+                  <th colspan="2" class="center">
+                    Horas Hombres: <span class="badge" t-esc="data['hour_total']"/>
+                  </th>
+                </thead>
 
-        </tbody>
-    
-      </table>
+                <tbody>
+                  
+                  <tr>
+                      <td>Ejecutadas:</td>
+                      <td>
+                          <span class="badge" t-esc="data['hour_done']"/>
+                      </td>
+                  </tr>
 
-    </div>
-  </t>
-</t>
-</template>
+                  <tr>
+                      <td>En proceso: </td>
+                      <td>
+                        <span class="badge" t-esc="data['hour_process']"/>
+                      </td>
+                  </tr>
 
-<template id="report_layout">
-    <!-- Multicompany -->
-    <t t-call="agili.report_header" />
-    <t t-raw="0" ></t>
-    <t t-call="agili.report_footer" />
-</template>
+                  <tr>
+                      <td>Sin ejecutar:</td>
+                      <td>
+                        <span class="badge" t-esc="data['hour_stopped']"/>
+                      </td>
+                  </tr>
 
-<template id="report_header">
-    <div class="header">
-        <div class="contains">
-          <div class="row">
-              <div class="col-xs-12">
-                   <img class="img-responsive" src="/agili/static/src/img/agili-icon-5.png"/>
-              </div>
-          </div>
+                  <tr>
+                      <td>Porcentaje de Avance:</td>
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+                            <t t-esc="data['hour_porcen']"/> % 
+                          </div>
+                        </div>
+                      </td>
+                  </tr>
+
+                </tbody>
+            
+              </table>
+            </div>
+
         </div>
-    </div>
-</template>
+      </t>
+    </t>
+  </template>
 
-<template id="report_footer">
+  <template id="report_layout">
+      <!-- Multicompany -->
+      <t t-call="agili.report_header" />
+      <t t-raw="0" ></t>
+      <t t-call="agili.report_footer" />
+  </template>
+
+
+  <template id="report_header">
+    <div class="header">
+      
+      <div class="row">
+        
+        <div class="col-xs-3">
+          <img class="img-responsive" src="/agili/static/src/img/agili-icon-5.png" style="max-height: 45px;"/>
+        </div>
+    
+        <div class="col-xs-9 text-right" style="margin-top:20px;">
+          Cooperativa Geekos
+        </div>
+
+      </div>
+
+      <div class="row zero_min_height">
+        <div class="col-xs-12">
+          <div style="border-bottom: 1px solid black;"/>
+        </div>
+      </div>
+
+      <div class="row panel-heading panel-info text-center">
+        <h3> Reporte de Avance </h3>
+      </div>
+
+    </div>
+  </template>
+
+  <template id="report_footer">
     <footer>
       <div class='footer'>
-          <div class="row">
-              <div class="col-xs-12">
-                  <h1> Logica </h1>
-              </div>
+        <div class="row">
+          <div class="col-xs-12">
+            
+            <img class="img-responsive" src="/agili/static/src/img/footer.svg"/>
+        
           </div>
+        </div>
       </div> 
     </footer>     
-</template>
+  </template>
 
 </odoo>

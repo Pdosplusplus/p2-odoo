@@ -1,9 +1,6 @@
-
 # -*- coding: utf-8 -*-
-from datetime import timedelta
-from odoo import models, fields, api, exceptions
+from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-
 
 class Project(models.Model):
 
@@ -20,7 +17,8 @@ class Project(models.Model):
     hour_man = fields.Integer(string="Horas hombres")
 
     responsible_ids = fields.Many2many('res.users', 
-                                        string="Responsables")
+                                        string="Responsables",
+                                        required=True)
 
 
     porcen_project = fields.Float(string="Avance del proyecto",
@@ -122,80 +120,6 @@ class Project(models.Model):
             'context': context,
         }
 
-class Activity(models.Model):
-
-    _name = 'agili.activity'
-
-    name = fields.Char(string="Nombre de Actividad", required=True)
-    
-    ac_start_date = fields.Date(string="Fecha de inicio", required=True)
-
-    ac_end_date = fields.Date(string="Fecha de Fin", required=True)
-   
-    objetive = fields.Char(string="Objetivo", required=True)
-    
-    description = fields.Text(string="Descripción")
-
-    result = fields.Text(string="Resultado")
-
-    ac_hour_man = fields.Integer(string="Horas hombres", required=True)
-
-    ac_responsible_id = fields.Many2one('res.users',
-    ondelete='set null', string="Responsable", required=True, index=True)
-
-    ac_project_id = fields.Many2one('agili.project',
-        ondelete='cascade', string="Proyecto", required=True)
-
-    _sql_constraints = [
-        ('name_description_check',
-        'CHECK(name != description)',
-        "El nombre de la actividad no puede ser la descripción."),
-
-        ('name_unique',
-        'UNIQUE(name)',
-        "El nombre de la actividad es unica"),
-
-        ('hour_valid',
-        'CHECK(ac_hour_man > 0)',
-        "Las horas hombre tienen que ser mayor a 0"),
-        
-    ]
-
-    ac_state = fields.Selection([
-        ('process', "En proceso"),
-        ('stopped', "Detenida"),
-        ('done', "Terminada"),
-    ], string="Estado", default='process')
-
-    @api.multi
-    def action_process(self):
-        self.ac_state = 'process'
-
-    @api.multi
-    def action_stopped(self):
-        self.ac_state = 'stopped'
-
-    @api.multi
-    def action_done(self):
-        self.ac_state = 'done'
-
-
-class Deliverable(models.Model):
-    
-    _name = 'agili.deliverable'
-
-    name = fields.Char(string="Nombre", 
-                       required=True)
-
-    deliverable = fields.Binary(string="Entregable", 
-                                attachment=True,
-                                required=True)
-
-    de_project_id = fields.Many2one('agili.project',
-                                ondelete='cascade', 
-                                string="Proyecto", 
-                                required=True)
-
 class report_project_general(models.AbstractModel):
     _name = 'report.agili.report_general'
 
@@ -257,5 +181,3 @@ class report_project_general(models.AbstractModel):
         data['hour_porcen'] = data['hour_done'] * 100 / data['hour_total'] 
 
         return data
-
-
