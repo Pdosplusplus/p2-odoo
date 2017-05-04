@@ -1,5 +1,15 @@
 # Module to Manage and Control the all projects of the Cooperatives
 
+
+# Requirements that the module must meet
+
+* Registry of hours man.
+* The load of deliverables and activities of first level and second.
+* Calculation rules.
+* Calculate percentages of progress.
+* Audit module.
+
+
 Create the struc basic of module with the generator of odoo:
 
 

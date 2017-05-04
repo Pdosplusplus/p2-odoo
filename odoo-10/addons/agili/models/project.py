@@ -84,15 +84,16 @@ class Project(models.Model):
             
             else:
 
-                num_done = 0
+                hour_done = 0
+
 
                 for act in r.activity_ids:
                     
                     if act.ac_state == 'done':
 
-                        num_done +=1
+                        hour_done += act.ac_hour_man
 
-                r.porcen_project = 100 * num_done / len(r.activity_ids)
+                r.porcen_project = 100 * hour_done / r.hour_man
 
     @api.constrains('activity_ids')
     def _check_hour_activity(self):

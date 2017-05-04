@@ -32,6 +32,7 @@
         'security/ir.model.access.csv',
         'views/project.xml',
         'views/activity.xml',
+        'views/deliverable.xml',
         'views/report_general_js.xml',
         'views/webclient_templates.xml',
         'reports/report_project.xml',

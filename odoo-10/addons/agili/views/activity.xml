@@ -38,6 +38,7 @@
             <!-- Agrupamos los campos generales de una actividad -->
             <group string="General">
               <field name="name"/>
+              <field name="ac_project_id"/>
               <field name="objetive"/>
               <field name="ac_type"/>
               <field name="description"/>
