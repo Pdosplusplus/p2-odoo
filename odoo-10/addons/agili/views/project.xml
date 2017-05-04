@@ -36,17 +36,17 @@
 
           <sheet>
             <!-- Agrupamos los campos generales de un proyecto -->
-            <group string="General">
-              <field name="name"/>
-              <field name="description"/>
+            <group string="General" class="oe_read_only">
+              <field name="name" class="oe_read_only"/>
+              <field name="description" class="oe_read_only"/>
             </group>
 
             <!-- Agrupamos los campos que generan la toma de decisiones-->
-            <group string="Control">
-              <field name="start_date"/>
-              <field name="end_date"/>
-              <field name="hour_man"/>
-              <field name="porcen_project" widget="progressbar"/>
+            <group string="Control" class="oe_read_only">
+              <field name="start_date" class="oe_read_only"/>
+              <field name="end_date" class="oe_read_only"/>
+              <field name="hour_man" class="oe_read_only"/>
+              <field name="porcen_project" widget="progressbar" class="oe_read_only"/> 
             </group>
 
 
