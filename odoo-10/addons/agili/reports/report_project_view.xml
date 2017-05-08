@@ -1,13 +1,5 @@
 <odoo>
-<data>
-  <report
-            id="report_project"
-            model="agili.project"
-            string="Reporte del Proyecto"
-            name="agili.report_project_view"
-            file="agili.report_project"
-            report_type="qweb-pdf" />
-            
+<data>          
   <template id="report_project_view">
     <t t-call="report.html_container">
       <t t-foreach="docs" t-as="o">
@@ -17,14 +9,12 @@
             
             <div class="page-header">
               <center>
-                <h3> Reporte del Proyecto, ID: 
-                  <t t-esc="o.id"/>
-                </h3>
+                <h3> Reporte del Proyecto </h3>
               </center>
             </div>
 
-            Fecha Inicio: <span t-field="o.start_date"/> 
-            Fecha entrega: <span t-field="o.end_date"/>
+            Fecha Inicio: <span class="badge" t-field="o.start_date"/> 
+            Fecha entrega: <span class="badge" t-field="o.end_date"/>
             
             <br/> <br/>
             
@@ -70,16 +60,29 @@
                 </tr>
 
                 <tr>
-                    <td>Horas Hombres:</td>
+                    <td>Horas Hombres Planificadas:</td>
                     <td>
-                        <t t-esc="o.hour_man"/>
+                        <span class="badge" t-esc="o.hour_man"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Horas Hombres Ejecutadas:</td>
+                    <td>
+                        <span class="badge" t-esc="o.hour_man_exe"/>
                     </td>
                 </tr>
 
                 <tr>
                     <td>Porcentaje de Avance:</td>
                     <td>
-                        <t t-esc="o.porcen_project"/> %
+                      
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+                            <t t-esc="o.porcen_project"/> %
+                        </div>
+                      </div>
+                  
                     </td>
                 </tr>
 
@@ -88,7 +91,7 @@
             </table>
            
 
-            <h3>Actividades:</h3>
+            <h4>Actividades:</h4>
             
             <br/>
 
@@ -113,7 +116,11 @@
                 </th>
               
                 <th>
-                  Horas Hombre
+                  Horas Hombre Planificadas
+                </th>
+
+                <th>
+                  Horas Hombre Ejecutadas
                 </th>
 
                 <th>
@@ -128,11 +135,11 @@
                   <tr>
 
                     <td>
-                       <span t-field="activity.ac_start_date"/>
+                       <span class="badge" t-field="activity.ac_start_date"/>
                     </td>
                    
                     <td>
-                       <span t-field="activity.ac_end_date"/>
+                       <span class="badge" t-field="activity.ac_end_date"/>
                     </td>
 
                     <td>
@@ -144,7 +151,11 @@
                     </td>
 
                     <td>
-                       <span t-field="activity.ac_hour_man"/>
+                       <span class="badge" t-field="activity.ac_hour_man"/>
+                    </td>
+
+                    <td>
+                       <span class="badge" t-field="activity.ac_hour_man_exe"/>
                     </td>
 
                     <td>

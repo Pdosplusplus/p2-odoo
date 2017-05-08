@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="report_project_specific">
+    <t t-call="agili.report_layout"/>
+      <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+          <div class="page">
+            <br/><br/>
+            <div class="panel panel-info">                             
+                Proyecto: <span class="badge" t-esc="data.projects"/>
+            </div>
+
+        </div>
+      </t>
+    </t>
+  </template>
+
+  <template id="report_layout">
+      <!-- Multicompany -->
+      <t t-call="agili.report_header" />
+      <t t-call="agili.report_footer" />
+  </template>
+
+
+  <template id="report_header">
+    <div class="header">
+      
+      <div class="row">
+        
+        <div class="col-xs-3">
+          <img class="img-responsive" src="/agili/static/src/img/logo-5.png" style="max-height: 45px;"/>
+        </div>
+    
+        <div class="col-xs-9 text-right" style="margin-top:20px;">
+          Cooperativa Geekos
+        </div>
+
+      </div>
+
+      <div class="row zero_min_height">
+        <div class="col-xs-12">
+          <div style="border-bottom: 1px solid black;"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="text-center"> Reporte de Avance </h3>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </template>
+
+  <template id="report_footer">
+    <footer>
+      <div class='footer'>
+        <div class="row">
+          <div class="col-xs-12">
+            
+            <img class="img-responsive" src="/agili/static/src/img/footer.svg"/>
+        
+          </div>
+        </div>
+      </div> 
+    </footer>     
+  </template>
+
+</odoo>

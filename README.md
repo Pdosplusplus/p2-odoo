@@ -76,7 +76,24 @@ $ . odoo-dev/bin/activate
 Make sure you have installed:
 
 ```bash
-$ apt install python-dev libldap2-dev libsasl2-dev libssl-dev libxslt1-dev libxml2-dev
+
+$ apt install curl
+
+$ sudo curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash 
+
+$ sudo apt install -y nodejs
+
+$ sudo npm install --global npm@latest
+
+$ sudo npm install -g less
+
+$ sudo npm install -g less-plugin-clean-css
+```
+
+and
+
+```bash
+$ apt install build-essential git-buildpackage python-all-dev postgresql-9.4 postgresql-client-9.4 libldap2-dev libsasl2-dev libssl-dev libxslt1-dev libxml2-dev libpq-dev libjpeg-dev
 ```
 
 Now install dependencies. 

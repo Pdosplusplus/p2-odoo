@@ -50,6 +50,7 @@
               <field name="ac_start_date"/>
               <field name="ac_end_date"/>
               <field name="ac_hour_man"/>
+              <field name="ac_hour_man_exe"/>
               <field name="result"/>
             </group>
 
@@ -120,6 +121,7 @@
           <field name="ac_end_date"/>
           <field name="ac_responsible_id"/>
           <field name="ac_hour_man"/>
+          <field name="ac_hour_man_exe"/>
           <field name="ac_state"/>
         </tree>
       </field>

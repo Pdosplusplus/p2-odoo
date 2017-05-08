@@ -23,6 +23,7 @@
     # any module necessary for this one to work correctly
     'depends': [
         'base',
+        'report',
         'auditlog',
     ],
 
@@ -35,9 +36,11 @@
         'views/deliverable.xml',
         'views/report_general_js.xml',
         'views/webclient_templates.xml',
-        'reports/report_project.xml',
-        'reports/project_general_templates.xml',
-        'reports/project_reports.xml',
+        'wizard/agili_report_project_specific_view.xml',
+        'reports/report_project_general.xml',
+        'reports/report_project_specific.xml',
+        'reports/report_project_view.xml',
+        'reports/agili_report.xml',
     ],
     
     'qweb': [
