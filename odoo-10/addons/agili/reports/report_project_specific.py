@@ -10,7 +10,7 @@ class ReportProjectSpecific(models.AbstractModel):
     
         docargs = {
             'doc_model': self.env['agili.project'],
-            'data': _get_data_specific(self, data),
+            'data': self._get_data_specific(data),
         }
 
         return self.env['report'].render('agili.report_project_specific', docargs)
@@ -23,7 +23,7 @@ class ReportProjectSpecific(models.AbstractModel):
         responsible_id = data['form'].get('responsible_id')
 
         projects = self.env['agili.project'].search([(
-                            'responsible_id', '=', responsible_id[0])])
+                            'responsible_ids', '=', responsible_id[0])])
 
         activities = self.env['agili.activity'].search([(
                             'ac_responsible_id', '=', responsible_id[0])])

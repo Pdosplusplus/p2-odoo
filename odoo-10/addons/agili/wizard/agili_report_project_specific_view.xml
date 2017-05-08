@@ -17,7 +17,7 @@
                 </group>
                 
                 <group>
-                    <field name="proyects" widget="checkbox"/>
+                    <field name="projects" widget="checkbox"/>
                     <field name="activities" widget="checkbox"/>
                 </group>               
 
