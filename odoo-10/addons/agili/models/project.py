@@ -14,7 +14,12 @@ class Project(models.Model):
 
     end_date = fields.Date(string="Fecha de Fin", required=True)
 
-    hour_man = fields.Integer(string="Horas hombres")
+    hour_man = fields.Integer(string="H.H Planificadas", 
+                              help="Horas hombres planificadas")
+
+    hour_man_exe = fields.Integer(string="H.H Ejecutadas",
+                                  compute='_hour_exec',
+                                  help="Horas hombres ejecutadas")
 
     responsible_ids = fields.Many2many('res.users', 
                                         string="Responsables",
@@ -74,6 +79,26 @@ class Project(models.Model):
             r.activities_count = len(r.activity_ids)
             print r.activities_count
 
+    #Funcion para calcular las horas ejecutadas
+    @api.depends('activity_ids')
+    def _hour_exec(self):
+        for r in self:
+            if not r.activity_ids:
+
+                r.hour_man_exe = 0
+            
+            else:
+
+                hour_exe = 0
+
+                for act in r.activity_ids:
+                    
+                    if act.ac_state == 'done':
+
+                        hour_exe += act.ac_hour_man_exe
+
+                r.hour_man_exe = hour_exe
+
     #Funcion para calcular el porcentaje ejecutado de un proyecto
     @api.depends('activity_ids')
     def _porcent_project(self):
@@ -117,17 +142,30 @@ class Project(models.Model):
     
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': 'agili.report_general',
+            'report_name': 'agili.report_project_general',
             'context': context,
         }
 
+def validKey(array, key):
+
+    try:
+
+        print "No es posible"
+        return array[key]
+
+    except KeyError as e:
+        
+        print e
+
+        return 0
+
 class report_project_general(models.AbstractModel):
-    _name = 'report.agili.report_general'
+    _name = 'report.agili.report_project_general'
 
     @api.model
     def render_html(self, docids, data=None):
         report_obj = self.env['report']
-        report = report_obj._get_report_from_name('agili.report_general')
+        report = report_obj._get_report_from_name('agili.report_project_general')
         projects = self.env['agili.project'].search([('hour_man','>=', 0)])
         
         docargs = {
@@ -135,8 +173,8 @@ class report_project_general(models.AbstractModel):
             'data': self._get_data_general(),
         }
 
-        return report_obj.render('agili.report_general', docargs)
-
+        return report_obj.render('agili.report_project_general', docargs)
+        
     def _get_data_general(self):
 
         data = {}
@@ -146,7 +184,7 @@ class report_project_general(models.AbstractModel):
         data['pro_stopped'] = 0
 
         data['hour_done'] = 0
-        data['hour_process'] = 0
+        data['hour_process'] = 0 
         data['hour_stopped'] = 0
 
         data['pro_porcen'] = 0
@@ -157,14 +195,51 @@ class report_project_general(models.AbstractModel):
 
         data['len_project'] = len(projects)
 
+        projects_done = []
+        projects_stopped = []
+        projects_process = []
+
         for project in projects:
 
             if project.state == 'done':
+
+                p = {}
+                p['name'] = project.name
+                projects_done.append(p)
 
                 data['pro_done'] += 1
                 data['hour_done'] += project.hour_man
 
             if project.state == 'process':
+
+                p = {}
+                responsibles = []
+
+                p['name'] = project.name
+
+
+                for respon in project.responsible_ids:
+
+                    r = {}
+                    r['name'] = respon.name
+                    r['hour_man'] = 0
+                    r['hour_man_exe'] = 0
+
+                    for activity in project.activity_ids:
+
+                        if respon.name == activity.ac_responsible_id.name:
+                        
+                            r['hour_man'] = validKey(activity, "ac_hour_man")
+
+                            r['hour_man_exe'] += validKey(activity, "ac_hour_man_exe")
+
+
+                    responsibles.append(r)
+
+                p['responsibles'] = responsibles
+
+
+                projects_process.append(p)
 
                 data['pro_process'] += 1
                 data['hour_process'] +=  project.hour_man
@@ -172,13 +247,20 @@ class report_project_general(models.AbstractModel):
 
             if project.state == 'stopped':
 
+                p = {}
+                p['name'] = project.name
+                projects_stopped.append(p)
+
                 data['pro_stopped'] += 1
                 data['hour_stopped'] +=  project.hour_man
 
 
         data['pro_porcen'] = data['pro_done'] * 100 / data['len_project'] 
-
         data['hour_total'] = data['hour_done'] + data['hour_process'] + data['hour_stopped']
         data['hour_porcen'] = data['hour_done'] * 100 / data['hour_total'] 
+
+        data['projects_done'] = projects_done
+        data['projects_stopped'] = projects_stopped
+        data['projects_process'] = projects_process
 
         return data

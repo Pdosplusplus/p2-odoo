@@ -22,7 +22,9 @@ class Activity(models.Model):
 
     result = fields.Text(string="Resultado")
 
-    ac_hour_man = fields.Integer(string="Horas hombres", required=True)
+    ac_hour_man = fields.Integer(string="H.H Planificadas", required=True)
+
+    ac_hour_man_exe = fields.Integer(string="H.H Ejecutadas", required=True)
 
     ac_responsible_id = fields.Many2one('res.users',
     ondelete='set null', string="Responsable", required=True, index=True)

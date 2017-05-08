@@ -1,3 +1,4 @@
 # -*- coding: utf-8 -*-
 
-from . import project_general_report
+#import report_project_general
+import report_project_specific
