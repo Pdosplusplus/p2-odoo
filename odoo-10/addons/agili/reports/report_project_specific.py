@@ -7,12 +7,26 @@ class ReportProjectSpecific(models.AbstractModel):
 
     @api.model
     def render_html(self, docids, data=None):
-
-        projects = self.env['agili.project'].search([('id','==', data['form'].get('project_id'))])
-        
+    
         docargs = {
-            'doc_model': report.model,
-            'data': projects,
+            'doc_model': self.env['agili.project'],
+            'data': _get_data_specific(self, data),
         }
 
-        return report_obj.render('agili.report_project_specific', docargs)
+        return self.env['report'].render('agili.report_project_specific', docargs)
+
+
+    def _get_data_specific(self, data):
+
+        info = {}
+
+        responsible_id = data['form'].get('responsible_id')
+
+        projects = self.env['agili.project'].search([(
+                            'responsible_id', '=', responsible_id[0])])
+
+        activities = self.env['agili.activity'].search([(
+                            'ac_responsible_id', '=', responsible_id[0])])
+
+
+        return projects

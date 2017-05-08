@@ -7,7 +7,7 @@
           <div class="page">
             <br/><br/>
             <div class="panel panel-info">                             
-                Proyecto: <span class="badge" t-esc="data.projects"/>
+                Proyecto: <span class="badge" t-esc="data"/>
             </div>
 
         </div>

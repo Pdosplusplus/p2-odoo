@@ -7,26 +7,32 @@ class AgiliProjectSpecific(models.TransientModel):
     _name = 'agili.report.project.specific'
     _description = "Reporte Especifico de un proyecto"
 
-    project_id = fields.Many2one(
-    	'agili.project',
-        ondelete='cascade', 
-        string="Proyecto")
-
     responsible_id = fields.Many2one(
     	'res.users',
     	ondelete='set null', 
     	string="Responsable",  
     	index=True)
 
-    hour_man = fields.Integer(string="Horas hombres")
+    hour_man = fields.Boolean(string="Horas hombres Planificadas")
+    hour_man_exe = fields.Boolean(string="Horas hombres Ejecutadas")
 
-    @api.model
-    def _print_report(self, data):
+    projects = fields.Boolean(string="Proyectos")
+    activities = fields.Boolean(string="Actividades")
+
+    @api.multi
+    def print_reporte(self):
         
-        data = self.pre_print_report(data)
-
-        if not data['form'].get('project_id'):
-            raise UserError(_("Selecciona un proyecto."))
+        data = {}
+        data['ids'] = self.env.context.get('active_ids', [])
+        data['model'] = self.env.context.get('active_model', 'ir.ui.menu')
+        data['form'] = self.read(['responsible_id', 
+                                'hour_man', 
+                                'hour_man_exe',
+                                'projects', 
+                                'activities'])[0]
+        
+        if not data['form'].get('responsible_id'):
+            raise UserError("Debe seleccionar un responsable.")
                 
-        return self.env['report'].get_action('agili.report_project_general', data=data)
+        return self.env['report'].get_action(self, 'agili.report_project_specific', data=data)
 

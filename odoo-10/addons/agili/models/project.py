@@ -6,7 +6,9 @@ class Project(models.Model):
 
     _name = 'agili.project'
 
-    name = fields.Char(string="Nombre del Proyecto", required=True)
+    name = fields.Char(string="Nombre del Proyecto", 
+                       required=True,
+                       unique=True)
 
     description = fields.Text(string="Descripción")
 
@@ -204,7 +206,30 @@ class report_project_general(models.AbstractModel):
             if project.state == 'done':
 
                 p = {}
+                responsibles = []
+
                 p['name'] = project.name
+
+                for respon in project.responsible_ids:
+
+                    r = {}
+                    r['name'] = respon.name
+                    r['hour_man'] = 0
+                    r['hour_man_exe'] = 0
+
+                    for activity in project.activity_ids:
+
+                        if respon.name == activity.ac_responsible_id.name:
+                        
+                            r['hour_man'] = validKey(activity, "ac_hour_man")
+
+                            r['hour_man_exe'] += validKey(activity, "ac_hour_man_exe")
+
+
+                    responsibles.append(r)
+
+                p['responsibles'] = responsibles
+
                 projects_done.append(p)
 
                 data['pro_done'] += 1
@@ -248,7 +273,30 @@ class report_project_general(models.AbstractModel):
             if project.state == 'stopped':
 
                 p = {}
+                responsibles = []
+
                 p['name'] = project.name
+
+                for respon in project.responsible_ids:
+
+                    r = {}
+                    r['name'] = respon.name
+                    r['hour_man'] = 0
+                    r['hour_man_exe'] = 0
+
+                    for activity in project.activity_ids:
+
+                        if respon.name == activity.ac_responsible_id.name:
+                        
+                            r['hour_man'] = validKey(activity, "ac_hour_man")
+
+                            r['hour_man_exe'] += validKey(activity, "ac_hour_man_exe")
+
+
+                    responsibles.append(r)
+
+                p['responsibles'] = responsibles
+
                 projects_stopped.append(p)
 
                 data['pro_stopped'] += 1
