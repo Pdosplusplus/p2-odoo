@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from datetime import datetime
 
 class Project(models.Model):
 
@@ -147,6 +148,31 @@ class Project(models.Model):
             'report_name': 'agili.report_project_general',
             'context': context,
         }
+
+    @api.multi
+    def send_alert(self):
+
+        projects = self.env['agili.project']
+
+        for project in projects:
+
+            for activity in project.activity_ids:
+
+                fmt = '%d-%m-%y'
+                sdate = activity.ac_start_date
+                edate = activity.ac_end_date
+
+                sdate = datetime.strptime(sdate, fmt)
+                edate = datetime.strptime(edate, fmt)
+                today = datetime.now().date()
+
+                todayDiff = str((edate-today).days)
+                daysDiff = str((edate-sdate).days) 
+
+                if daysDiff >= 3 and activity.porcen_project <= 50 and todayDiff <=2:
+
+                    print "Alerta what soo"
+
 
 def validKey(array, key):
 
