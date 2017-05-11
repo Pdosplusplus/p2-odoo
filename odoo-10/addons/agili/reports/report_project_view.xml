@@ -36,7 +36,7 @@
                 </tr>
 
                 <tr>
-                    <td>Name:</td>
+                    <td>Nombre:</td>
                     <td>
                         <t t-esc="o.name"/>
                     </td>
@@ -60,16 +60,16 @@
                 </tr>
 
                 <tr>
-                    <td>Horas Hombres Planificadas:</td>
+                    <td>Dias Planificados:</td>
                     <td>
-                        <span class="badge" t-esc="o.hour_man"/>
+                        <span class="badge" t-esc="o.days_plan"/>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Horas Hombres Ejecutadas:</td>
+                    <td>Dias Ejecutados:</td>
                     <td>
-                        <span class="badge" t-esc="o.hour_man_exe"/>
+                        <span class="badge" t-esc="o.days_exe"/>
                     </td>
                 </tr>
 
@@ -116,11 +116,11 @@
                 </th>
               
                 <th>
-                  Horas Hombre Planificadas
+                  Dias Planificados
                 </th>
 
                 <th>
-                  Horas Hombre Ejecutadas
+                  Dias Ejecutados
                 </th>
 
                 <th>
@@ -151,11 +151,11 @@
                     </td>
 
                     <td>
-                       <span class="badge" t-field="activity.ac_hour_man"/>
+                       <span class="badge" t-field="activity.ac_days_plan"/>
                     </td>
 
                     <td>
-                       <span class="badge" t-field="activity.ac_hour_man_exe"/>
+                       <span class="badge" t-field="activity.ac_days_exe"/>
                     </td>
 
                     <td>

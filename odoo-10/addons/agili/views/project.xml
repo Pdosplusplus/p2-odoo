@@ -46,8 +46,8 @@
             <group string="Control">
               <field name="start_date" attrs="{'invisible': [('id', '!=', False)]}"/>
               <field name="end_date" attrs="{'invisible': [('id', '!=', False)]}"/>
-              <field name="hour_man" attrs="{'invisible': [('id', '!=', False)]}"/>
-              <field name="hour_man_exe" readonly="1" attrs="{'invisible': [('id', '!=', False)]}"/>
+              <field name="days_plan" attrs="{'invisible': [('id', '!=', False)]}"/>
+              <field name="days_exe" readonly="1" attrs="{'invisible': [('id', '!=', False)]}"/>
               <field name="porcen_project" widget="progressbar" attrs="{'invisible': [('id', '!=', False)]}"/> 
             </group>
 
@@ -84,8 +84,8 @@
                   <tree string="Añade una actividad al proyecto">
                     <field name="name"/>
                     <field name="objetive"/>
-                    <field name="ac_hour_man"/>
-                    <field name="ac_hour_man_exe"/>
+                    <field name="ac_days_plan"/>
+                    <field name="ac_days_exe"/>
                     <field name="ac_responsible_id"/>
                     <field name="ac_state"/>
                   </tree>
@@ -154,7 +154,7 @@
       <field name="arch" type="xml">
         <search>
           <field name="name"/>
-          <field name="hour_man"/>
+          <field name="days_plan"/>
           <field name="description"/>
 
           <!-- Filter
@@ -196,8 +196,8 @@
           <field name="name"/>
           <field name="start_date"/>
           <field name="end_date"/>
-          <field name="hour_man"/>
-          <field name="hour_man_exe"/>
+          <field name="days_plan"/>
+          <field name="days_exe"/>
           <field name="porcen_project" widget="progressbar"/>
           <field name="responsible_ids"/>
         </tree>
@@ -258,7 +258,7 @@
       <field name="arch" type="xml">
         <graph string="Avance de los proyectos">
           <field name="name"/>
-          <field name="hour_man"/>
+          <field name="days_plan"/>
           <field name="activity_ids" type="measure"/>
           <field name="deliverable_ids" type="measure"/>
           <field name="porcen_project" type="measure"/>

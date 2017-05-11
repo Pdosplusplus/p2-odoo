@@ -13,8 +13,8 @@ class AgiliProjectSpecific(models.TransientModel):
     	string="Responsable",  
     	index=True)
 
-    hour_man = fields.Boolean(string="Horas hombres Planificadas")
-    hour_man_exe = fields.Boolean(string="Horas hombres Ejecutadas")
+    days_plan = fields.Boolean(string="Horas hombres Planificadas")
+    days_exe = fields.Boolean(string="Horas hombres Ejecutadas")
 
     projects = fields.Boolean(string="Proyectos")
     activities = fields.Boolean(string="Actividades")
@@ -26,8 +26,8 @@ class AgiliProjectSpecific(models.TransientModel):
         data['ids'] = self.env.context.get('active_ids', [])
         data['model'] = self.env.context.get('active_model', 'ir.ui.menu')
         data['form'] = self.read(['responsible_id', 
-                                'hour_man', 
-                                'hour_man_exe',
+                                'days_plan', 
+                                'days_exe',
                                 'projects', 
                                 'activities'])[0]
         

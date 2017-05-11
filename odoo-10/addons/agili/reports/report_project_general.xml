@@ -41,13 +41,13 @@
                                   </li>
 
                                   <li class="list-group-item">
-                                    <span class="badge" t-esc="responsibles['hour_man']"/>
-                                    Horas Planificadas
+                                    <span class="badge" t-esc="responsibles['days_plan']"/>
+                                    Dias Planificados
                                   </li>
 
                                   <li class="list-group-item">
-                                    <span class="badge" t-esc="responsibles['hour_man_exe']"/>
-                                    Horas Ejecutadas
+                                    <span class="badge" t-esc="responsibles['days_exe']"/>
+                                    Dias Ejecutados
                                   </li>
 
                                 </t>
@@ -83,13 +83,13 @@
                                   </li>
 
                                   <li class="list-group-item">
-                                    <span class="badge" t-esc="responsibles['hour_man']"/>
-                                    Horas Planificadas
+                                    <span class="badge" t-esc="responsibles['days_plan']"/>
+                                    Days Planificados
                                   </li>
 
                                   <li class="list-group-item">
-                                    <span class="badge" t-esc="responsibles['hour_man_exe']"/>
-                                    Horas Ejecutadas
+                                    <span class="badge" t-esc="responsibles['days_exe']"/>
+                                    Dias Ejecutados
                                   </li>
 
                                 </t>
@@ -125,13 +125,13 @@
                                   </li>
 
                                   <li class="list-group-item">
-                                    <span class="badge" t-esc="responsibles['hour_man']"/>
-                                    Horas Planificadas
+                                    <span class="badge" t-esc="responsibles['days_plan']"/>
+                                    Dias Planificados
                                   </li>
 
                                   <li class="list-group-item">
-                                    <span class="badge" t-esc="responsibles['hour_man_exe']"/>
-                                    Horas Ejecutadas
+                                    <span class="badge" t-esc="responsibles['days_exe']"/>
+                                    Dias Ejecutados
                                   </li>
 
                                 </t>
@@ -167,7 +167,7 @@
                       
                 <thead>
                   <th colspan="2" class="center">
-                    Horas Hombres: <span class="badge" t-esc="data['hour_total']"/>
+                    DIas Planificados: <span class="badge" t-esc="data['days_total']"/>
                   </th>
                 </thead>
 
@@ -176,21 +176,21 @@
                   <tr>
                       <td>Ejecutadas:</td>
                       <td>
-                          <span class="badge" t-esc="data['hour_done']"/>
+                          <span class="badge" t-esc="data['days_done']"/>
                       </td>
                   </tr>
 
                   <tr>
                       <td>En proceso: </td>
                       <td>
-                        <span class="badge" t-esc="data['hour_process']"/>
+                        <span class="badge" t-esc="data['days_process']"/>
                       </td>
                   </tr>
 
                   <tr>
                       <td>Sin ejecutar:</td>
                       <td>
-                        <span class="badge" t-esc="data['hour_stopped']"/>
+                        <span class="badge" t-esc="data['days_stopped']"/>
                       </td>
                   </tr>
 
@@ -199,7 +199,7 @@
                       <td>
                         <div class="progress">
                           <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
-                            <t t-esc="data['hour_porcen']"/> % 
+                            <t t-esc="data['days_porcen']"/> % 
                           </div>
                         </div>
                       </td>

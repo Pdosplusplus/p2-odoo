@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from datetime import datetime
+from datetime import datetime, date
+from dateutil import rrule
 
 class Project(models.Model):
 
@@ -17,12 +18,13 @@ class Project(models.Model):
 
     end_date = fields.Date(string="Fecha de Fin", required=True)
 
-    hour_man = fields.Integer(string="H.H Planificadas", 
-                              help="Horas hombres planificadas")
+    days_plan = fields.Integer(string="Dias planificados", 
+                                    required=True,
+                                    compute='_diasLaborales')
 
-    hour_man_exe = fields.Integer(string="H.H Ejecutadas",
-                                  compute='_hour_exec',
-                                  help="Horas hombres ejecutadas")
+    days_exe = fields.Integer(string="Dias ejecutados",
+                                  compute='_days_exec',
+                                  help="Dias ejecutados")
 
     responsible_ids = fields.Many2many('res.users', 
                                         string="Responsables",
@@ -52,8 +54,8 @@ class Project(models.Model):
         'UNIQUE(name)',
         "El nombre del proyecto es unico"),
 
-        ('hour_valid',
-        'CHECK(hour_man > 0)',
+        ('days_valid',
+        'CHECK(days_plan > 0)',
         "Las horas hombre tienen que ser mayor a 0"),
     ]
 
@@ -82,25 +84,43 @@ class Project(models.Model):
             r.activities_count = len(r.activity_ids)
             print r.activities_count
 
-    #Funcion para calcular las horas ejecutadas
+    @api.depends('start_date', 'end_date')
+    def _diasLaborales(self):
+        
+        formatter_date = "%d-%m-%Y" 
+
+        for r in self:
+
+            feriados= 5, 6
+
+            laborales = [dia for dia in range(7) if dia not in feriados]
+
+            r.start_date = datetime.strptime(r.start_date, formatter_date)
+            r.end_date = datetime.strptime(r.end_date, formatter_date)
+
+            totalDias= rrule.rrule(rrule.DAILY, dtstart=r.start_date, until=r.end_date, byweekday=laborales)
+        
+            r.days_plan = totalDias.count()
+
+    #Funcion para calcular los dias ejecutados
     @api.depends('activity_ids')
-    def _hour_exec(self):
+    def _days_exec(self):
         for r in self:
             if not r.activity_ids:
 
-                r.hour_man_exe = 0
+                r.days_exe = 0
             
             else:
 
-                hour_exe = 0
+                days_exe = 0
 
                 for act in r.activity_ids:
                     
                     if act.ac_state == 'done':
 
-                        hour_exe += act.ac_hour_man_exe
+                        days_exe += act.ac_days_exe
 
-                r.hour_man_exe = hour_exe
+                r.days_exe = days_exe
 
     #Funcion para calcular el porcentaje ejecutado de un proyecto
     @api.depends('activity_ids')
@@ -112,29 +132,29 @@ class Project(models.Model):
             
             else:
 
-                hour_done = 0
+                days_done = 0
 
 
                 for act in r.activity_ids:
                     
                     if act.ac_state == 'done':
 
-                        hour_done += act.ac_hour_man
+                        days_done += act.ac_days_plan
 
-                r.porcen_project = 100 * hour_done / r.hour_man
+                r.porcen_project = 100 * days_done / r.days_plan
 
     @api.constrains('activity_ids')
-    def _check_hour_activity(self):
+    def _check_days_activity(self):
 
         for r in self:
             
-            hour_total = 0
+            days_total = 0
 
             for act in r.activity_ids:
                 
-                hour_total += act.ac_hour_man
+                days_total += act.ac_days_plan
 
-                if act.ac_hour_man > r.hour_man or hour_total > r.hour_man:
+                if act.ac_days_plan > r.days_plan or days_total > r.days_plan:
                     
                     raise ValidationError('Las horas hombre declaradas sobrepasan a las horas hombre del proyecto')
 
@@ -194,7 +214,7 @@ class report_project_general(models.AbstractModel):
     def render_html(self, docids, data=None):
         report_obj = self.env['report']
         report = report_obj._get_report_from_name('agili.report_project_general')
-        projects = self.env['agili.project'].search([('hour_man','>=', 0)])
+        projects = self.env['agili.project'].search([('days_plan','>=', 0)])
         
         docargs = {
             'doc_model': report.model,
@@ -211,15 +231,15 @@ class report_project_general(models.AbstractModel):
         data['pro_process'] = 0
         data['pro_stopped'] = 0
 
-        data['hour_done'] = 0
-        data['hour_process'] = 0 
-        data['hour_stopped'] = 0
+        data['days_done'] = 0
+        data['days_process'] = 0 
+        data['days_stopped'] = 0
 
         data['pro_porcen'] = 0
-        data['hour_total'] = 0
-        data['hour_porcen'] = 0
+        data['days_total'] = 0
+        data['days_porcen'] = 0
 
-        projects = self.env['agili.project'].search([('hour_man','>=', 0)])
+        projects = self.env['agili.project'].search([('days_plan','>=', 0)])
 
         data['len_project'] = len(projects)
 
@@ -240,16 +260,16 @@ class report_project_general(models.AbstractModel):
 
                     r = {}
                     r['name'] = respon.name
-                    r['hour_man'] = 0
-                    r['hour_man_exe'] = 0
+                    r['days_plan'] = 0
+                    r['days_exe'] = 0
 
                     for activity in project.activity_ids:
 
                         if respon.name == activity.ac_responsible_id.name:
                         
-                            r['hour_man'] = validKey(activity, "ac_hour_man")
+                            r['days_plan'] = validKey(activity, "ac_days_plan")
 
-                            r['hour_man_exe'] += validKey(activity, "ac_hour_man_exe")
+                            r['days_exe'] += validKey(activity, "ac_days_exe")
 
 
                     responsibles.append(r)
@@ -259,7 +279,7 @@ class report_project_general(models.AbstractModel):
                 projects_done.append(p)
 
                 data['pro_done'] += 1
-                data['hour_done'] += project.hour_man
+                data['days_done'] += project.days_plan
 
             if project.state == 'process':
 
@@ -273,16 +293,16 @@ class report_project_general(models.AbstractModel):
 
                     r = {}
                     r['name'] = respon.name
-                    r['hour_man'] = 0
-                    r['hour_man_exe'] = 0
+                    r['days_plan'] = 0
+                    r['days_exe'] = 0
 
                     for activity in project.activity_ids:
 
                         if respon.name == activity.ac_responsible_id.name:
                         
-                            r['hour_man'] = validKey(activity, "ac_hour_man")
+                            r['days_plan'] = validKey(activity, "ac_days_plan")
 
-                            r['hour_man_exe'] += validKey(activity, "ac_hour_man_exe")
+                            r['days_exe'] += validKey(activity, "ac_days_exe")
 
 
                     responsibles.append(r)
@@ -293,7 +313,7 @@ class report_project_general(models.AbstractModel):
                 projects_process.append(p)
 
                 data['pro_process'] += 1
-                data['hour_process'] +=  project.hour_man
+                data['days_process'] +=  project.days_plan
 
 
             if project.state == 'stopped':
@@ -307,16 +327,16 @@ class report_project_general(models.AbstractModel):
 
                     r = {}
                     r['name'] = respon.name
-                    r['hour_man'] = 0
-                    r['hour_man_exe'] = 0
+                    r['days_plan'] = 0
+                    r['days_exe'] = 0
 
                     for activity in project.activity_ids:
 
                         if respon.name == activity.ac_responsible_id.name:
                         
-                            r['hour_man'] = validKey(activity, "ac_hour_man")
+                            r['days_plan'] = validKey(activity, "ac_days_plan")
 
-                            r['hour_man_exe'] += validKey(activity, "ac_hour_man_exe")
+                            r['days_exe'] += validKey(activity, "ac_days_exe")
 
 
                     responsibles.append(r)
@@ -326,12 +346,12 @@ class report_project_general(models.AbstractModel):
                 projects_stopped.append(p)
 
                 data['pro_stopped'] += 1
-                data['hour_stopped'] +=  project.hour_man
+                data['days_stopped'] +=  project.days_plan
 
 
         data['pro_porcen'] = data['pro_done'] * 100 / data['len_project'] 
-        data['hour_total'] = data['hour_done'] + data['hour_process'] + data['hour_stopped']
-        data['hour_porcen'] = data['hour_done'] * 100 / data['hour_total'] 
+        data['days_total'] = data['days_done'] + data['days_process'] + data['days_stopped']
+        data['days_porcen'] = data['days_done'] * 100 / data['days_total'] 
 
         data['projects_done'] = projects_done
         data['projects_stopped'] = projects_stopped

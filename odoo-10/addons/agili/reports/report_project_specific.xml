@@ -23,8 +23,8 @@
                       <th> Nombre </th>
                       <th> Fecha Inicio </th>
                       <th> Fecha Fin </th>
-                      <th> Horas Hombres Planificadas </th>
-                      <th> Horas Hombres Ejecutadas</th>
+                      <th> Dias Planificadas </th>
+                      <th> Dias Ejecutadas</th>
                       <th> Porcentaje de avance </th>
                       <th> Estado </th>
                     </thead>
@@ -48,11 +48,11 @@
                           </td>
 
                           <td>
-                            <span class="badge badge-danger" t-esc="project.hour_man"/>
+                            <span class="badge badge-danger" t-esc="project.days_plan"/>
                           </td>
 
                           <td>
-                            <span class="badge badge-danger" t-esc="project.hour_man_exe"/>
+                            <span class="badge badge-danger" t-esc="project.days_exe"/>
                           </td>
 
                           <td>
@@ -75,8 +75,6 @@
               </div>
             </t>
 
-
-            
 
         </div>
       </t>

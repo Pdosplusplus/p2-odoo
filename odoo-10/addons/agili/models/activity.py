@@ -22,9 +22,9 @@ class Activity(models.Model):
 
     result = fields.Text(string="Resultado")
 
-    ac_hour_man = fields.Integer(string="H.H Planificadas", required=True)
+    ac_days_plan = fields.Integer(string="Dias planificados", required=True)
 
-    ac_hour_man_exe = fields.Integer(string="H.H Ejecutadas", required=True)
+    ac_days_exe = fields.Integer(string="Dias ejecutados", required=True)
 
     ac_responsible_id = fields.Many2one('res.users',
     ondelete='set null', string="Responsable", required=True, index=True)
@@ -41,8 +41,8 @@ class Activity(models.Model):
         'UNIQUE(name)',
         "El nombre de la actividad es unica"),
 
-        ('hour_valid',
-        'CHECK(ac_hour_man > 0)',
+        ('days_valid',
+        'CHECK(ac_days_plan > 0)',
         "Las horas hombre tienen que ser mayor a 0"),
         
     ]

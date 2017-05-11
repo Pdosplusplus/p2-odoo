@@ -12,8 +12,8 @@
                 </group>
 
                 <group col="2">
-                    <field name="hour_man" widget="checkbox"/>
-                    <field name="hour_man_exe" widget="checkbox"/> 
+                    <field name="days_plan" widget="checkbox"/>
+                    <field name="days_exe" widget="checkbox"/> 
                 </group>
                 
                 <group>

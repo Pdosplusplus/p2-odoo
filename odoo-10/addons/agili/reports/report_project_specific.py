@@ -21,20 +21,20 @@ class ReportProjectSpecific(models.AbstractModel):
         info = {}
 
         info['responsible'] = ''
-        info['hour_man'] = 0
-        info['hour_man_exe'] = 0
+        info['days_plan'] = 0
+        info['days_exe'] = 0
         info['projects'] = ''
         info['activities'] = ''
         info['advance'] = 0.0
-        info['flag_hour_man'] = False
-        info['flag_hour_man_exe'] = False
+        info['flag_days_plan'] = False
+        info['flag_days_exe'] = False
         info['flag_projects'] = False
         info['flag_activities'] = False
         info['flag_advance'] = False
 
         responsible_id = data['form'].get('responsible_id')
-        hour_man = data['form'].get('hour_man')
-        hour_man_exe = data['form'].get('hour_man_exe')
+        days_plan = data['form'].get('days_plan')
+        days_exe = data['form'].get('days_exe')
 
         info['responsible'] = responsible_id[1]
 
@@ -46,30 +46,30 @@ class ReportProjectSpecific(models.AbstractModel):
             info['projects'] = projects
             info['flag_projects'] = True
 
-        if data['form'].get('activities') or hour_man or hour_man_exe:
+        if data['form'].get('activities') or days_plan or days_exe:
 
             activities = self.env['agili.activity'].search([(
                             'ac_responsible_id', '=', responsible_id[0])])
 
-            hour_plan = 0
-            hour_exe = 0
+            days_plan = 0
+            days_exe = 0
 
             for activity in activities:
 
-                hour_plan += activity.ac_hour_man
-                hour_exe += activity.ac_hour_man_exe
+                days_plan += activity.ac_days_plan
+                days_exe += activity.ac_days_exe
 
-            info['advance'] = hour_exe * 100 / hour_plan
+            info['advance'] = days_exe * 100 / days_plan
             info['flag_advance'] = True
 
-            if hour_man:
+            if days_plan:
 
-                info['hour_man'] = hour_plan
-                info['flag_hour_man'] = True
+                info['days_plan'] = days_plan
+                info['flag_days_plan'] = True
 
-            if hour_man_exe:
+            if days_exe:
 
-                info['hour_man_exe'] = hour_exe
-                info['flag_hour_man_exe'] = True
+                info['days_exe'] = days_exe
+                info['flag_days_exe'] = True
 
         return info
