@@ -2,9 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from datetime import datetime, date
-from dateutil import rrule
-from odoo.addons.agili.common.utils import FORMA_DATE, validKey, workDays
+from odoo.addons.agili.common.utils import FORMA_DATE, validKey, workDays, sendEmail
 
 class Project(models.Model):
 
@@ -180,9 +178,19 @@ class Project(models.Model):
                 today_diff = str((end_date-today).days)
                 days_diff = str((end_date-ini_date).days) 
 
-                if days_diff >= 3 and project.porcen_project <= 70 and today_diff <=3:
+                #if days_diff >= 3 and project.porcen_project <= 70 and today_diff <=3:
 
-                    print 'eu seu que voe amour'
+                info = {}
+
+                info['name'] = activity.name
+                info['end_date'] = activity.ac_end_date
+                info['days_plan'] = activity.ac_days_plan
+                info['days_exe'] = activity.ac_days_exe
+
+                addressee = activity.ac_responsible_id.email
+                
+                response = sendEmail(addressee, info, emitter=None)
+
 
 class report_project_general(models.AbstractModel):
     _name = 'report.agili.report_project_general'
