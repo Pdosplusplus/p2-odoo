@@ -2,6 +2,7 @@
 from odoo import models, fields, api
 from datetime import datetime, date
 from dateutil import rrule
+from odoo.addons.agili.common.utils import workDays
 
 class Activity(models.Model):
 
@@ -72,23 +73,10 @@ class Activity(models.Model):
     @api.depends('ac_start_date', 'ac_end_date')
     def _diasLaborales(self):
         
-        formatter_date = "%Y-%m-%d" 
-
         for r in self:
 
             if r.ac_start_date and r.ac_end_date:
 
-                feriados= 5, 6
+                r.ac_days_plan = workDays(r.ac_start_date, r.ac_end_date)
+               
 
-                laborales = [dia for dia in range(7) if dia not in feriados]
-
-                date_ini = datetime.strptime(str(r.ac_start_date), formatter_date)
-                
-                date_fin = datetime.strptime(str(r.ac_end_date), formatter_date)
-
-                totalDias= rrule.rrule(rrule.DAILY,
-                                     dtstart=date_ini, 
-                                     until=date_fin, 
-                                     byweekday=laborales)
-            
-                r.ac_days_plan = totalDias.count()

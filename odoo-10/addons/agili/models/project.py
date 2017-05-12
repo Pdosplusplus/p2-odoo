@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 from datetime import datetime, date
 from dateutil import rrule
+from odoo.addons.agili.common.utils import FORMA_DATE, validKey, workDays
 
 class Project(models.Model):
 
@@ -86,27 +88,12 @@ class Project(models.Model):
     @api.depends('start_date', 'end_date')
     def _diasLaborales(self):
         
-        formatter_date = "%Y-%m-%d" 
-
         for r in self:
 
             if r.start_date and r.end_date:
 
-                feriados= 5, 6
-
-                laborales = [dia for dia in range(7) if dia not in feriados]
-
-                date_ini = datetime.strptime(str(r.start_date), formatter_date)
+                r.days_plan = workDays(r.start_date, r.end_date)
                 
-                date_fin = datetime.strptime(str(r.end_date), formatter_date)
-
-                totalDias= rrule.rrule(rrule.DAILY,
-                                     dtstart=date_ini, 
-                                     until=date_fin, 
-                                     byweekday=laborales)
-            
-                r.days_plan = totalDias.count()
-
     #Funcion para calcular los dias ejecutados
     @api.depends('activity_ids')
     def _days_exec(self):
@@ -183,34 +170,19 @@ class Project(models.Model):
 
             for activity in project.activity_ids:
 
-                fmt = '%d-%m-%y'
-                sdate = activity.ac_start_date
-                edate = activity.ac_end_date
+                ini_date = activity.ac_start_date
+                end_date = activity.ac_end_date
 
-                sdate = datetime.strptime(sdate, fmt)
-                edate = datetime.strptime(edate, fmt)
+                ini_date = datetime.strptime(ini_date, FORMA_DATE)
+                end_date = datetime.strptime(end_date, FORMA_DATE)
                 today = datetime.now().date()
 
-                todayDiff = str((edate-today).days)
-                daysDiff = str((edate-sdate).days) 
+                today_diff = str((end_date-today).days)
+                days_diff = str((end_date-ini_date).days) 
 
-                if daysDiff >= 3 and activity.porcen_project <= 50 and todayDiff <=2:
+                if days_diff >= 3 and project.porcen_project <= 70 and today_diff <=3:
 
-                    print "Alerta what soo"
-
-
-def validKey(array, key):
-
-    try:
-
-        print "No es posible"
-        return array[key]
-
-    except KeyError as e:
-        
-        print e
-
-        return 0
+                    print 'eu seu que voe amour'
 
 class report_project_general(models.AbstractModel):
     _name = 'report.agili.report_project_general'
