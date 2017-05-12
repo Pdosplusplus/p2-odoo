@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from datetime import datetime, date
+from dateutil import rrule
 
 class Activity(models.Model):
 
@@ -22,7 +24,9 @@ class Activity(models.Model):
 
     result = fields.Text(string="Resultado")
 
-    ac_days_plan = fields.Integer(string="Dias planificados", required=True)
+    ac_days_plan = fields.Integer(string="Dias planificados", 
+                                compute='_diasLaborales',
+                                store=True)
 
     ac_days_exe = fields.Integer(string="Dias ejecutados", required=True)
 
@@ -43,7 +47,7 @@ class Activity(models.Model):
 
         ('days_valid',
         'CHECK(ac_days_plan > 0)',
-        "Las horas hombre tienen que ser mayor a 0"),
+        "Los dias planificados tienen que ser mayor a 0"),
         
     ]
 
@@ -64,3 +68,27 @@ class Activity(models.Model):
     @api.multi
     def action_done(self):
         self.ac_state = 'done'
+
+    @api.depends('ac_start_date', 'ac_end_date')
+    def _diasLaborales(self):
+        
+        formatter_date = "%Y-%m-%d" 
+
+        for r in self:
+
+            if r.ac_start_date and r.ac_end_date:
+
+                feriados= 5, 6
+
+                laborales = [dia for dia in range(7) if dia not in feriados]
+
+                date_ini = datetime.strptime(str(r.ac_start_date), formatter_date)
+                
+                date_fin = datetime.strptime(str(r.ac_end_date), formatter_date)
+
+                totalDias= rrule.rrule(rrule.DAILY,
+                                     dtstart=date_ini, 
+                                     until=date_fin, 
+                                     byweekday=laborales)
+            
+                r.ac_days_plan = totalDias.count()

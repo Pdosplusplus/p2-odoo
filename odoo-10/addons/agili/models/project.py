@@ -14,17 +14,16 @@ class Project(models.Model):
 
     description = fields.Text(string="Descripción")
 
-    start_date = fields.Date(string="Fecha de inicio", required=True)
+    start_date = fields.Date(string="Fecha de inicio")
 
-    end_date = fields.Date(string="Fecha de Fin", required=True)
+    end_date = fields.Date(string="Fecha de Fin")
 
     days_plan = fields.Integer(string="Dias planificados", 
-                                    required=True,
-                                    compute='_diasLaborales')
+                                    compute='_diasLaborales',
+                                    store=True)
 
     days_exe = fields.Integer(string="Dias ejecutados",
-                                  compute='_days_exec',
-                                  help="Dias ejecutados")
+                                  compute='_days_exec')
 
     responsible_ids = fields.Many2many('res.users', 
                                         string="Responsables",
@@ -56,7 +55,7 @@ class Project(models.Model):
 
         ('days_valid',
         'CHECK(days_plan > 0)',
-        "Las horas hombre tienen que ser mayor a 0"),
+        "Los dias planificados tienen que ser mayor a 0"),
     ]
 
     state = fields.Selection([
@@ -87,20 +86,26 @@ class Project(models.Model):
     @api.depends('start_date', 'end_date')
     def _diasLaborales(self):
         
-        formatter_date = "%d-%m-%Y" 
+        formatter_date = "%Y-%m-%d" 
 
         for r in self:
 
-            feriados= 5, 6
+            if r.start_date and r.end_date:
 
-            laborales = [dia for dia in range(7) if dia not in feriados]
+                feriados= 5, 6
 
-            r.start_date = datetime.strptime(r.start_date, formatter_date)
-            r.end_date = datetime.strptime(r.end_date, formatter_date)
+                laborales = [dia for dia in range(7) if dia not in feriados]
 
-            totalDias= rrule.rrule(rrule.DAILY, dtstart=r.start_date, until=r.end_date, byweekday=laborales)
-        
-            r.days_plan = totalDias.count()
+                date_ini = datetime.strptime(str(r.start_date), formatter_date)
+                
+                date_fin = datetime.strptime(str(r.end_date), formatter_date)
+
+                totalDias= rrule.rrule(rrule.DAILY,
+                                     dtstart=date_ini, 
+                                     until=date_fin, 
+                                     byweekday=laborales)
+            
+                r.days_plan = totalDias.count()
 
     #Funcion para calcular los dias ejecutados
     @api.depends('activity_ids')
