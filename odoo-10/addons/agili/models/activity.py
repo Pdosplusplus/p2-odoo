@@ -85,6 +85,6 @@ class Activity(models.Model):
 
         for r in self:
             
-            if r.ac_days_exe > r.days_plan:
+            if r.ac_days_exe > r.ac_days_plan:
                     
                     raise ValidationError('Los dias ejecutados no pueden ser mayor a los planificados')

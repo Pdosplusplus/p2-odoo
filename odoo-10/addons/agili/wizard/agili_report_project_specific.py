@@ -13,8 +13,8 @@ class AgiliProjectSpecific(models.TransientModel):
     	string="Responsable",  
     	index=True)
 
-    days_plan = fields.Boolean(string="Horas hombres Planificadas")
-    days_exe = fields.Boolean(string="Horas hombres Ejecutadas")
+    days_plan = fields.Boolean(string="Dias Planificadas")
+    days_exe = fields.Boolean(string="Dias Ejecutadas")
 
     projects = fields.Boolean(string="Proyectos")
     activities = fields.Boolean(string="Actividades")

@@ -59,7 +59,10 @@ class ReportProjectSpecific(models.AbstractModel):
                 days_plan += activity.ac_days_plan
                 days_exe += activity.ac_days_exe
 
-            info['advance'] = days_exe * 100 / days_plan
+            if days_plan > 0:
+
+                info['advance'] = days_exe * 100 / days_plan
+
             info['flag_advance'] = True
 
             if days_plan:

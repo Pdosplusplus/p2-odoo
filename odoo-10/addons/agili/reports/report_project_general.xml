@@ -84,7 +84,7 @@
 
                                   <li class="list-group-item">
                                     <span class="badge" t-esc="responsibles['days_plan']"/>
-                                    Days Planificados
+                                    Dias Planificados
                                   </li>
 
                                   <li class="list-group-item">
@@ -167,7 +167,7 @@
                       
                 <thead>
                   <th colspan="2" class="center">
-                    DIas Planificados: <span class="badge" t-esc="data['days_total']"/>
+                    Dias Planificados: <span class="badge" t-esc="data['days_total']"/>
                   </th>
                 </thead>
 
