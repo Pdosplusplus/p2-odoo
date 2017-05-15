@@ -80,3 +80,11 @@ class Activity(models.Model):
                 r.ac_days_plan = workDays(r.ac_start_date, r.ac_end_date)
                
 
+    @api.constrains('ac_days_exe')
+    def _check_days_activity(self):
+
+        for r in self:
+            
+            if r.ac_days_exe > r.days_plan:
+                    
+                    raise ValidationError('Los dias ejecutados no pueden ser mayor a los planificados')

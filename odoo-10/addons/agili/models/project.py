@@ -3,6 +3,8 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 from odoo.addons.agili.common.utils import FORMA_DATE, validKey, workDays, sendEmail
+from datetime import datetime, date
+from dateutil import rrule
 
 class Project(models.Model):
 
@@ -146,7 +148,7 @@ class Project(models.Model):
 
                 if act.ac_days_plan > r.days_plan or days_total > r.days_plan:
                     
-                    raise ValidationError('Las horas hombre declaradas sobrepasan a las horas hombre del proyecto')
+                    raise ValidationError('Los dias declaradas sobrepasan a los dias planificados del proyecto')
 
     @api.model
     def print_report(self):
@@ -162,7 +164,7 @@ class Project(models.Model):
     @api.multi
     def send_alert(self):
 
-        projects = self.env['agili.project']
+        projects = self.env['agili.project'].search([('days_plan','>=', 0)])
 
         for project in projects:
 
@@ -173,23 +175,23 @@ class Project(models.Model):
 
                 ini_date = datetime.strptime(ini_date, FORMA_DATE)
                 end_date = datetime.strptime(end_date, FORMA_DATE)
-                today = datetime.now().date()
+                today = datetime.now()
 
                 today_diff = str((end_date-today).days)
                 days_diff = str((end_date-ini_date).days) 
 
-                #if days_diff >= 3 and project.porcen_project <= 70 and today_diff <=3:
+                if days_diff >= 3 and project.porcen_project <= 70 and today_diff <=3:
 
-                info = {}
+                    info = {}
 
-                info['name'] = activity.name
-                info['end_date'] = activity.ac_end_date
-                info['days_plan'] = activity.ac_days_plan
-                info['days_exe'] = activity.ac_days_exe
+                    info['name'] = activity.name
+                    info['end_date'] = activity.ac_end_date
+                    info['days_plan'] = activity.ac_days_plan
+                    info['days_exe'] = activity.ac_days_exe
 
-                addressee = activity.ac_responsible_id.email
-                
-                response = sendEmail(addressee, info, emitter=None)
+                    addressee = activity.ac_responsible_id.email
+                    
+                    response = sendEmail(addressee, info, emitter=None)
 
 
 class report_project_general(models.AbstractModel):

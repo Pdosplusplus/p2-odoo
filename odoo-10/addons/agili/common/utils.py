@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 
-import smtplib 
+import smtplib
+import os 
 from datetime import datetime, date
 from dateutil import rrule
 from email.MIMEText import MIMEText
 
+EMITTER = os.environ['EMITTER']
+PASSWD_MAIL = os.environ['PASSWDMAIL']
 FORMA_DATE="%Y-%m-%d"
+
 
 def workDays(start_date, end_date):
         
@@ -37,17 +41,13 @@ def validKey(array, key):
 
         return 0
 
-def sendEmail( addressee, info, emitter=None):
+def sendEmail(addressee, info, emitter=None):
 
-	if emitter is None:
-		emitter = 'agilis.report@gmail.com'
-		password= '#'
-	
 	message_template = """\
-El proyecto <strong> %(name)s </strong> tiene fecha de culminuacion <br>
-de %(end_date)s y tiene como dias planificados <strong> %(days_plan)s </strong> <br>
-de los cuales solo se han ejecutado <strong> %(days_exe)s </strong> se agradece <br>
-tomar todas las medidas necesarias para cumplir con los objetivos previstos. <br>
+El proyecto <strong> %(name)s </strong> tiene fecha de culminuacion
+de %(end_date)s y tiene como dias planificados <strong> %(days_plan)s </strong>
+de los cuales solo se han ejecutado <strong> %(days_exe)s </strong> se agradece
+tomar todas las medidas necesarias para cumplir con los objetivos previstos.
 
 Sistema de Alertas AGILIS.
 
@@ -56,7 +56,7 @@ Sistema de Alertas AGILIS.
 
 	# Mail Struct
 	email = MIMEText(message_template)
-	email['From'] = emitter
+	email['From'] = EMITTER
 	email['To'] = addressee
 	email['Subject'] = "Alerta de Avance :: CFG-AGILIS"
 
@@ -67,10 +67,10 @@ Sistema de Alertas AGILIS.
 		serverSMTP.ehlo() 
 		serverSMTP.starttls() 
 		serverSMTP.ehlo() 
-		serverSMTP.login(emitter, password)
+		serverSMTP.login(EMITTER, PASSWD_MAIL)
 
 		# Send mail
-		serverSMTP.sendmail(emitter, addressee, email.as_string()) 
+		serverSMTP.sendmail(EMITTER, addressee, email.as_string()) 
 
 		# Close conexion
 		serverSMTP.close()
