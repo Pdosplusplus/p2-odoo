@@ -24,23 +24,19 @@ class Project(models.Model):
                                     compute='_diasLaborales',
                                     store=True)
 
-    days_exe = fields.Integer(string="Dias ejecutados",
-                                  compute='_days_exec')
+    days_exe = fields.Integer(string="Dias ejecutados")
 
     responsible_ids = fields.Many2many('res.users', 
                                         string="Responsables",
                                         required=True)
 
 
-    porcen_project = fields.Float(string="Avance del proyecto",
-                                  compute='_porcent_project')
+    porcen_project = fields.Float(string="Avance del proyecto")
 
-    activity_ids = fields.One2many(
-        'agili.activity', 'ac_project_id', string="Actividades")
-
-    activities_count = fields.Integer(string="Numero de actividades", 
-                                    compute='_get_activities_count', 
-                                    store=True)
+    workplan_id = fields.Many2one('agili.workplan',
+                                ondelete='cascade', 
+                                string="Plan de trabajo", 
+                                required=True)
 
     deliverable_ids = fields.One2many(
         'agili.deliverable', 'de_project_id', string="Entregables")
@@ -94,6 +90,7 @@ class Project(models.Model):
 
                 r.days_plan = workDays(r.start_date, r.end_date)
                 
+    """
     #Funcion para calcular los dias ejecutados
     @api.depends('activity_ids')
     def _days_exec(self):
@@ -150,6 +147,7 @@ class Project(models.Model):
                     
                     raise ValidationError('Los dias declaradas sobrepasan a los dias planificados del proyecto')
 
+    """
     @api.model
     def print_report(self):
 
@@ -161,6 +159,7 @@ class Project(models.Model):
             'context': context,
         }
 
+    """
     @api.multi
     def send_alert(self):
 
@@ -193,6 +192,7 @@ class Project(models.Model):
                     
                     response = sendEmail(addressee, info, emitter=None)
 
+        """
 
 class report_project_general(models.AbstractModel):
     _name = 'report.agili.report_project_general'

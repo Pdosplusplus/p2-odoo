@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+
 from datetime import datetime, date
 from dateutil import rrule
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 from odoo.addons.agili.common.utils import workDays
 
 class Activity(models.Model):
@@ -32,10 +34,17 @@ class Activity(models.Model):
     ac_days_exe = fields.Integer(string="Dias ejecutados", required=True)
 
     ac_responsible_id = fields.Many2one('res.users',
-    ondelete='set null', string="Responsable", required=True, index=True)
+                            ondelete='set null',
+                            string="Responsable", 
+                            required=True, 
+                            index=True)
 
-    ac_project_id = fields.Many2one('agili.project',
-        ondelete='cascade', string="Proyecto", required=True)
+    ac_desing_id = fields.Many2one('agili.ms_design',
+                         ondelete='cascade', 
+                         string="Planificacion", 
+                         required=True)
+
+
 
     _sql_constraints = [
         ('name_description_check',

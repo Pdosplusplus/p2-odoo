@@ -72,38 +72,25 @@
                 <field name="responsible_ids"/>
               </page>
 
+         
+            </notebook>
 
-              <!-- Page Actividades 
+
+            <label for="workplan_id"/>
+
+            <notebook>
+
+              <!-- Page Plan de trabajo 
   
-                @Function: Añadir actividades a un proyecto
+                @Function: Añadir un plan de trabajo a un proyecto
 
-                @Description: Esta page del notebook nos permite añadir actividades al proyecto y mostramos una lista de ellos solo con los campos necesarios.
+                @Description: Esta page del notebook nos permite añadir un plan de trabajo al proyecto y mostramos una lista de ellos solo con los campos necesarios.
               -->
-              <page string="Actividades">
-                <field name="activity_ids">
-                  <tree string="Añade una actividad al proyecto">
+              <page string="Plan de trabajo">
+                <field name="workplan_id">
+                  <tree string="Añade el plan de trabajo del proyecto">
                     <field name="name"/>
-                    <field name="objetive"/>
-                    <field name="ac_days_plan"/>
-                    <field name="ac_days_exe"/>
-                    <field name="ac_responsible_id"/>
-                    <field name="ac_state"/>
-                  </tree>
-                </field>
-              </page>
-
-              <!-- Page Entregables 
-  
-                @Function: Añadir actividades a un proyecto
-
-                @Description: Esta page del notebook nos permite añadir entregables al proyecto y mostramos una lista de ellos solo con los campos necesarios.
-              -->
-              <page string="Entregables">
-                <field name="deliverable_ids">
-                  <tree string="Añade un entregable al proyecto">
-                    <field name="name"/>
-                    <field name="deliverable"/>
-                    <field name="de_type"/>
+                    <field name="wk_desing_id"/>
                   </tree>
                 </field>
               </page>
@@ -120,21 +107,41 @@
     <!-- Data file form 
 
     @ function: Crear y modificar registros 
-    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. Em este caso define como sera el orden en que seran registrados los campos del modelo Deliverable
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo workplan
     -->
-    <record model="ir.ui.view" id="deliverable_form_view">
+    <record model="ir.ui.view" id="workplan_form_view">
 
-      <field name="name">deliverable.form</field>
-      <field name="model">agili.deliverable</field>
+      <field name="name">workplan.form</field>
+      <field name="model">agili.workplan</field>
       <field name="arch" type="xml">
 
-        <form string="Deliverable Form">
+        <form string="Work Plan Form">
           <sheet>
             <group>
               <field name="name"/>
-              <field name="deliverable"/>
-              <field name="de_type"/>
             </group>
+
+            <label for="wk_desing_id"/>
+
+            <notebook>
+
+              <!-- Page Plan de trabajo 
+  
+                @Function: Añadir el hito de planificacion a un plan de trabajo.
+
+                @Description: Esta page del notebook nos permite añadir el hito de planificacion al workplan y mostramos una lista de ellos solo con los campos necesarios.
+              -->
+              <page string="Hitos">
+                <field name="wk_desing_id">
+                  <tree string="Añade el hito de planificacion">
+                    <field name="deliverable"/>
+                    <field name="ds_activity_ids"/>
+                  </tree>
+                </field>
+              </page>
+
+            </notebook>
+              
           </sheet>
         </form>
 
@@ -199,7 +206,7 @@
           <field name="days_plan"/>
           <field name="days_exe"/>
           <field name="porcen_project" widget="progressbar"/>
-          <field name="responsible_ids"/>
+          <field name="workplan_id"/>
         </tree>
         
       </field>
@@ -210,16 +217,35 @@
 
       @Function: Listar la información en una tabla
 
-      @Description: Record para mostrar la información en un model, donde cada field es una columna. En te caso mostramos la lista de los elementos del modelo Deliverable
+      @Description: Record para mostrar la información en un model, donde cada field es una columna. En te caso mostramos la lista de los elementos del modelo Workplan
     -->
     <record model="ir.ui.view" id="deliverable_tree_view">
-      <field name="name">deliverable.tree</field>
-      <field name="model">agili.deliverable</field>
+      <field name="name">workplan.tree</field>
+      <field name="model">agili.workplan</field>
 
       <field name="arch" type="xml">
-        <tree string="Deliverable Tree">
+        <tree string="workplan Tree">
           <field name="name"/>
+          <field name="wk_desing_id"/>
+        </tree>
+      </field>
+
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en un model, donde cada field es una columna. En te caso mostramos la lista de los elementos del modelo ms_design
+    -->
+    <record model="ir.ui.view" id="deliverable_tree_view">
+      <field name="name">ms_design.tree</field>
+      <field name="model">agili.ms_design</field>
+
+      <field name="arch" type="xml">
+        <tree string="Design Tree">
           <field name="deliverable"/>
+          <field name="ds_activity_ids"/>
         </tree>
       </field>
 
@@ -259,8 +285,6 @@
         <graph string="Avance de los proyectos">
           <field name="name"/>
           <field name="days_plan"/>
-          <field name="activity_ids" type="measure"/>
-          <field name="deliverable_ids" type="measure"/>
           <field name="porcen_project" type="measure"/>
         </graph>
       </field>
