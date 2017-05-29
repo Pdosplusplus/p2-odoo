@@ -10,10 +10,10 @@ class ms_design(models.Model):
 
     _name = 'agili.ms_design'
 
-    deliverable = fields.Char(string="Entregable", 
-                        required=True,
-                        unique=True)
+    deliverable = fields.Char(string="Entregable",
+                        unique=True,
+                        required=True)
 
     ds_activity_ids = fields.One2many('agili.activity', 
                         'ac_desing_id', 
-                        string="Actividades")
+                        string="Actividades",)

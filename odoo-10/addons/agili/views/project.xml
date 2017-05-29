@@ -52,9 +52,6 @@
             </group>
 
 
-            <label for="responsible_ids"/>
-            
-        
             <!-- Notebook
               @Function: Crear un cuaderno, agrupar mejor la información.
 
@@ -72,29 +69,21 @@
                 <field name="responsible_ids"/>
               </page>
 
-         
-            </notebook>
-
-
-            <label for="workplan_id"/>
-
-            <notebook>
-
-              <!-- Page Plan de trabajo 
+               <!-- Page Plan de trabajo 
   
                 @Function: Añadir un plan de trabajo a un proyecto
 
                 @Description: Esta page del notebook nos permite añadir un plan de trabajo al proyecto y mostramos una lista de ellos solo con los campos necesarios.
-              -->
-              <page string="Plan de trabajo">
-                <field name="workplan_id">
+             
+              <page string="Plan de trabajo" attrs="{'invisible': [('id', '==', False)]}">
+                <field name="workplan_id" widget="many2many">
                   <tree string="Añade el plan de trabajo del proyecto">
                     <field name="name"/>
-                    <field name="wk_desing_id"/>
                   </tree>
                 </field>
               </page>
-
+               -->
+               
             </notebook>
 
           </sheet>
@@ -121,8 +110,6 @@
               <field name="name"/>
             </group>
 
-            <label for="wk_desing_id"/>
-
             <notebook>
 
               <!-- Page Plan de trabajo 
@@ -130,9 +117,9 @@
                 @Function: Añadir el hito de planificacion a un plan de trabajo.
 
                 @Description: Esta page del notebook nos permite añadir el hito de planificacion al workplan y mostramos una lista de ellos solo con los campos necesarios.
-              -->
-              <page string="Hitos">
-                <field name="wk_desing_id">
+              
+              <page string="Planificacion">
+                <field name="wk_desing_id" widget="many2many">
                   <tree string="Añade el hito de planificacion">
                     <field name="deliverable"/>
                     <field name="ds_activity_ids"/>
@@ -140,8 +127,35 @@
                 </field>
               </page>
 
+            -->
+
             </notebook>
               
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+      <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo ms_design
+    -->
+    <record model="ir.ui.view" id="ms_design_form_view">
+
+      <field name="name">ms_design.form</field>
+      <field name="model">agili.ms_design</field>
+      <field name="arch" type="xml">
+
+        <form string="Design Form">
+          <sheet>
+
+            <group>
+              <field name="deliverable"/>
+              <field name="ds_activity_ids"/>
+            </group>        
+
           </sheet>
         </form>
 
@@ -206,7 +220,6 @@
           <field name="days_plan"/>
           <field name="days_exe"/>
           <field name="porcen_project" widget="progressbar"/>
-          <field name="workplan_id"/>
         </tree>
         
       </field>
@@ -226,7 +239,6 @@
       <field name="arch" type="xml">
         <tree string="workplan Tree">
           <field name="name"/>
-          <field name="wk_desing_id"/>
         </tree>
       </field>
 
@@ -238,7 +250,7 @@
 
       @Description: Record para mostrar la información en un model, donde cada field es una columna. En te caso mostramos la lista de los elementos del modelo ms_design
     -->
-    <record model="ir.ui.view" id="deliverable_tree_view">
+    <record model="ir.ui.view" id="ms_design_tree_view">
       <field name="name">ms_design.tree</field>
       <field name="model">agili.ms_design</field>
 

@@ -12,11 +12,6 @@ class Activity(models.Model):
 
     name = fields.Char(string="Nombre de Actividad", required=True)
 
-    ac_type = fields.Selection([
-        ('primer', "Primer nivel"),
-        ('segundo', "Segundo nivel"),
-    ], string="Nivel", default='primer')
-    
     ac_start_date = fields.Date(string="Fecha de inicio", required=True)
 
     ac_end_date = fields.Date(string="Fecha de Fin", required=True)
@@ -36,13 +31,11 @@ class Activity(models.Model):
     ac_responsible_id = fields.Many2one('res.users',
                             ondelete='set null',
                             string="Responsable", 
-                            required=True, 
-                            index=True)
+                            required=True)
 
     ac_desing_id = fields.Many2one('agili.ms_design',
                          ondelete='cascade', 
-                         string="Planificacion", 
-                         required=True)
+                         string="Planificacion")
 
 
 

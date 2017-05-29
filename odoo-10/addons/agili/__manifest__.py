@@ -37,6 +37,7 @@
         'views/report_general_js.xml',
         'views/webclient_templates.xml',
         'views/crons_view.xml',
+        'views/ms_design_view.xml',
         'wizard/agili_report_project_specific_view.xml',
         'reports/report_project_general.xml',
         'reports/report_project_specific.xml',
