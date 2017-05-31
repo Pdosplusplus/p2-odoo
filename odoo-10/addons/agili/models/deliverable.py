@@ -11,13 +11,3 @@ class Deliverable(models.Model):
     deliverable = fields.Binary(string="Entregable", 
                                 attachment=True,
                                 required=True)
-
-    de_project_id = fields.Many2one('agili.project',
-                                ondelete='cascade', 
-                                string="Proyecto", 
-                                required=True)
-
-    de_type = fields.Selection([
-        ('primer', "Primer nivel"),
-        ('segundo', "Segundo nivel"),
-    ], string="Nivel", default='primer')

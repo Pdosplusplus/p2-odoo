@@ -19,9 +19,7 @@
             <!-- Agrupamos los campos que generan la toma de decisiones-->
             <group string="Control">
               <field name="name"/>
-              <field name="de_project_id"/>
               <field name="deliverable"/>
-              <field name="de_type"/>
             </group>
 
           </sheet>
@@ -45,7 +43,6 @@
       <field name="arch" type="xml">
         <search>
           <field name="name"/>
-          <field name="de_project_id"/>
           <field name="deliverable"/>
         </search>
       </field>
@@ -64,10 +61,8 @@
 
       <field name="arch" type="xml">
         <tree string="deliverable Tree">
-          <field name="de_project_id"/>
           <field name="name"/>
           <field name="deliverable"/>
-          <field name="de_type"/>
         </tree>
       </field>
 
@@ -89,12 +84,12 @@
        
       </record>
 
-      
-      <!-- Añadimos un submenu al menu de gestion de proyectos -->
+      <!-- Añadimos un submenu al menu de gestion de proyectos 
       <menuitem id="deliverable_menu" 
             name="Entregables" 
             parent="agili_menu"
             action="deliverable_list_action"/>
+      -->
 
   </data>
 </odoo>

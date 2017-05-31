@@ -10,10 +10,10 @@ class ms_design(models.Model):
 
     _name = 'agili.ms_design'
 
-    deliverable = fields.Char(string="Entregable",
-                        unique=True,
-                        required=True)
+    chip_id = fields.Many2one('agili.chip_project',
+                         ondelete='cascade', 
+                         string="Ficha del Proyecto")
 
-    ds_activity_ids = fields.One2many('agili.activity', 
-                        'ac_desing_id', 
-                        string="Actividades",)
+    schedule_id = fields.Many2one('agili.schedule',
+                         ondelete='cascade', 
+                         string="Cronograma del Proyecto")

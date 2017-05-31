@@ -16,27 +16,26 @@ class Activity(models.Model):
 
     ac_end_date = fields.Date(string="Fecha de Fin", required=True)
    
-    objetive = fields.Char(string="Objetivo", required=True)
-    
-    description = fields.Text(string="Descripción")
-
-    result = fields.Text(string="Resultado")
-
     ac_days_plan = fields.Integer(string="Dias planificados", 
                                 compute='_diasLaborales',
                                 store=True)
 
-    ac_days_exe = fields.Integer(string="Dias ejecutados", required=True)
+    ac_days_exe = fields.Integer(string="Dias ejecutados")
+
+    report_progress = fields.Integer(string="Reporte de Avance")
 
     ac_responsible_id = fields.Many2one('res.users',
                             ondelete='set null',
                             string="Responsable", 
                             required=True)
 
-    ac_desing_id = fields.Many2one('agili.ms_design',
+    ac_chip_id = fields.Many2one('agili.chip_project',
                          ondelete='cascade', 
-                         string="Planificacion")
+                         string="Ficha del Proyecto")
 
+    ac_schedule_id = fields.Many2one('agili.schedule',
+                         ondelete='cascade', 
+                         string="Ficha del Proyecto")
 
 
     _sql_constraints = [

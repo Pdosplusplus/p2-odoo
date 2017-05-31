@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+     <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo chip_project
+    -->
+    <record model="ir.ui.view" id="chip_project_form_view">
+
+      <field name="name">chip_project.form</field>
+      <field name="model">agili.chip_project</field>
+      <field name="arch" type="xml">
+
+        <form string="Design Form">
+          <sheet>
+
+              <field name="cp_activity_ids">
+                <tree string="Agrega las actividades">
+                  <field name="name"/>
+                  <field name="ac_start_date"/>
+                  <field name="ac_end_date"/>
+                  <field name="report_progress"/>
+                  <field name="ac_responsible_id"/>
+                  <field name="ac_chip_id"/>
+                </tree>
+              </field>
+     
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en un model, donde cada field es una columna. En te caso mostramos la lista de los elementos del modelo chip_project
+    -->
+    <record model="ir.ui.view" id="chip_project_tree_view">
+      <field name="name">chip_project.tree</field>
+      <field name="model">agili.chip_project</field>
+
+      <field name="arch" type="xml">
+        <tree string="Design Tree">
+          <field name="cp_activity_ids" position="attributes">
+            <attribute name="widget">"one2many_list"</attribute>
+            <attribute name="context">"{'cp_activity_ids': cp_activity_ids}"</attribute>
+
+            <tree string="Agrega las actividades">
+              <field name="name"/>
+              <field name="ac_start_date"/>
+              <field name="ac_end_date"/>
+              <field name="report_progress"/>
+              <field name="ac_responsible_id"/>
+              <field name="ac_chip_id"/>
+            </tree>
+          </field>
+        </tree>
+      </field>
+
+    </record>
+
+    <!-- Tag actions.act_window 
+    
+      @Function: Este tag o record tiene como funcion contralar el flujo de los views a las acciones de los mismos
+
+      @Descripcion: Una de las cosa que ahce este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree>, <form>, <calendar> ,y de ultimo las graficas <graph>.
+    -->
+    <record model="ir.actions.act_window" id="chip_project_list_action">
+
+      <field name="name">Ficha del Proyecto</field>
+      <field name="res_model">agili.chip_project</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+     
+    </record>
+  
+    <!-- Añadimos un submenu al menu de gestion de proyectos 
+    <menuitem id="chip_project_menu" 
+          name="Ficha del Proyecto" 
+          parent="agili_menu"
+          action="chip_project_list_action"/>
+    -->
+
+  </data>
+</odoo>

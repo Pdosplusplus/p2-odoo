@@ -33,6 +33,9 @@ class Project(models.Model):
 
     porcen_project = fields.Float(string="Avance del proyecto")
 
+    workplan_id = fields.Many2one('agili.workplan',
+                                ondelete='cascade', 
+                                string="Plan de trabajo")
 
     _sql_constraints = [
         ('name_description_check',

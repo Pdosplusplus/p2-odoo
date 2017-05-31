@@ -6,10 +6,11 @@ from datetime import datetime, date
 from dateutil import rrule
 from email.MIMEText import MIMEText
 
-EMITTER = os.environ['EMITTER']
-PASSWD_MAIL = os.environ['PASSWDMAIL']
+#EMITTER = os.environ['EMITTER']
+#PASSWD_MAIL = os.environ['PASSWDMAIL']
 FORMA_DATE="%Y-%m-%d"
-
+EMITTER ="SABE"
+PASSWD_MAIL="vpino.geekos"
 
 def workDays(start_date, end_date):
         

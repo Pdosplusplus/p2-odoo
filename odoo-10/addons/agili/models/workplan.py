@@ -15,6 +15,6 @@ class Workplan(models.Model):
                        unique=True)
 
 
-    #wk_desing_id = fields.Many2one('agili.ms_design',
-    #    					ondelete='cascade', 
-    #    					string="Planificación")
+    wk_desing_id = fields.Many2one('agili.ms_design',
+        					ondelete='cascade', 
+        					string="Planificación")
