@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+        <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo milestone
+    -->
+    <record model="ir.ui.view" id="milestone_form_view">
+
+      <field name="name">milestone.form</field>
+      <field name="model">agili.milestone</field>
+      <field name="arch" type="xml">
+
+        <form string="Work Plan Form">
+          <sheet>
+            <group string="General">
+              <field name='id' invisible='True'/>
+              <field name="name_ms"/>
+              <field name="ms_start_date"/>
+              <field name="ms_end_date"/>
+              <field name="ms_days_plan" readonly="1"/>
+              <field name="ms_days_exe"/>
+              <field name="ms_responsible_id"/>
+            </group>
+
+            <notebook>
+
+              <!-- Page Entregable 
+  
+                @Function: Añadir un entregable al hito.
+
+                @Description: Esta page del notebook nos permite añadir el hito de planificacion al milestone y mostramos una lista de ellos solo con los campos necesarios.
+
+              -->
+              <page string="Entregable" attrs="{'invisible': [('id', '==', False)]}">
+                <field name="deliverable_ids">
+                  <tree string="Añade un entregable al hito">
+                    <field name="name_dl"/>
+                    <field name="dl_activity_ids"/>
+                  </tree>
+                </field>
+              </page>
+
+            </notebook>
+              
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en una tabla, donde cada field es una columna.
+    -->
+    <record model="ir.ui.view" id="milestone_tree_view">
+      <field name="name">milestone.tree</field>
+      <field name="model">agili.milestone</field>
+
+      <field name="arch" type="xml">
+        <tree string="milestone Tree">
+          <field name="name_ms"/>
+          <field name="ms_start_date"/>
+          <field name="ms_end_date"/>
+          <field name="ms_days_plan"/>
+          <field name="ms_days_exe"/>
+          <field name="ms_responsible_id"/>
+          <field name="deliverable_ids"/>
+        </tree>
+      </field>
+
+    </record>
+
+    <!-- Tag actions.act_window 
+    
+      @Function: Este tag o record tiene como funcion contralar el flujo de los views a las acciones de los mismos
+
+      @Descripcion: Una de las cosa que ahce este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree>, <form>, <calendar> ,y de ultimo las graficas <graph>.
+    -->
+    <record model="ir.actions.act_window" id="milestone_list_action">
+
+      <field name="name">Plan de trabajo</field>
+      <field name="res_model">agili.milestone</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+     
+    </record>
+
+    <!-- Añadimos un submenu al menu de gestion de proyectos 
+    <menuitem id="milestone_menu" 
+          name="Entregables" 
+          parent="agili_menu"
+          action="milestone_list_action"/>
+    -->
+
+  </data>
+</odoo>

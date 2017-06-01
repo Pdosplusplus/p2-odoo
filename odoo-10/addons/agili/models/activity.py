@@ -29,14 +29,9 @@ class Activity(models.Model):
                             string="Responsable", 
                             required=True)
 
-    ac_chip_id = fields.Many2one('agili.chip_project',
+    ac_deliverable_id = fields.Many2one('agili.deliverable',
                          ondelete='cascade', 
-                         string="Ficha del Proyecto")
-
-    ac_schedule_id = fields.Many2one('agili.schedule',
-                         ondelete='cascade', 
-                         string="Ficha del Proyecto")
-
+                         string="Entregable")
 
     _sql_constraints = [
         ('name_description_check',

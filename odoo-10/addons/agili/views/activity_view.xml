@@ -48,7 +48,6 @@
               <field name="ac_days_plan"/>
               <field name="ac_days_exe"/>
               <field name="report_progress"/>
-              <field name="ac_chip_id" invisible="1" value="cp_activity_ids" />
             </group>
 
           </sheet>

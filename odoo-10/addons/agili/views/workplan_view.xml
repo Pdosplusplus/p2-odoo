@@ -29,11 +29,11 @@
                 @Description: Esta page del notebook nos permite añadir el hito de planificacion al workplan y mostramos una lista de ellos solo con los campos necesarios.
 
               -->
-              <page string="Planificacion" attrs="{'invisible': [('id', '==', False)]}">
-                <field name="wk_desing_id">
-                  <tree string="Añade el hito de planificacion">
-                    <field name="chip_id"/>
-                    <field name="schedule_id"/>
+              <page string="Hito" attrs="{'invisible': [('id', '==', False)]}">
+                <field name="milestone_ids">
+                  <tree string="Añade un hito al plan de trabajo">
+                    <field name="name_ms"/>
+                    <field name="deliverable_ids"/>
                   </tree>
                 </field>
               </page>
@@ -59,7 +59,7 @@
       <field name="arch" type="xml">
         <tree string="workplan Tree">
           <field name="name"/>
-          <field name="wk_desing_id"/>
+          <field name="milestone_ids"/>
         </tree>
       </field>
 
