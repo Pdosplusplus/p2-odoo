@@ -21,7 +21,8 @@
               <field name="dl_start_date"/>
               <field name="dl_end_date"/>
               <field name="dl_days_plan" readonly="1"/>
-              <field name="dl_days_exe"/>
+              <field name="dl_days_exe" readonly="1"/>
+              <field name="dl_responsible_id"/>
             </group>
 
             <notebook>
@@ -70,6 +71,7 @@
           <field name="dl_days_plan"/>
           <field name="dl_days_exe"/>
           <field name="dl_activity_ids"/>
+          <field name="dl_responsible_id"/>
         </tree>
       </field>
 

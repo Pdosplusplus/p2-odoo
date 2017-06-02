@@ -11,6 +11,28 @@ from email.MIMEText import MIMEText
 FORMA_DATE="%Y-%m-%d"
 EMITTER ="SABE"
 PASSWD_MAIL="vpino.geekos"
+DAYS_LESS = '2017-12-31'
+DAYS_HIGHER = '2017-01-01'
+
+def compareDates(dateone, datetwo, operation):
+
+	date_one = datetime.strptime(str(dateone), FORMA_DATE)
+	date_two = datetime.strptime(str(datetwo), FORMA_DATE)
+
+	if operation == 'higher':
+
+		if str(date_one) > str(date_two):
+
+			return True
+
+	else:
+
+		if str(date_one) < str(datetwo):
+
+			return True
+
+	return False
+
 
 def workDays(start_date, end_date):
         
