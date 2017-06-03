@@ -22,7 +22,7 @@ class Activity(models.Model):
 
     ac_days_exe = fields.Integer(string="Dias ejecutados")
 
-    report_progress = fields.Integer(string="Reporte de Avance")
+    ac_progress = fields.Integer(string="Reporte de Avance")
 
     ac_responsible_id = fields.Many2one('res.users',
                             ondelete='set null',

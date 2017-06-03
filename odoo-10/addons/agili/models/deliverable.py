@@ -25,6 +25,9 @@ class Deliverable(models.Model):
     dl_days_exe = fields.Integer(string="Dias ejecutados",
                                  compute="_daysexe")
 
+    dl_progress = fields.Integer(string="Dias ejecutados",
+                                 compute="_progress")
+
     dl_workplan_id = fields.Many2one('agili.workplan',
                          ondelete='cascade', 
                          string="Plan de trabajo")
@@ -98,10 +101,17 @@ class Deliverable(models.Model):
 
         for r in self:
                 
+            sum_day = 0
+
             if r.dl_activity_ids:
 
                 for activity in r.dl_activity_ids:
 
                     if activity.ac_days_exe:
 
-                        print "test"
+                        sum_day += activity.ac_days_exe
+
+
+            r.dl_days_exe = sum_day
+
+

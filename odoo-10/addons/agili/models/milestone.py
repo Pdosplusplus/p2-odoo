@@ -23,10 +23,10 @@ class milestone(models.Model):
                               compute='_dayend')
 
     ms_days_plan = fields.Integer(string="Dias planificados", 
-                                    compute='_diasLaborales',
-                                    store=True)
+                                    compute='_diasLaborales')
 
-    ms_days_exe = fields.Integer(string="Dias ejecutados")
+    ms_days_exe = fields.Integer(string="Dias ejecutados",
+                                 compute='_daysexe')
 
     ms_workplan_id = fields.Many2one('agili.workplan',
                          ondelete='cascade', 
@@ -68,8 +68,6 @@ class milestone(models.Model):
 
             for deliverable in r.deliverable_ids:
 
-                print str(deliverable.dl_end_date)
-
                 if deliverable.dl_end_date:
 
                     if compareDates(deliverable.dl_end_date, higher, 'higher'):
@@ -77,6 +75,22 @@ class milestone(models.Model):
                         higher = deliverable.dl_end_date
 
         r.ms_end_date = higher
+    
+    @api.depends('deliverable_ids')
+    def _daysexe(self):
+        
+        for r in self:
+                
+            sum_day = 0
+
+            if r.deliverable_ids:
+
+                for deliverable in r.deliverable_ids:
+
+                    sum_day += deliverable.dl_days_exe
+
+            r.ms_days_exe = sum_day
+
 
 
     @api.depends('ms_start_date', 'ms_end_date')
@@ -88,3 +102,4 @@ class milestone(models.Model):
 
                 r.ms_days_plan = workDays(r.ms_start_date, r.ms_end_date)
                 
+
