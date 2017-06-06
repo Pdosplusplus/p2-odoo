@@ -14,6 +14,34 @@ class Workplan(models.Model):
                        required=True,
                        unique=True)
 
+    wk_progress = fields.Integer(string="Avance del plan de trabajo",
+    							compute="_progress")
+
     milestone_ids = fields.One2many('agili.milestone', 
                         'ms_workplan_id', 
                         string="Hitos")
+
+
+    @api.depends('milestone_ids')
+    def _progress(self):
+        
+        for r in self:
+                
+            milestones = 0
+            total_progress = 0
+
+            if r.milestone_ids:
+
+                for milestone in r.milestone_ids:
+
+                    total_progress += milestone.ms_progress 
+                    milestones += 1
+
+            if milestones != 0:
+
+                r.wk_progress = total_progress / milestones
+
+            else:
+
+                r.wk_progress = 0
+

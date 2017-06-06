@@ -48,7 +48,6 @@
               <field name="end_date" attrs="{'invisible': [('id', '!=', False)]}"/>
               <field name="days_plan" attrs="{'invisible': [('id', '!=', False)]}"/>
               <field name="days_exe" readonly="1" attrs="{'invisible': [('id', '!=', False)]}"/>
-              <field name="porcen_project" widget="progressbar" attrs="{'invisible': [('id', '!=', False)]}"/> 
             </group>
 
 
@@ -75,11 +74,11 @@
 
                 @Description: Esta page del notebook nos permite añadir un plan de trabajo al proyecto y mostramos una lista de ellos solo con los campos necesarios.
               -->
-
               <page string="Plan de trabajo" attrs="{'invisible': [('id', '==', False)]}">
                 <field name="workplan_id" widget="many2one">
-                  <tree string="Añade el plan de trabajo del proyecto">
+                  <tree string="Añade un plan de trabajo al proyecto">
                     <field name="name"/>
+                    <field name="milestone_ids"/>
                   </tree>
                 </field>
               </page>
@@ -151,7 +150,7 @@
           <field name="end_date"/>
           <field name="days_plan"/>
           <field name="days_exe"/>
-          <field name="porcen_project" widget="progressbar"/>
+          <field name="pj_progress" widget="progressbar"/>
         </tree>
         
       </field>
@@ -192,7 +191,7 @@
         <graph string="Avance de los proyectos">
           <field name="name"/>
           <field name="days_plan"/>
-          <field name="porcen_project" type="measure"/>
+          <field name="pj_progress" type="measure"/>
         </graph>
       </field>
     </record>

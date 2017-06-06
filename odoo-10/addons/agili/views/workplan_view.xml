@@ -59,7 +59,6 @@
       <field name="arch" type="xml">
         <tree string="workplan Tree">
           <field name="name"/>
-          <field name="milestone_ids"/>
         </tree>
       </field>
 

@@ -48,6 +48,7 @@
               <field name="ac_days_plan"/>
               <field name="ac_days_exe"/>
               <field name="ac_progress"/>
+              <field name="ac_work_real"/>
             </group>
 
           </sheet>
@@ -115,6 +116,7 @@
           <field name="ac_days_exe"/>
           <field name="ac_state"/>
           <field name="ac_progress"/>
+          <field name="ac_work_real"/>%
         </tree>
       </field>
 

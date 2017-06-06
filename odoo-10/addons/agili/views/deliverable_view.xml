@@ -20,10 +20,11 @@
               <field name="name_dl"/>
               <field name="dl_start_date"/>
               <field name="dl_end_date"/>
-              <field name="dl_days_plan" readonly="1"/>
-              <field name="dl_days_exe" readonly="1"/>
+              <field name="dl_days_plan"/>
+              <field name="dl_days_exe"/>
+              <field name="dl_progress"/>
+              <field name="dl_work_real"/>
               <field name="dl_responsible_id"/>
-              <field name="dl_progress" readonly="1"/>
             </group>
 
             <notebook>
@@ -42,6 +43,7 @@
                     <field name="ac_start_date"/>
                     <field name="ac_end_date"/>
                     <field name="ac_progress"/>
+                    <field name="ac_work_real"/>
                   </tree>
                 </field>
               </page>
@@ -72,8 +74,10 @@
           <field name="dl_days_plan"/>
           <field name="dl_days_exe"/>
           <field name="dl_activity_ids"/>
+          <field name="dl_progress"/>
+          <field name="dl_work_real"/>
           <field name="dl_responsible_id"/>
-          <field name="dl_progress" readonly="1"/>
+
         </tree>
       </field>
 

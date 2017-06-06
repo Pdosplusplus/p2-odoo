@@ -4,7 +4,7 @@ from datetime import datetime, date
 from dateutil import rrule
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from odoo.addons.agili.common.utils import workDays
+from odoo.addons.agili.common.utils import workDays, daysExe
 
 class Activity(models.Model):
 
@@ -20,9 +20,13 @@ class Activity(models.Model):
                                 compute='_diasLaborales',
                                 store=True)
 
-    ac_days_exe = fields.Integer(string="Dias ejecutados")
+    ac_days_exe = fields.Integer(string="Dias ejecutados",
+                                compute="_daysexe")
 
-    ac_progress = fields.Integer(string="Reporte de Avance")
+    ac_progress = fields.Integer(string="Porcentaje de avance",
+                                compute="_progress")
+
+    ac_work_real = fields.Integer(string="Reporte de trabajo real")
 
     ac_responsible_id = fields.Many2one('res.users',
                             ondelete='set null',
@@ -75,7 +79,6 @@ class Activity(models.Model):
 
                 r.ac_days_plan = workDays(r.ac_start_date, r.ac_end_date)
                
-
     @api.constrains('ac_days_exe')
     def _check_days_activity(self):
 
@@ -84,3 +87,21 @@ class Activity(models.Model):
             if r.ac_days_exe > r.ac_days_plan:
                     
                     raise ValidationError('Los dias ejecutados no pueden ser mayor a los planificados')
+
+    @api.depends('ac_start_date')
+    def _daysexe(self):
+
+        for r in self:
+
+            if r.ac_start_date:
+
+                r.ac_days_exe = daysExe(r.ac_start_date)
+
+    @api.depends('ac_days_exe', 'ac_days_plan')
+    def _progress(self):
+
+        for r in self:
+
+            if r.ac_days_exe > 0 and r.ac_days_plan > 0:
+
+                r.ac_progress = r.ac_days_exe * 100 / r.ac_days_plan

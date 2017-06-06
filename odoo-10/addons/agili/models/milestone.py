@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from odoo.addons.agili.common.utils import FORMA_DATE, compareDates, DAYS_LESS, DAYS_HIGHER, validKey, workDays, sendEmail
+from odoo.addons.agili.common.utils import FORMA_DATE, compareDates, DAYS_LESS, DAYS_HIGHER, validKey, workDays, daysExe
 from datetime import datetime, date
 from dateutil import rrule
 
@@ -27,6 +27,12 @@ class milestone(models.Model):
 
     ms_days_exe = fields.Integer(string="Dias ejecutados",
                                  compute='_daysexe')
+
+    ms_progress = fields.Integer(string="Porcentaje de avance",
+                                 compute='_progress')
+
+    ms_work_plan = fields.Integer(string="Reporte de avance real",
+                                  compute="_workreal")
 
     ms_workplan_id = fields.Many2one('agili.workplan',
                          ondelete='cascade', 
@@ -57,6 +63,10 @@ class milestone(models.Model):
 
                         less = deliverable.dl_start_date
 
+                else:
+
+                    less = ''
+
         r.ms_start_date = less
 
     @api.depends('deliverable_ids')
@@ -74,24 +84,21 @@ class milestone(models.Model):
 
                         higher = deliverable.dl_end_date
 
-        r.ms_end_date = higher
+                else:
+
+                    higher = ''
+
+            r.ms_end_date = higher
     
-    @api.depends('deliverable_ids')
+
+    @api.depends('ms_start_date')
     def _daysexe(self):
-        
+
         for r in self:
-                
-            sum_day = 0
 
-            if r.deliverable_ids:
+            if r.ms_start_date:
 
-                for deliverable in r.deliverable_ids:
-
-                    sum_day += deliverable.dl_days_exe
-
-            r.ms_days_exe = sum_day
-
-
+                r.ms_days_exe = daysExe(r.ms_start_date)
 
     @api.depends('ms_start_date', 'ms_end_date')
     def _diasLaborales(self):
@@ -103,3 +110,50 @@ class milestone(models.Model):
                 r.ms_days_plan = workDays(r.ms_start_date, r.ms_end_date)
                 
 
+    @api.depends('deliverable_ids')
+    def _progress(self):
+        
+        for r in self:
+                
+            deliverables = 0
+            total_progress = 0
+
+            if r.deliverable_ids:
+
+                for deliverable in r.deliverable_ids:
+
+                    total_progress += deliverable.dl_progress 
+                    deliverables += 1
+
+
+            if deliverables != 0:
+
+                r.ms_progress = total_progress / deliverables
+
+            else:
+
+                r.ms_progress = 0
+
+    @api.depends('deliverable_ids')
+    def _workreal(self):
+        
+        for r in self:
+                
+            deliverables = 0
+            total_workreal = 0
+
+            if r.deliverable_ids:
+
+                for deliverable in r.deliverable_ids:
+
+                    total_workreal += deliverable.dl_work_real 
+                    deliverables += 1
+
+
+            if deliverables != 0:
+
+                r.ms_work_plan = total_workreal / deliverables
+
+            else:
+
+                r.ms_work_plan = 0

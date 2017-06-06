@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, exceptions
-from odoo.addons.agili.common.utils import FORMA_DATE, compareDates, DAYS_LESS, DAYS_HIGHER, validKey, workDays
-
+from odoo.addons.agili.common.utils import FORMA_DATE, compareDates, DAYS_LESS, DAYS_HIGHER, validKey, workDays, daysExe
 
 higher = ''
 less = ''
@@ -25,8 +24,11 @@ class Deliverable(models.Model):
     dl_days_exe = fields.Integer(string="Dias ejecutados",
                                  compute="_daysexe")
 
-    dl_progress = fields.Integer(string="Dias ejecutados",
+    dl_progress = fields.Integer(string="Porcentaje de avance",
                                  compute="_progress")
+
+    dl_work_real = fields.Integer(string="Reporte de avance real",
+                                        compute="_workreal")
 
     dl_workplan_id = fields.Many2one('agili.workplan',
                          ondelete='cascade', 
@@ -63,7 +65,11 @@ class Deliverable(models.Model):
 
                             less = activity.ac_start_date
 
-        r.dl_start_date = less
+            else:
+
+                less = ''
+
+            r.dl_start_date = less
 
     @api.depends('dl_activity_ids')
     def _dayend(self):
@@ -82,7 +88,11 @@ class Deliverable(models.Model):
 
                             higher = activity.ac_end_date
 
-        r.dl_end_date = higher
+            else:
+
+                higher = ''
+
+            r.dl_end_date = higher
 
     @api.depends('dl_start_date', 'dl_end_date')
     def _diasLaborales(self):
@@ -94,24 +104,57 @@ class Deliverable(models.Model):
                 r.dl_days_plan = workDays(r.dl_start_date, r.dl_end_date)
 
 
-    @api.depends('dl_activity_ids')
+    @api.depends('dl_start_date')
     def _daysexe(self):
-        
-        higher = DAYS_HIGHER
 
         for r in self:
+
+            if r.dl_start_date:
+
+                r.dl_days_exe = daysExe(r.dl_start_date)
+
+    @api.depends('dl_activity_ids')
+    def _progress(self):
+        
+        for r in self:
                 
-            sum_day = 0
+            activities = 0
+            total_progress = 0
 
             if r.dl_activity_ids:
 
                 for activity in r.dl_activity_ids:
 
-                    if activity.ac_days_exe:
+                    total_progress += activity.ac_progress 
+                    activities += 1
 
-                        sum_day += activity.ac_days_exe
+            if activities != 0:
 
+                r.dl_progress = total_progress / activities
 
-            r.dl_days_exe = sum_day
+            else:
 
+                r.dl_progress = 0
+            
+    @api.depends('dl_activity_ids')
+    def _workreal(self):
+        
+        for r in self:
+                
+            activities = 0
+            total_workreal = 0
 
+            if r.dl_activity_ids:
+
+                for activity in r.dl_activity_ids:
+
+                    total_workreal += activity.ac_work_real 
+                    activities += 1
+
+            if activities != 0:
+
+                r.dl_work_real = total_workreal / activities
+
+            else:
+
+                r.dl_work_real = 0

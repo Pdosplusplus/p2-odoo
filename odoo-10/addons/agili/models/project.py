@@ -2,9 +2,8 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from odoo.addons.agili.common.utils import FORMA_DATE, validKey, workDays, sendEmail
+from odoo.addons.agili.common.utils import FORMA_DATE, validKey, workDays, sendEmail, daysExe
 from datetime import datetime, date
-from dateutil import rrule
 
 class Project(models.Model):
 
@@ -24,14 +23,18 @@ class Project(models.Model):
                                     compute='_diasLaborales',
                                     store=True)
 
-    days_exe = fields.Integer(string="Dias ejecutados")
+    days_exe = fields.Integer(string="Dias ejecutados",
+                              compute="_daysexe")
+
+    pj_progress = fields.Float(string="Porcentaje de Avance",
+                              compute="_progress")
+
+    pj_work_plan = fields.Integer(string="Reporte de avance real",
+                                 compute="_workplan")
 
     responsible_ids = fields.Many2many('res.users', 
                                         string="Responsables",
                                         required=True)
-
-
-    porcen_project = fields.Float(string="Avance del proyecto")
 
     workplan_id = fields.Many2one('agili.workplan',
                                 ondelete='cascade', 
@@ -84,65 +87,26 @@ class Project(models.Model):
             if r.start_date and r.end_date:
 
                 r.days_plan = workDays(r.start_date, r.end_date)
+
+    @api.depends('start_date')
+    def _daysexe(self):
+
+        for r in self:
+
+            if r.start_date:
+
+                r.days_exe = daysExe(r.start_date)
+
+    @api.depends('workplan_id')
+    def _progress(self):
+        
+        for r in self:
                 
-    """
-    #Funcion para calcular los dias ejecutados
-    @api.depends('activity_ids')
-    def _days_exec(self):
-        for r in self:
-            if not r.activity_ids:
+            if r.workplan_id:
 
-                r.days_exe = 0
-            
-            else:
-
-                days_exe = 0
-
-                for act in r.activity_ids:
-                    
-                    if act.ac_state == 'done':
-
-                        days_exe += act.ac_days_exe
-
-                r.days_exe = days_exe
-
-    #Funcion para calcular el porcentaje ejecutado de un proyecto
-    @api.depends('activity_ids')
-    def _porcent_project(self):
-        for r in self:
-            if not r.activity_ids:
-
-                r.porcen_project = 0.0
-            
-            else:
-
-                days_done = 0
+                r.pj_progress = r.workplan_id.wk_progress
 
 
-                for act in r.activity_ids:
-                    
-                    if act.ac_state == 'done':
-
-                        days_done += act.ac_days_plan
-
-                r.porcen_project = 100 * days_done / r.days_plan
-
-    @api.constrains('activity_ids')
-    def _check_days_activity(self):
-
-        for r in self:
-            
-            days_total = 0
-
-            for act in r.activity_ids:
-                
-                days_total += act.ac_days_plan
-
-                if act.ac_days_plan > r.days_plan or days_total > r.days_plan:
-                    
-                    raise ValidationError('Los dias declaradas sobrepasan a los dias planificados del proyecto')
-
-    """
     @api.model
     def print_report(self):
 
