@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime, date
-from dateutil import rrule
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from odoo.addons.agili.common.utils import workDays, daysExe
+from odoo.addons.agili.common.utils import workDays, daysExe, compareDates
 
 class Activity(models.Model):
 
@@ -52,24 +50,6 @@ class Activity(models.Model):
         
     ]
 
-    ac_state = fields.Selection([
-        ('process', "En proceso"),
-        ('stopped', "Detenida"),
-        ('done', "Terminada"),
-    ], string="Estado", default='process')
-
-    @api.multi
-    def action_process(self):
-        self.ac_state = 'process'
-
-    @api.multi
-    def action_stopped(self):
-        self.ac_state = 'stopped'
-
-    @api.multi
-    def action_done(self):
-        self.ac_state = 'done'
-
     @api.depends('ac_start_date', 'ac_end_date')
     def _diasLaborales(self):
         
@@ -88,6 +68,17 @@ class Activity(models.Model):
                     
                     raise ValidationError('Los dias ejecutados no pueden ser mayor a los planificados')
 
+    @api.onchange('ac_start_date', 'ac_end_date')
+    def _check_date(self):
+
+        for r in self:
+            
+            if r.ac_start_date and r.ac_end_date:
+
+                if compareDates(r.ac_end_date, r.ac_start_date, 'less'):
+                    
+                    raise ValidationError('La fecha de fin de la actividad no puede ser menor que la fecha de inicio')
+
     @api.depends('ac_start_date')
     def _daysexe(self):
 
@@ -105,3 +96,7 @@ class Activity(models.Model):
             if r.ac_days_exe > 0 and r.ac_days_plan > 0:
 
                 r.ac_progress = r.ac_days_exe * 100 / r.ac_days_plan
+
+                if r.ac_progress > 100:
+
+                    r.ac_progress = 100

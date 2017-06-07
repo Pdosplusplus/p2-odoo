@@ -32,7 +32,7 @@
               <page string="Hito" attrs="{'invisible': [('id', '==', False)]}">
                 <field name="milestone_ids">
                   <tree string="Añade un hito al plan de trabajo">
-                    <field name="name_ms"/>
+                    <field name="ms_name"/>
                     <field name="deliverable_ids"/>
                   </tree>
                 </field>

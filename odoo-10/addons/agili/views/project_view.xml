@@ -14,26 +14,7 @@
       <field name="arch" type="xml">
 
         <form string="Project Form">
-          <!-- State
-
-            @Description: Añadimos la logica y funcionamiento para trabajar con el estado de un proyecto. Con los siguientes botones controlamos el estado.
-          -->
-          <header>
-
-            <button name="action_process" type="object"
-            string="En Proceso"
-            states="stopped,done"/>
-            <button name="action_stopped" type="object"
-            string="Detenido" states="process,done"
-            class="oe_highlight"/>
-            <button name="action_done" type="object"
-            string="Terminado" states="stopped,process"
-            class="oe_highlight"/>
-
-            <field name="state" widget="statusbar"/>
-
-          </header>
-
+ 
           <sheet>
             <!-- Agrupamos los campos generales de un proyecto -->
             <group string="General" attrs="{'invisible': [('id', '!=', False)]}">
@@ -48,6 +29,8 @@
               <field name="end_date" attrs="{'invisible': [('id', '!=', False)]}"/>
               <field name="days_plan" attrs="{'invisible': [('id', '!=', False)]}"/>
               <field name="days_exe" readonly="1" attrs="{'invisible': [('id', '!=', False)]}"/>
+              <field name="pj_progress" readonly="1" attrs="{'invisible': [('id', '!=', False)]}"/>
+              <field name="pj_work_real" readonly="1" attrs="{'invisible': [('id', '!=', False)]}"/>
             </group>
 
 
@@ -151,6 +134,7 @@
           <field name="days_plan"/>
           <field name="days_exe"/>
           <field name="pj_progress" widget="progressbar"/>
+          <field name="pj_work_real" widget="progressbar"/>
         </tree>
         
       </field>

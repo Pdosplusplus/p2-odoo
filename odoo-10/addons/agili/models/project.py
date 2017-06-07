@@ -29,7 +29,7 @@ class Project(models.Model):
     pj_progress = fields.Float(string="Porcentaje de Avance",
                               compute="_progress")
 
-    pj_work_plan = fields.Integer(string="Reporte de avance real",
+    pj_work_real = fields.Integer(string="Reporte de avance real",
                                  compute="_workplan")
 
     responsible_ids = fields.Many2many('res.users', 
@@ -53,31 +53,6 @@ class Project(models.Model):
         'CHECK(days_plan > 0)',
         "Los dias planificados tienen que ser mayor a 0"),
     ]
-
-    state = fields.Selection([
-        ('process', "En proceso"),
-        ('stopped', "Detenido"),
-        ('done', "Terminado"),
-    ], string="Estado", default='process')
-
-    @api.multi
-    def action_process(self):
-        self.state = 'process'
-
-    @api.multi
-    def action_stopped(self):
-        self.state = 'stopped'
-
-    @api.multi
-    def action_done(self):
-        self.state = 'done'
-
-    #Función para calcular cuantas acitvidades hay en proyecto
-    @api.depends('activity_ids')
-    def _get_activities_count(self):
-        for r in self:
-            r.activities_count = len(r.activity_ids)
-            print r.activities_count
 
     @api.depends('start_date', 'end_date')
     def _diasLaborales(self):
@@ -106,6 +81,50 @@ class Project(models.Model):
 
                 r.pj_progress = r.workplan_id.wk_progress
 
+    @api.depends('workplan_id')
+    def _workplan(self):
+        
+        for r in self:
+                
+            if r.workplan_id:
+
+                r.pj_work_real = r.workplan_id.wk_work_real
+
+    @api.multi
+    def send_alert(self):
+
+        projects = self.env['agili.project'].search([('days_plan','>=', 0)])
+
+        for project in projects:
+
+            ini_date = start_date
+            end_date = end_date
+
+            ini_date = datetime.strptime(ini_date, FORMA_DATE)
+            end_date = datetime.strptime(end_date, FORMA_DATE)
+            today = datetime.now()
+
+            today_diff = str((end_date-today).days)
+            days_diff = str((end_date-ini_date).days) 
+
+            if days_diff >= 3 and project.pj_progress <= 70 and today_diff <=3:
+
+                responsibles = []
+
+                for responsible in project.responsible_ids:
+
+                    responsibles.append(responsible.email)
+
+                info = {}
+
+                info['name'] = project.name
+                info['end_date'] = end_date
+                info['days_plan'] = days_plan
+                info['days_exe'] = days_exe
+
+                addressee = responsibles
+                
+                response = sendEmail(addressee, info, emitter=None)
 
     @api.model
     def print_report(self):
@@ -118,40 +137,6 @@ class Project(models.Model):
             'context': context,
         }
 
-    """
-    @api.multi
-    def send_alert(self):
-
-        projects = self.env['agili.project'].search([('days_plan','>=', 0)])
-
-        for project in projects:
-
-            for activity in project.activity_ids:
-
-                ini_date = activity.ac_start_date
-                end_date = activity.ac_end_date
-
-                ini_date = datetime.strptime(ini_date, FORMA_DATE)
-                end_date = datetime.strptime(end_date, FORMA_DATE)
-                today = datetime.now()
-
-                today_diff = str((end_date-today).days)
-                days_diff = str((end_date-ini_date).days) 
-
-                if days_diff >= 3 and project.porcen_project <= 70 and today_diff <=3:
-
-                    info = {}
-
-                    info['name'] = activity.name
-                    info['end_date'] = activity.ac_end_date
-                    info['days_plan'] = activity.ac_days_plan
-                    info['days_exe'] = activity.ac_days_exe
-
-                    addressee = activity.ac_responsible_id.email
-                    
-                    response = sendEmail(addressee, info, emitter=None)
-
-        """
 
 class report_project_general(models.AbstractModel):
     _name = 'report.agili.report_project_general'

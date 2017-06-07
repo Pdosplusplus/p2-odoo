@@ -36,6 +36,7 @@
         'views/milestone_view.xml',
         'views/deliverable_view.xml',
         'views/activity_view.xml',
+        'views/res_users_view.xml',
         'views/report_general_js.xml',
         'views/webclient_templates.xml',
         'views/crons_view.xml',

@@ -5,6 +5,7 @@ from odoo import fields, models, tools
 import os
 
 class res_company(models.Model):
+    _name = "res.company"
     _inherit = "res.company"
 
     def _get_logo(self):

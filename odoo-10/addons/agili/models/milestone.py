@@ -13,7 +13,7 @@ class milestone(models.Model):
 
     _name = 'agili.milestone'
 
-    name_ms = fields.Char(string="Hito del proyecto",
+    ms_name = fields.Char(string="Hito del proyecto",
     					  required=True)
 
     ms_start_date = fields.Date(string="Fecha de inicio",
@@ -31,7 +31,7 @@ class milestone(models.Model):
     ms_progress = fields.Integer(string="Porcentaje de avance",
                                  compute='_progress')
 
-    ms_work_plan = fields.Integer(string="Reporte de avance real",
+    ms_work_real = fields.Integer(string="Reporte de avance real",
                                   compute="_workreal")
 
     ms_workplan_id = fields.Many2one('agili.workplan',
@@ -55,17 +55,23 @@ class milestone(models.Model):
 
         for r in self:
 
-            for deliverable in r.deliverable_ids:
+            if r.deliverable_ids:
 
-                if deliverable.dl_start_date:
+                for deliverable in r.deliverable_ids:
 
-                    if compareDates(deliverable.dl_start_date, less, 'less'):
+                    if deliverable.dl_start_date:
 
-                        less = deliverable.dl_start_date
+                        if less == '':
+                                
+                            less = DAYS_LESS
 
-                else:
+                        if compareDates(deliverable.dl_start_date, less, 'less'):
 
-                    less = ''
+                            less = deliverable.dl_start_date
+
+            else:
+
+                less = ''
 
         r.ms_start_date = less
 
@@ -76,17 +82,23 @@ class milestone(models.Model):
 
         for r in self:
 
-            for deliverable in r.deliverable_ids:
+            if r.deliverable_ids:
 
-                if deliverable.dl_end_date:
+                for deliverable in r.deliverable_ids:
 
-                    if compareDates(deliverable.dl_end_date, higher, 'higher'):
+                    if deliverable.dl_end_date:
 
-                        higher = deliverable.dl_end_date
+                        if higher == '':
 
-                else:
+                            higher = DAYS_HIGHER
 
-                    higher = ''
+                        if compareDates(deliverable.dl_end_date, higher, 'higher'):
+
+                            higher = deliverable.dl_end_date
+
+            else:
+
+                higher = ''
 
             r.ms_end_date = higher
     
@@ -152,8 +164,8 @@ class milestone(models.Model):
 
             if deliverables != 0:
 
-                r.ms_work_plan = total_workreal / deliverables
+                r.ms_work_real = total_workreal / deliverables
 
             else:
 
-                r.ms_work_plan = 0
+                r.ms_work_real = 0

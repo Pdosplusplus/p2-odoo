@@ -61,6 +61,10 @@ class Deliverable(models.Model):
 
                     if activity.ac_start_date:
 
+                        if less == '':
+                            
+                            less = DAYS_LESS
+
                         if compareDates(activity.ac_start_date, less, 'less'):
 
                             less = activity.ac_start_date
@@ -83,6 +87,10 @@ class Deliverable(models.Model):
                 for activity in r.dl_activity_ids:
 
                     if activity.ac_end_date:
+
+                        if higher == '':
+
+                            higher = DAYS_HIGHER
 
                         if compareDates(activity.ac_end_date, higher, 'higher'):
 

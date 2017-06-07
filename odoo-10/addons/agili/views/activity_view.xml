@@ -14,26 +14,6 @@
       <field name="arch" type="xml">
 
         <form string="activity Form">
-         <!-- State
-
-            @Description: Añadimos la logica y funcionamiento para trabajar con el estado de un proyecto. Con los siguientes botones controlamos el estado.
-          -->
-          <header>
-
-            <button name="action_process" type="object"
-            string="En Proceso"
-            ac_states="stopped,done"/>
-            <button name="action_stopped" type="object"
-            string="Detenida" ac_states="process,done"
-            class="oe_highlight"/>
-            <button name="action_done" type="object"
-            string="Terminada" ac_states="stopped,process"
-            class="oe_highlight"/>
-
-            <field name="ac_state" widget="statusbar"/>
-
-          </header>
-
           <sheet>
             <!-- Agrupamos los campos generales de una actividad -->
             <group string="General">
@@ -114,7 +94,6 @@
           <field name="ac_end_date"/>
           <field name="ac_responsible_id"/>
           <field name="ac_days_exe"/>
-          <field name="ac_state"/>
           <field name="ac_progress"/>
           <field name="ac_work_real"/>%
         </tree>
