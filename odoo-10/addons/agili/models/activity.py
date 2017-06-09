@@ -15,8 +15,7 @@ class Activity(models.Model):
     ac_end_date = fields.Date(string="Fecha de Fin", required=True)
    
     ac_days_plan = fields.Integer(string="Dias planificados", 
-                                compute='_diasLaborales',
-                                store=True)
+                                compute='_diasLaborales')
 
     ac_days_exe = fields.Integer(string="Dias ejecutados",
                                 compute="_daysexe")

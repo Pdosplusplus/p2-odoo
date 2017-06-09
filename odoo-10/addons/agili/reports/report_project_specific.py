@@ -18,61 +18,56 @@ class ReportProjectSpecific(models.AbstractModel):
 
     def _get_data_specific(self, data):
 
+        #Dictionary that containt the data
         info = {}
 
-        info['responsible'] = ''
+        #Data send from the wizard
+        cooperative = data['form'].get('cooperative')
+        responsible_id = data['form'].get('responsible_id')
+        projects_flag = data['form'].get('projects')
+        days_plan_flag = data['form'].get('days_plan')
+        days_exe_flag = data['form'].get('days_exe')
+
+        #Vars for the control of the data
+        info['cooperative'] = False
+        info['responsible'] = False
+        info['projects'] = False
         info['days_plan'] = 0
         info['days_exe'] = 0
-        info['projects'] = ''
-        info['activities'] = ''
-        info['advance'] = 0.0
-        info['flag_days_plan'] = False
-        info['flag_days_exe'] = False
-        info['flag_projects'] = False
-        info['flag_activities'] = False
-        info['flag_advance'] = False
+    
+        if cooperative:
 
-        responsible_id = data['form'].get('responsible_id')
-        days_plan = data['form'].get('days_plan')
-        days_exe = data['form'].get('days_exe')
+            info['cooperative'] = cooperative
 
-        info['responsible'] = responsible_id[1]
+            if projects_flag:
 
-        if data['form'].get('projects'):
+                projects = []
 
-            projects = self.env['agili.project'].search([(
-                            'responsible_ids', '=', responsible_id[0])])
+                all_projects = self.env['agili.project'].search([('days_plan', '>=', 0)])
 
-            info['projects'] = projects
-            info['flag_projects'] = True
+                for project in all_projects:
 
-        if data['form'].get('activities') or days_plan or days_exe:
+                    total_dp = 0
+                    total_dexe = 0
 
-            activities = self.env['agili.activity'].search([(
-                            'ac_responsible_id', '=', responsible_id[0])])
+                    if days_plan_flag or days_exe_flag:
 
-            days_plan = 0
-            days_exe = 0
+                        total_dp += project.days_plan
+                        total_dexe += project.days_exe
 
-            for activity in activities:
+                    for responsible in project.responsible_ids:
 
-                days_plan += activity.ac_days_plan
-                days_exe += activity.ac_days_exe
+                        if responsible.cooperative == cooperative and not project in projects:
 
-            if days_plan > 0:
+                            #Add project to list
+                            projects.append(project)
 
-                info['advance'] = days_exe * 100 / days_plan
+                #Save the list of projects
+                info['projects'] = projects
+                info['flag_projects'] = True
 
-            info['flag_advance'] = True
-
-            if days_plan:
-
-                info['days_plan'] = days_plan
-                info['flag_days_plan'] = True
-
-            if days_exe:
-
-                info['days_exe'] = days_exe
-                info['flag_days_exe'] = True
+                #Save the days with either the user or the cooperative 
+                info['days_plan'] = total_dp
+                info['days_exe'] = total_dexe
 
         return info

@@ -1,16 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <template id="report_project_specific">
-    <t t-call="agili.report_layout"/>
-      <t t-call="report.html_container">
-        <t t-call="report.internal_layout">
-          <div class="page">
-
-            <div class="center">
-              <h4> <strong> Responsable: </strong> <span t-esc="data['responsible']"/> </h4> 
+  <data>
+    <template id="project_header_specific">
+        <div class="header">
+          <div class="row">
+        
+            <div class="col-xs-3">
+              <img class="img-responsive" src="/agili/static/src/img/logo-5.png" style="max-height: 45px;"/>
             </div>
 
-            <t t-if="data['flag_projects']">
+            <div class="col-xs-9 text-right" style="margin-top:20px;">
+              Consejo Federal de Gobierno
+            </div>
+
+          </div>
+
+          <div class="row zero_min_height">
+            <div class="col-xs-12">
+              <div style="border-bottom: 1px solid black;"/>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="text-center"> Reporte Especifico</h3>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </template>
+
+    <template id="report_project_specific">
+      <t t-call="report.html_container">
+        <t t-call="agili.project_header_specific"/>
+        <t t-call="report.external_layout">
+          
+          <div class="page">
+
+            <t t-if="data['cooperative']">
+              <div class="center">
+                <h4> <strong> Cooperativa: </strong> <span t-esc="data['cooperative']"/> </h4> 
+              </div>
+            </t>
+
+            <t t-if="data['projects']">
               <div class="row"> 
                 
                 <h4> <strong> Proyectos: </strong> </h4>
@@ -26,7 +60,7 @@
                       <th> Dias Planificadas </th>
                       <th> Dias Ejecutadas</th>
                       <th> Porcentaje de avance </th>
-                      <th> Estado </th>
+                      <th> Reporte de avance real </th>
                     </thead>
 
                     <tbody>
@@ -40,11 +74,11 @@
                           </td>
 
                           <td>
-                            <span t-esc="project.start_date"/>
+                            <span class="badge badge-danger" t-esc="project.start_date"/>
                           </td>
 
                           <td>
-                            <span t-esc="project.end_date"/>
+                            <span class="badge badge-danger" t-esc="project.end_date"/>
                           </td>
 
                           <td>
@@ -57,81 +91,76 @@
 
                           <td>
                             <div class="progress">
-                              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
-                                <t t-esc="project.porcen_project"/> % % 
+                              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                <t t-esc="project.pj_progress"/> %
                               </div>
                             </div>
                           </td>
 
                           <td>
-                            <span class="badge red" t-esc="project.state"/>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                <span t-esc="project.pj_work_real"/> % 
+                              </div>
+                            </div>
                           </td>
 
                         </tr>
                       </t>
+
                     </tbody>
                   </table>
                 </div>
+
               </div>
             </t>
 
 
-        </div>
+            <t t-if="data['days_plan']">
+              <div class="row"> 
+                <table class="table table-condensed">
+                        
+                  <thead>
+                    <th colspan="2" class="center">
+                      Dias Notificados
+                    </th>
+                  </thead>
+
+                  <tbody>
+                    
+                    <t t-if="data['days_plan']">
+
+                      <tr>
+                          <td>Dias Planificados:</td>
+                          <td>
+                              <t t-esc="data['days_plan']"/>
+                          </td>
+                      </tr>
+
+                    </t>
+
+                    <t t-if="data['days_exe']">
+
+                      <tr>
+                          <td>Dias ejecutados :</td>
+                          <td>
+                              <t t-esc="data['days_exe']"/>
+                          </td>
+                      </tr>
+
+                    </t>
+                    
+                  </tbody>
+              
+                </table>
+
+              </div>
+            </t>
+          
+          </div>
+        </t>
       </t>
-    </t>
-  </template>
+    </template>
 
-  <template id="report_layout">
-      <!-- Multicompany -->
-      <t t-call="agili.report_header" />
-      <t t-call="agili.report_footer" />
-  </template>
-
-
-  <template id="report_header">
-    <div class="header">
-      
-      <div class="row">
-        
-        <div class="col-xs-3">
-          <img class="img-responsive" src="/agili/static/src/img/logo-5.png" style="max-height: 45px;"/>
-        </div>
-    
-        <div class="col-xs-9 text-right" style="margin-top:20px;">
-          Cooperativa Geekos
-        </div>
-
-      </div>
-
-      <div class="row zero_min_height">
-        <div class="col-xs-12">
-          <div style="border-bottom: 1px solid black;"/>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h3 class="text-center"> Reporte de Avance </h3>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </template>
-
-  <template id="report_footer">
-    <footer>
-      <div class='footer'>
-        <div class="row">
-          <div class="col-xs-12">
-            
-            <img class="img-responsive" src="/agili/static/src/img/footer.svg"/>
-        
-          </div>
-        </div>
-      </div> 
-    </footer>     
-  </template>
-
+  </data>
 </odoo>

@@ -6,9 +6,10 @@
             id="action_report_project_view"
             model="agili.project"
             string="Reporte del Proyecto"
+            report_type="qweb-pdf" 
+            attachment_use="False"
             name="agili.report_project_view"
             file="agili.report_project"
-            report_type="qweb-pdf" 
         />
 
         <report 
