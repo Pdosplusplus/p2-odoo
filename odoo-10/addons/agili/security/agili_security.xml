@@ -4,15 +4,21 @@
             <field name="name">Agili / Administrador</field>
         </record>
 
-         <record id="agili_user_admin_project" model="ir.rule">
+        <record id="agili_user_admin_project" model="ir.rule">
             <field name="name"> Usuario Administrador Proyecto </field>
             <field name="model_id" ref="model_agili_project"/>
             <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
         </record>
 
-        <record id="agili_user_admin_activity" model="ir.rule">
-            <field name="name"> Usuario Administrador Activity </field>
-            <field name="model_id" ref="model_agili_activity"/>
+        <record id="agili_user_admin_workplan" model="ir.rule">
+            <field name="name"> Usuario Administrador Work Plan </field>
+            <field name="model_id" ref="model_agili_workplan"/>
+            <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
+        </record>
+
+        <record id="agili_user_admin_milestone" model="ir.rule">
+            <field name="name"> Usuario Administrador milestone </field>
+            <field name="model_id" ref="model_agili_milestone"/>
             <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
         </record>
 
@@ -22,6 +28,11 @@
             <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
         </record>
 
+        <record id="agili_user_admin_activity" model="ir.rule">
+            <field name="name"> Usuario Administrador Activity </field>
+            <field name="model_id" ref="model_agili_activity"/>
+            <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
+        </record>
 
         <record id="group_agili_coordinator" model="res.groups">
             <field name="name">Agili / Coordinador </field>
@@ -38,6 +49,40 @@
             <field name="domain_force">
                 ['|', ('responsible_ids','=',False),
                       ('responsible_ids','=',user.id)]
+            </field>
+        </record>
+
+        <record id="agili_user_coordinator_workplan" model="ir.rule">
+            <field name="name">Usuario Coordinador Work Plan </field>
+            <field name="model_id" ref="model_agili_workplan"/>
+            <field name="groups" eval="[(4, ref('agili.group_agili_coordinator'))]"/>
+        </record>
+
+        <record id="agili_user_coordinator_milestone" model="ir.rule">
+            <field name="name">Usuario Coordinador Milestone</field>
+            <field name="model_id" ref="model_agili_milestone"/>
+            <field name="groups" eval="[(4, ref('agili.group_agili_coordinator'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">
+                ['|', ('ms_responsible_id','=',False),
+                      ('ms_responsible_id','=',user.id)]
+            </field>
+        </record>
+
+        <record id="agili_user_coordinator_deliverable" model="ir.rule">
+            <field name="name">Usuario Coordinador Deliverable </field>
+            <field name="model_id" ref="model_agili_deliverable"/>
+            <field name="groups" eval="[(4, ref('agili.group_agili_coordinator'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="domain_force">
+                ['|', ('dl_responsible_id','=',False),
+                      ('dl_responsible_id','=',user.id)]
             </field>
         </record>
 
@@ -65,11 +110,29 @@
             <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
         </record>
 
-        <record id="agili_user_cooperative_activity" model="ir.rule">
-            <field name="name"> Usuario Cooperativista Actividad </field>
-            <field name="model_id" ref="model_agili_project"/>
+        <record id="agili_user_cooperative_workplan" model="ir.rule">
+            <field name="name"> Usuario Cooperativista Work Plan </field>
+            <field name="model_id" ref="model_agili_workplan"/>
             <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
-            <field name="perm_read" eval="0"/>
+        </record>
+
+        <record id="agili_user_cooperative_milestone" model="ir.rule">
+            <field name="name"> Usuario Cooperativista milestone </field>
+            <field name="model_id" ref="model_agili_milestone"/>
+            <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
+        </record>
+
+        <record id="agili_user_cooperative_deliverable" model="ir.rule">
+            <field name="name"> Usuario Cooperativista Deliverable </field>
+            <field name="model_id" ref="model_agili_deliverable"/>
+            <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
+        </record>
+
+        <record id="agili_user_cooperative_activity" model="ir.rule">
+            <field name="name"> Usuario Cooperativista Activity </field>
+            <field name="model_id" ref="model_agili_activity"/>
+            <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
+            <field name="perm_read" eval="1"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="0"/>
             <field name="perm_unlink" eval="0"/>
@@ -77,13 +140,6 @@
                 ['|', ('ac_responsible_id','=',False),
                       ('ac_responsible_id','=',user.id)]
             </field>
-        </record>
-
-
-        <record id="agili_user_cooperative_deliverable" model="ir.rule">
-            <field name="name"> Usuario Cooperativista Entregable </field>
-            <field name="model_id" ref="model_agili_deliverable"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
         </record>
 
     </data>
