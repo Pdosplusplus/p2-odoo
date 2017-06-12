@@ -136,13 +136,13 @@ class Deliverable(models.Model):
                     total_progress += activity.ac_progress 
                     activities += 1
 
-            if activities != 0:
+                if activities > 0:
 
-                r.dl_progress = total_progress / activities
+                    r.dl_progress = total_progress / activities
 
-            else:
+                else:
 
-                r.dl_progress = 0
+                    r.dl_progress = 0
             
     @api.depends('dl_activity_ids')
     def _workreal(self):
@@ -159,10 +159,10 @@ class Deliverable(models.Model):
                     total_workreal += activity.ac_work_real 
                     activities += 1
 
-            if activities != 0:
+                if activities > 0:
 
-                r.dl_work_real = total_workreal / activities
+                    r.dl_work_real = total_workreal / activities
 
-            else:
+                else:
 
-                r.dl_work_real = 0
+                    r.dl_work_real = 0

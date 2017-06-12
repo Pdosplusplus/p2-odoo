@@ -161,11 +161,10 @@ class milestone(models.Model):
                     total_workreal += deliverable.dl_work_real 
                     deliverables += 1
 
+                if deliverables > 0:
 
-            if deliverables != 0:
+                    r.ms_work_real = total_workreal / deliverables
 
-                r.ms_work_real = total_workreal / deliverables
+                else:
 
-            else:
-
-                r.ms_work_real = 0
+                    r.ms_work_real = 0

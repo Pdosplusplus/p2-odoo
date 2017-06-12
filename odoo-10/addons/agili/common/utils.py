@@ -10,7 +10,7 @@ from email.MIMEText import MIMEText
 #PASSWD_MAIL = os.environ['PASSWDMAIL']
 FORMA_DATE="%Y-%m-%d"
 EMITTER ="SABE"
-PASSWD_MAIL="vpino.geekos"
+PASSWD_MAIL="vpino"
 DAYS_LESS = '2017-12-31'
 DAYS_HIGHER = '2017-01-01'
 

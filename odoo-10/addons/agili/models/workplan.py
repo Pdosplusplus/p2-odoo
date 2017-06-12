@@ -40,13 +40,13 @@ class Workplan(models.Model):
                     total_progress += milestone.ms_progress 
                     milestones += 1
 
-            if milestones != 0:
+                if milestones > 0:
 
-                r.wk_progress = total_progress / milestones
+                    r.wk_progress = total_progress / milestones
 
-            else:
+                else:
 
-                r.wk_progress = 0
+                    r.wk_progress = 0
 
     @api.depends('milestone_ids')
     def _workreal(self):
@@ -63,11 +63,11 @@ class Workplan(models.Model):
                     total_workreal += milestone.ms_work_real 
                     milestones += 1
 
-            if milestones != 0:
+                if milestones > 0:
 
-                r.wk_work_real = total_workreal / milestones
+                    r.wk_work_real = total_workreal / milestones
 
-            else:
+                else:
 
-                r.wk_work_real = 0
+                    r.wk_work_real = 0
 
