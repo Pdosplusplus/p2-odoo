@@ -95,7 +95,7 @@
           <field name="ac_responsible_id"/>
           <field name="ac_days_exe"/>
           <field name="ac_progress"/>
-          <field name="ac_work_real"/>%
+          <field name="ac_work_real"/>
         </tree>
       </field>
 
@@ -138,11 +138,10 @@
 
       </record>
       
-      <!-- Añadimos un submenu al menu de gestion de proyectos 
+      <!-- Añadimos un submenu al menu de gestion de proyectos -->
       <menuitem id="activity_menu" name="Actividades" 
             parent="agili_menu"
             action="activity_list_action"/>
-      -->
-
+      
   </data>
 </odoo>

@@ -35,37 +35,57 @@ class ReportProjectSpecific(models.AbstractModel):
         info['days_plan'] = 0
         info['days_exe'] = 0
     
-        if cooperative:
+        #Get all projects
+        all_projects = self.env['agili.project'].search([('days_plan', '>=', 0)])
 
-            info['cooperative'] = cooperative
+        projects = []
+
+        for project in all_projects:
+
+            total_dp = 0
+            total_dexe = 0
+
+            for responsible in project.responsible_ids:
+
+                if cooperative:
+
+                    if responsible.cooperative == cooperative and not project in projects:
+
+                        if days_plan_flag or days_exe_flag:
+
+                            total_dp += project.days_plan
+                            total_dexe += project.days_exe
+
+                        #Add project to list
+                        projects.append(project)
+
+                if responsible_id:
+
+                    if responsible.id == responsible_id[0] and not project in projects:
+
+                        if days_plan_flag or days_exe_flag:
+
+                            total_dp += project.days_plan
+                            total_dexe += project.days_exe
+
+                        #Add project to list
+                        projects.append(project)
+
+            if cooperative:
+
+                info['cooperative'] = cooperative
+
+            if responsible_id:
+
+                info['responsible'] = responsible_id[1]
 
             if projects_flag:
-
-                projects = []
-
-                all_projects = self.env['agili.project'].search([('days_plan', '>=', 0)])
-
-                for project in all_projects:
-
-                    total_dp = 0
-                    total_dexe = 0
-
-                    if days_plan_flag or days_exe_flag:
-
-                        total_dp += project.days_plan
-                        total_dexe += project.days_exe
-
-                    for responsible in project.responsible_ids:
-
-                        if responsible.cooperative == cooperative and not project in projects:
-
-                            #Add project to list
-                            projects.append(project)
 
                 #Save the list of projects
                 info['projects'] = projects
                 info['flag_projects'] = True
 
+            if days_plan_flag or days_exe_flag:
                 #Save the days with either the user or the cooperative 
                 info['days_plan'] = total_dp
                 info['days_exe'] = total_dexe

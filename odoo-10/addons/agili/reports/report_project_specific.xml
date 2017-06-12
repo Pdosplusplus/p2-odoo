@@ -44,6 +44,12 @@
               </div>
             </t>
 
+            <t t-if="data['responsible']">
+              <div class="center">
+                <h4> <strong> Cooperativista: </strong> <span t-esc="data['responsible']"/> </h4> 
+              </div>
+            </t>
+
             <t t-if="data['projects']">
               <div class="row"> 
                 
@@ -115,48 +121,18 @@
               </div>
             </t>
 
-
             <t t-if="data['days_plan']">
-              <div class="row"> 
-                <table class="table table-condensed">
-                        
-                  <thead>
-                    <th colspan="2" class="center">
-                      Dias Notificados
-                    </th>
-                  </thead>
-
-                  <tbody>
-                    
-                    <t t-if="data['days_plan']">
-
-                      <tr>
-                          <td>Dias Planificados:</td>
-                          <td>
-                              <t t-esc="data['days_plan']"/>
-                          </td>
-                      </tr>
-
-                    </t>
-
-                    <t t-if="data['days_exe']">
-
-                      <tr>
-                          <td>Dias ejecutados :</td>
-                          <td>
-                              <t t-esc="data['days_exe']"/>
-                          </td>
-                      </tr>
-
-                    </t>
-                    
-                  </tbody>
-              
-                </table>
-
+              <div class="center">
+                <h4> <strong> Dias planificados: </strong> <span class="badge" t-esc="data['days_plan']"/> </h4>
               </div>
             </t>
-          
+
+            <t t-if="data['days_exe']">
+              <div class="center">
+                <h4> <strong> Dias ejecutados: </strong> <span class="badge" t-esc="data['days_exe']"/> </h4> 
+              </div>
+            </t>
+
           </div>
         </t>
       </t>

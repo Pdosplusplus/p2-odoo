@@ -96,8 +96,8 @@ class Project(models.Model):
 
         for project in projects:
 
-            ini_date = start_date
-            end_date = end_date
+            ini_date = project.start_date
+            end_date = project.end_date
 
             ini_date = datetime.strptime(ini_date, FORMA_DATE)
             end_date = datetime.strptime(end_date, FORMA_DATE)

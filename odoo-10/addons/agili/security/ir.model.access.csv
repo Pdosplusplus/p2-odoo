@@ -1,10 +1,16 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 project_agili_admin,agili.project access admin,model_agili_project,group_agili_manager,1,1,1,1
-project_agili_coordinator,agili.project access coordinator,model_agili_project,group_agili_coordinator,1,1,0,0
+project_agili_coordinator,agili.project access coordinator,model_agili_project,group_agili_coordinator,1,1,1,0
 project_agili_cooperative,agili.project access cooperative,model_agili_project,group_agili_cooperative,1,0,0,0
-activity_admin,agili.activity access admin,model_agili_activity,group_agili_manager,1,1,1,1
-activity_coordinator,agili.activity access coordinator,model_agili_activity,group_agili_coordinator,1,1,1,0
-activity_cooperative,agili.activity access cooperative,model_agili_activity,group_agili_cooperative,1,1,0,0
+workplan_agili_admin,agili.workplan access admin,model_agili_workplan,group_agili_manager,1,1,1,1
+workplan_agili_coordinator,agili.workplan access coordinator,model_agili_workplan,group_agili_coordinator,1,1,1,0
+workplan_agili_cooperative,agili.workplan access cooperative,model_agili_workplan,group_agili_cooperative,1,0,0,0
+milestone_agili_admin,agili.milestone access admin,model_agili_milestone,group_agili_manager,1,1,1,1
+milestone_agili_coordinator,agili.milestone access coordinator,model_agili_milestone,group_agili_coordinator,1,1,1,1
+milestone_agili_cooperative,agili.milestone access cooperative,model_agili_milestone,group_agili_cooperative,1,0,0,0
 deliverable_agili_admin,agili.deliverable access admin,model_agili_deliverable,group_agili_manager,1,1,1,1
-deliverable_agili_coordinator,agili.deliverable access coordinator,model_agili_deliverable,group_agili_coordinator,1,1,1,0
-deliverable_agili_cooperative,agili.deliverable access cooperative,model_agili_deliverable,group_agili_cooperative,1,1,1,0
+deliverable_agili_coordinator,agili.deliverable access coordinator,model_agili_deliverable,group_agili_coordinator,1,1,1,1
+deliverable_agili_cooperative,agili.deliverable access cooperative,model_agili_deliverable,group_agili_cooperative,1,0,0,0
+activity_agili_admin,agili.activity access admin,model_agili_activity,group_agili_manager,1,1,1,1
+activity_agili_coordinator,agili.activity access coordinator,model_agili_activity,group_agili_coordinator,1,1,1,1
+activity_agili_cooperative,agili.activity access cooperative,model_agili_activity,group_agili_cooperative,1,1,1,0
