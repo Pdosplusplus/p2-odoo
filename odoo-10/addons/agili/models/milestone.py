@@ -137,14 +137,13 @@ class milestone(models.Model):
                     total_progress += deliverable.dl_progress 
                     deliverables += 1
 
+                if deliverables > 0:
 
-            if deliverables != 0:
+                    r.ms_progress = total_progress / deliverables
 
-                r.ms_progress = total_progress / deliverables
+                else:
 
-            else:
-
-                r.ms_progress = 0
+                    r.ms_progress = 0
 
     @api.depends('deliverable_ids')
     def _workreal(self):

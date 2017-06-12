@@ -29,7 +29,7 @@ class Project(models.Model):
                               compute="_progress")
 
     pj_work_real = fields.Integer(string="Reporte de avance real",
-                                 compute="_workplan")
+                                 compute="_workreal")
 
     responsible_ids = fields.Many2many('res.users', 
                                         string="Responsables",
@@ -81,7 +81,7 @@ class Project(models.Model):
                 r.pj_progress = r.workplan_id.wk_progress
 
     @api.depends('workplan_id')
-    def _workplan(self):
+    def _workreal(self):
         
         for r in self:
                 
