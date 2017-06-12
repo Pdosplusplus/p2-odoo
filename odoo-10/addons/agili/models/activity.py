@@ -78,14 +78,14 @@ class Activity(models.Model):
                     
                     raise ValidationError('La fecha de fin de la actividad no puede ser menor que la fecha de inicio')
 
-    @api.depends('ac_start_date')
+    @api.depends('ac_start_date', 'ac_end_date')
     def _daysexe(self):
 
         for r in self:
 
-            if r.ac_start_date:
+            if r.ac_start_date and r.ac_end_date:
 
-                r.ac_days_exe = daysExe(r.ac_start_date)
+                r.ac_days_exe = daysExe(r.ac_start_date, r.ac_end_date)
 
     @api.depends('ac_days_exe', 'ac_days_plan')
     def _progress(self):

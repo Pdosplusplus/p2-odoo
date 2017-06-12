@@ -69,7 +69,7 @@ class Project(models.Model):
 
             if r.start_date:
 
-                r.days_exe = daysExe(r.start_date)
+                r.days_exe = daysExe(r.start_date, r.end_date)
 
     @api.depends('workplan_id')
     def _progress(self):

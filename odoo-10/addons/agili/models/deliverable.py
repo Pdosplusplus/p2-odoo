@@ -112,14 +112,14 @@ class Deliverable(models.Model):
                 r.dl_days_plan = workDays(r.dl_start_date, r.dl_end_date)
 
 
-    @api.depends('dl_start_date')
+    @api.depends('dl_start_date', 'dl_end_date')
     def _daysexe(self):
 
         for r in self:
 
             if r.dl_start_date:
 
-                r.dl_days_exe = daysExe(r.dl_start_date)
+                r.dl_days_exe = daysExe(r.dl_start_date, r.dl_end_date)
 
     @api.depends('dl_activity_ids')
     def _progress(self):

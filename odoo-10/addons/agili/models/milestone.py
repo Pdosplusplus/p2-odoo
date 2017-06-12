@@ -110,7 +110,7 @@ class milestone(models.Model):
 
             if r.ms_start_date:
 
-                r.ms_days_exe = daysExe(r.ms_start_date)
+                r.ms_days_exe = daysExe(r.ms_start_date, r.ms_end_date)
 
     @api.depends('ms_start_date', 'ms_end_date')
     def _diasLaborales(self):

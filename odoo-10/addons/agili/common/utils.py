@@ -33,22 +33,15 @@ def compareDates(dateone, datetwo, operation):
 
 	return False
 
-def daysExe(date):
+def daysExe(date_start, date_end):
 
-	fecha = datetime.now().date()
+	today = datetime.now().date()
 
-	today = datetime.strptime(str(fecha), FORMA_DATE)
-	date_give = datetime.strptime(str(date), FORMA_DATE)
+	if compareDates(today, date_end, 'higher'):
 
-	exe = date_give - today
+		return workDays(date_start, date_end)
 
-	if exe.days < 0:
-
-		exe = exe.days * -1
-
-		return int(exe)
-
-	return int(exe.days)
+	return workDays(date_start, today)
 
 def workDays(start_date, end_date):
         
