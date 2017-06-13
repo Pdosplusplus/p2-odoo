@@ -1,34 +1,28 @@
 <odoo>
   <data>
     <template id="project_header">
-        <div class="header">
-          <div class="row">
-        
-            <div class="col-xs-3">
-              <img class="img-responsive" src="/agili/static/src/img/logo-5.png" style="max-height: 45px;"/>
-            </div>
-
-            <div class="col-xs-9 text-right" style="margin-top:20px;">
-              Consejo Federal de Gobierno
-            </div>
-
+      <div class="header">
+        <div class="row">
+          <div class="col-xs-12">
+            <img class="img-responsive" src="/agili/static/src/img/report-header.png" />
           </div>
-
-          <div class="row zero_min_height">
-            <div class="col-xs-12">
-              <div style="border-bottom: 1px solid black;"/>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                <h3 class="text-center"> Reporte del Proyecto</h3>
-              </div>
-            </div>
-          </div>
-
         </div>
+
+        <div class="row">
+          <div class="panel" style="max-height: 50px;">
+            <div class="panel-heading">
+              <h3 class="text-center"> Reporte del Proyecto</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="row zero_min_height">
+          <div class="col-xs-12">
+            <div style="border-bottom: 1px solid black;"/>
+          </div>
+        </div>
+
+      </div>
     </template>
 
     <template id="report_project_view">
@@ -129,6 +123,12 @@
               <h4> 
                 <strong> Hitos: </strong> 
               </h4>
+
+              <div class="row zero_min_height">
+                <div class="col-xs-12">
+                  <div style="border-bottom: 1px solid black;"/>
+                </div>
+              </div>
               
               <br/>
 
@@ -136,11 +136,11 @@
               
                 <thead>
 
-                  <th>
+                  <th class="text-center">
                     Nombre
                   </th>
 
-                  <th>
+                  <th class="text-center">
                     Fecha de incio
                   </th>
 
@@ -148,23 +148,23 @@
                     Fecha de entrega
                   </th>
                   
-                  <th>
+                  <th class="text-center">
                     Dias Planificados
                   </th>
 
-                  <th>
+                  <th class="text-center">
                     Dias Ejecutados
                   </th>
 
-                  <th>
+                  <th class="text-center">
                     Porcentaje de avance
                   </th>
 
-                  <th>
-                    Reporte de avance real
+                  <th class="text-center">
+                    Reporte de avance real en dias
                   </th>
 
-                  <th>
+                  <th class="text-center">
                     Responsable
                   </th>
 
@@ -206,12 +206,7 @@
                       </td>
 
                       <td>
-                        <div class="progress">
-                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                              <t t-esc="milestone.ms_work_real"/>
-                              <span>%</span>
-                          </div>
-                        </div>
+                        <span class="badge" t-esc="milestone.ms_work_real"/>
                       </td>
 
                       <td>
@@ -232,5 +227,21 @@
         </t>
       </t>
     </template>
+
+    <template id="external_layout_footer_customized" inherit_id="report.external_layout_footer">
+      <xpath expr="//div[@class='footer']" position="replace">
+        <div class="footer">
+          <div class="row">
+        
+            <div class="col-xs-12">
+              <img class="img-responsive" src="/agili/static/src/img/report-footer.png" />
+            </div>
+
+          </div>
+
+        </div>
+      </xpath>
+    </template>
+
   </data>
 </odoo>

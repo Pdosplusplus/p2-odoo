@@ -1,34 +1,28 @@
 <odoo>
   <data>
     <template id="project_header_general">
-        <div class="header">
-          <div class="row">
-        
-            <div class="col-xs-3">
-              <img class="img-responsive" src="/agili/static/src/img/logo-5.png" style="max-height: 45px;"/>
-            </div>
-
-            <div class="col-xs-9 text-right" style="margin-top:20px;">
-              Consejo Federal de Gobierno
-            </div>
-
+      <div class="header">
+        <div class="row">
+          <div class="col-xs-12">
+            <img class="img-responsive" src="/agili/static/src/img/report-header.png" />
           </div>
-
-          <div class="row zero_min_height">
-            <div class="col-xs-12">
-              <div style="border-bottom: 1px solid black;"/>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                <h3 class="text-center"> Reporte General</h3>
-              </div>
-            </div>
-          </div>
-
         </div>
+
+        <div class="row">
+          <div class="panel" style="max-height: 50px;">
+            <div class="panel-heading">
+              <h3 class="text-center"> Reporte General</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="row zero_min_height">
+          <div class="col-xs-12">
+            <div style="border-bottom: 1px solid black;"/>
+          </div>
+        </div>
+
+      </div>
     </template>
 
     <template id="report_project_general">
@@ -95,5 +89,20 @@
       </t>
     </template>
 
+    <template id="external_layout_footer_customized" inherit_id="report.external_layout_footer">
+      <xpath expr="//div[@class='footer']" position="replace">
+        <div class="footer">
+          <div class="row">
+        
+            <div class="col-xs-12">
+              <img class="img-responsive" src="/agili/static/src/img/report-footer.png" />
+            </div>
+
+          </div>
+
+        </div>
+      </xpath>
+    </template>
+    
   </data>
 </odoo>

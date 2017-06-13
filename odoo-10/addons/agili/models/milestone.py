@@ -31,7 +31,7 @@ class milestone(models.Model):
     ms_progress = fields.Integer(string="Porcentaje de avance",
                                  compute='_progress')
 
-    ms_work_real = fields.Integer(string="Reporte de avance real",
+    ms_work_real = fields.Integer(string="Reporte de avance real en dias",
                                   compute="_workreal")
 
     ms_workplan_id = fields.Many2one('agili.workplan',

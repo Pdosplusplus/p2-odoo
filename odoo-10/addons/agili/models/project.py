@@ -28,7 +28,7 @@ class Project(models.Model):
     pj_progress = fields.Float(string="Porcentaje de Avance",
                               compute="_progress")
 
-    pj_work_real = fields.Integer(string="Reporte de avance real",
+    pj_work_real = fields.Integer(string="Reporte de avance real en dias",
                                  compute="_workreal")
 
     responsible_ids = fields.Many2many('res.users', 
