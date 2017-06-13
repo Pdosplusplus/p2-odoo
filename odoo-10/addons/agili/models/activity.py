@@ -23,7 +23,7 @@ class Activity(models.Model):
     ac_progress = fields.Integer(string="Porcentaje de avance",
                                 compute="_progress")
 
-    ac_work_real = fields.Integer(string="Reporte de trabajo real")
+    ac_work_real = fields.Integer(string="Reporte de trabajo real en dias")
 
     ac_responsible_id = fields.Many2one('res.users',
                             ondelete='set null',

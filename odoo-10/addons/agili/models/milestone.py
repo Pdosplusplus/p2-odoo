@@ -150,7 +150,6 @@ class milestone(models.Model):
         
         for r in self:
                 
-            deliverables = 0
             total_workreal = 0
 
             if r.deliverable_ids:
@@ -158,12 +157,5 @@ class milestone(models.Model):
                 for deliverable in r.deliverable_ids:
 
                     total_workreal += deliverable.dl_work_real 
-                    deliverables += 1
 
-                if deliverables > 0:
-
-                    r.ms_work_real = total_workreal / deliverables
-
-                else:
-
-                    r.ms_work_real = 0
+                r.ms_work_real = total_workreal 

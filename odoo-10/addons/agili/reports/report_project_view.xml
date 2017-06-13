@@ -137,15 +137,15 @@
                 <thead>
 
                   <th>
+                    Nombre
+                  </th>
+
+                  <th>
                     Fecha de incio
                   </th>
 
                   <th>
                     Fecha de entrega
-                  </th>
-                  
-                  <th>
-                    Nombre
                   </th>
                   
                   <th>
@@ -172,8 +172,13 @@
 
                 <tbody>
 
+
                   <t t-foreach="o.workplan_id.milestone_ids" t-as="milestone">
                     <tr>
+
+                      <td>
+                         <span t-field="milestone.ms_name"/>
+                      </td>
 
                       <td>
                          <span class="badge" t-esc="milestone.ms_start_date"/>
@@ -181,10 +186,6 @@
                      
                       <td>
                          <span class="badge" t-esc="milestone.ms_end_date"/>
-                      </td>
-
-                      <td>
-                         <span t-field="milestone.ms_name"/>
                       </td>
 
                       <td>

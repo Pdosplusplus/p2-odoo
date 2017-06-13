@@ -53,7 +53,6 @@ class Workplan(models.Model):
         
         for r in self:
                 
-            milestones = 0
             total_workreal = 0
 
             if r.milestone_ids:
@@ -61,13 +60,6 @@ class Workplan(models.Model):
                 for milestone in r.milestone_ids:
 
                     total_workreal += milestone.ms_work_real 
-                    milestones += 1
+                 
 
-                if milestones > 0:
-
-                    r.wk_work_real = total_workreal / milestones
-
-                else:
-
-                    r.wk_work_real = 0
-
+                r.wk_work_real = total_workreal

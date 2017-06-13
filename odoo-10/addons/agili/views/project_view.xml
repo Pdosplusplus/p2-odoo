@@ -134,7 +134,7 @@
           <field name="days_plan"/>
           <field name="days_exe"/>
           <field name="pj_progress" widget="progressbar"/>
-          <field name="pj_work_real" widget="progressbar"/>
+          <field name="pj_work_real"/>
         </tree>
         
       </field>

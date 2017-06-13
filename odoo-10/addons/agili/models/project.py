@@ -106,7 +106,7 @@ class Project(models.Model):
             today_diff = str((end_date-today).days)
             days_diff = str((end_date-ini_date).days) 
 
-            if days_diff >= 3 and project.pj_progress <= 70 and today_diff <=3:
+            if days_diff >= 3 and project.pj_progress <= 70 and today_diff <=3 or today_diff == 0 and project.pj_progress < 100:
 
                 responsibles = []
 

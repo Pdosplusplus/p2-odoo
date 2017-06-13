@@ -27,7 +27,7 @@ class Deliverable(models.Model):
     dl_progress = fields.Integer(string="Porcentaje de avance",
                                  compute="_progress")
 
-    dl_work_real = fields.Integer(string="Reporte de avance real",
+    dl_work_real = fields.Integer(string="Reporte de avance real en dias",
                                         compute="_workreal")
 
     dl_workplan_id = fields.Many2one('agili.workplan',
@@ -149,7 +149,6 @@ class Deliverable(models.Model):
         
         for r in self:
                 
-            activities = 0
             total_workreal = 0
 
             if r.dl_activity_ids:
@@ -157,12 +156,7 @@ class Deliverable(models.Model):
                 for activity in r.dl_activity_ids:
 
                     total_workreal += activity.ac_work_real 
-                    activities += 1
 
-                if activities > 0:
+                r.dl_work_real = total_workreal
 
-                    r.dl_work_real = total_workreal / activities
-
-                else:
-
-                    r.dl_work_real = 0
+   
