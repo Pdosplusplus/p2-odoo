@@ -89,7 +89,7 @@
                   </tr>
 
                   <tr>
-                      <td>Reporte de avance real:</td>
+                      <td>Reporte de avance real en dias:</td>
                       <td>
                         <span class="badge" t-esc="o.pj_work_real"/>
                     

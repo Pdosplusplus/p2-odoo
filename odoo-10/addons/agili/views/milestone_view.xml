@@ -22,8 +22,8 @@
               <field name="ms_end_date"/>
               <field name="ms_days_plan"/>
               <field name="ms_days_exe"/>
-              <field name="ms_progress"/>
               <field name="ms_work_real"/>
+              <field name="ms_progress"/>
               <field name="ms_responsible_id"/>
             </group>
 
@@ -70,8 +70,8 @@
           <field name="ms_end_date"/>
           <field name="ms_days_plan"/>
           <field name="ms_days_exe"/>
-          <field name="ms_progress"/>
           <field name="ms_work_real"/>
+          <field name="ms_progress"/>
           <field name="deliverable_ids"/>
           <field name="ms_responsible_id"/>
         </tree>
