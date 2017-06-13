@@ -38,7 +38,8 @@ class report_project_general(models.AbstractModel):
             data['name'] = cooperative
             data['projects'] = 0
             data['days_plan'] = 0 
-            data['days_exe'] = 0 
+            data['days_exe'] = 0
+            data['workreal'] = 0
             data['progress'] = 0 
 
             total_progress = 0 
@@ -52,6 +53,7 @@ class report_project_general(models.AbstractModel):
                         data['projects'] += 1
                         data['days_plan'] += project.days_plan
                         data['days_exe'] += project.days_exe
+                        data['workreal'] += project.pj_work_real
                         total_progress += project.pj_progress
 
                         #Add project to list

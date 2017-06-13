@@ -32,23 +32,25 @@
       
           <div class="page">
 
-            <t t-foreach="data['cooperative']" t-as="cooperative">
+            <div class="row"> 
               
-              <div class="row"> 
+              <div class="panel panel-default table-responsive">
                 
-                <div class="panel panel-default table-responsive">
+                <table class="table table-hover ">
                   
-                  <table class="table table-hover ">
-                    
-                    <thead>
-                      <th> Cooperativa </th>
-                      <th> Proyectos </th>
-                      <th> Dias Planificadas </th>
-                      <th> Dias Ejecutadas</th>
-                      <th> Porcentaje de avance </th>
-                    </thead>
+                  <thead>
+                    <th> Cooperativa </th>
+                    <th> Proyectos </th>
+                    <th> Dias Planificadas </th>
+                    <th> Dias Ejecutadas</th>
+                    <th> Repor de avance real en dias </th>
+                    <th> Porcentaje de avance </th>
+                  </thead>
 
-                    <tbody>
+                  <tbody>
+
+                    <t t-foreach="data['cooperative']" t-as="cooperative">
+
                       <tr>
 
                         <td>
@@ -68,6 +70,10 @@
                         </td>
 
                         <td>
+                          <span class="badge badge-danger" t-esc="cooperative['workreal']"/>
+                        </td>
+
+                        <td>
                           <div class="progress">
                             <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
                               <span t-esc="cooperative['progress']"/> % 
@@ -76,14 +82,15 @@
                         </td>
 
                       </tr>
-                    </tbody>
+                    </t>
 
-                  </table>
+                  </tbody>
 
-                </div>
+                </table>
+
               </div>
-            </t>
-
+            </div>
+            
           </div>
         </t>
       </t>
@@ -103,6 +110,6 @@
         </div>
       </xpath>
     </template>
-    
+
   </data>
 </odoo>
