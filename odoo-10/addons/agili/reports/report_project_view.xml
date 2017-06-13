@@ -89,26 +89,20 @@
                   </tr>
 
                   <tr>
+                      <td>Reporte de avance real:</td>
+                      <td>
+                        <span class="badge" t-esc="o.pj_work_real"/>
+                    
+                      </td>
+                  </tr>
+
+                  <tr>
                       <td>Porcentaje de Avance:</td>
                       <td>
                         
                         <div class="progress">
                           <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
                               <t t-esc="o.pj_progress"/>
-                              <span> % </span>
-                          </div>
-                        </div>
-                    
-                      </td>
-                  </tr>
-
-                  <tr>
-                      <td>Reporte de avance real:</td>
-                      <td>
-                        
-                        <div class="progress">
-                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                              <span t-esc="o.pj_work_real"/>
                               <span> % </span>
                           </div>
                         </div>
@@ -157,11 +151,11 @@
                   </th>
 
                   <th class="text-center">
-                    Porcentaje de avance
+                    Reporte de avance real en dias
                   </th>
 
                   <th class="text-center">
-                    Reporte de avance real en dias
+                    Porcentaje de avance
                   </th>
 
                   <th class="text-center">
@@ -171,7 +165,6 @@
                 </thead>
 
                 <tbody>
-
 
                   <t t-foreach="o.workplan_id.milestone_ids" t-as="milestone">
                     <tr>
@@ -197,16 +190,16 @@
                       </td>
 
                       <td>
+                        <span class="badge" t-esc="milestone.ms_work_real"/>
+                      </td>
+
+                      <td>
                         <div class="progress">
                           <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
                               <t t-esc="milestone.ms_progress"/>
                               <span>%</span>
                           </div>
                         </div>
-                      </td>
-
-                      <td>
-                        <span class="badge" t-esc="milestone.ms_work_real"/>
                       </td>
 
                       <td>
