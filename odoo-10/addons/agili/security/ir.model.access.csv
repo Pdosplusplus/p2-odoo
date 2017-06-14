@@ -14,3 +14,6 @@ deliverable_agili_cooperative,agili.deliverable access cooperative,model_agili_d
 activity_agili_admin,agili.activity access admin,model_agili_activity,group_agili_manager,1,1,1,1
 activity_agili_coordinator,agili.activity access coordinator,model_agili_activity,group_agili_coordinator,1,1,1,1
 activity_agili_cooperative,agili.activity access cooperative,model_agili_activity,group_agili_cooperative,1,1,1,0
+user_agili_admin,base.res.users access admin,base.model_res_users,group_agili_manager,1,0,0,0
+user_agili_coordinator,base.res.users access coordinator,base.model_res_users,group_agili_coordinator,1,1,1,1
+user_agili_cooperative,base.res.users access cooperative,base.model_res_users,group_agili_cooperative,1,0,0,0

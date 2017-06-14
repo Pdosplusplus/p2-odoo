@@ -48,7 +48,9 @@
                 @Description: Esta page del notebook nos permite añadir resposables al proyecto y mostramos una lista de ellos solo con los campos necesarios.
               -->
               <page string="Responsables">
-                <field name="responsible_ids"/>
+                <field name="responsible_ids"
+                  options="{'no_create': True}"
+                  />
               </page>
 
                <!-- Page Plan de trabajo 
