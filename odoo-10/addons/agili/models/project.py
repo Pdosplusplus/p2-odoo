@@ -22,22 +22,20 @@ class Project(models.Model):
     days_plan = fields.Integer(string="Dias planificados", 
                                     compute='_diasLaborales')
 
-    days_exe = fields.Integer(string="Dias ejecutados",
-                              compute="_daysexe")
+    days_exe = fields.Integer(string="Dias ejecutados")
 
-    pj_progress = fields.Float(string="Porcentaje de Avance",
-                              compute="_progress")
+    pj_progress = fields.Float(string="Porcentaje de Avance")
 
-    pj_work_real = fields.Integer(string="Reporte de avance real en dias",
-                                 compute="_workreal")
+    pj_work_real = fields.Integer(string="Reporte de avance real en dias")
 
     responsible_ids = fields.Many2many('res.users', 
                                         string="Responsables",
                                         required=True)
 
-    workplan_id = fields.Many2one('agili.workplan',
-                                ondelete='cascade', 
-                                string="Plan de trabajo")
+    milestone_ids = fields.One2many('agili.milestone', 
+                        'ms_project_id', 
+                        string="Hitos")
+
 
     _sql_constraints = [
         ('name_description_check',
@@ -71,30 +69,17 @@ class Project(models.Model):
 
                 r.days_exe = daysExe(r.start_date, r.end_date)
 
-    @api.depends('workplan_id')
-    def _progress(self):
-        
-        for r in self:
-                
-            if r.workplan_id:
-
-                r.pj_progress = r.workplan_id.wk_progress
-
-    @api.depends('workplan_id')
-    def _workreal(self):
-        
-        for r in self:
-                
-            if r.workplan_id:
-
-                r.pj_work_real = r.workplan_id.wk_work_real
 
     @api.multi
     def send_alert(self):
 
+        print "Entro en la funcion de enviar correos"
+
         projects = self.env['agili.project'].search([('days_plan','>=', 0)])
 
         for project in projects:
+
+            print "Entro en el for de los proyectos"
 
             ini_date = project.start_date
             end_date = project.end_date
@@ -108,6 +93,8 @@ class Project(models.Model):
 
             if days_diff >= 3 and project.pj_progress <= 70 and today_diff <=3 or today_diff == 0 and project.pj_progress < 100:
 
+                print "El proyecto cumple con las condiciones para enviarle un correo"
+                
                 responsibles = []
 
                 for responsible in project.responsible_ids:

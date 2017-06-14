@@ -10,12 +10,6 @@
             <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
         </record>
 
-        <record id="agili_user_admin_workplan" model="ir.rule">
-            <field name="name"> Usuario Administrador Work Plan </field>
-            <field name="model_id" ref="model_agili_workplan"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
-        </record>
-
         <record id="agili_user_admin_milestone" model="ir.rule">
             <field name="name"> Usuario Administrador milestone </field>
             <field name="model_id" ref="model_agili_milestone"/>
@@ -50,12 +44,6 @@
                 ['|', ('responsible_ids','=',False),
                       ('responsible_ids','=',user.id)]
             </field>
-        </record>
-
-        <record id="agili_user_coordinator_workplan" model="ir.rule">
-            <field name="name">Usuario Coordinador Work Plan </field>
-            <field name="model_id" ref="model_agili_workplan"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_coordinator'))]"/>
         </record>
 
         <record id="agili_user_coordinator_milestone" model="ir.rule">
@@ -107,12 +95,6 @@
         <record id="agili_user_cooperative_project" model="ir.rule">
             <field name="name"> Usuario Cooperativista Proyecto </field>
             <field name="model_id" ref="model_agili_project"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
-        </record>
-
-        <record id="agili_user_cooperative_workplan" model="ir.rule">
-            <field name="name"> Usuario Cooperativista Work Plan </field>
-            <field name="model_id" ref="model_agili_workplan"/>
             <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
         </record>
 

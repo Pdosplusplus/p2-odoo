@@ -39,7 +39,7 @@
 
               @Description: Este data file nos permite crear un cuaderno con paginas; donde cada page es una pestaña. 
             -->
-            <notebook>
+            <notebook string="Plan de trabajo">
 
               <!-- Page Responsibles
                 
@@ -59,16 +59,17 @@
 
                 @Description: Esta page del notebook nos permite añadir un plan de trabajo al proyecto y mostramos una lista de ellos solo con los campos necesarios.
               -->
-              <page string="Plan de trabajo" attrs="{'invisible': [('id', '==', False)]}">
-                <field name="workplan_id" widget="many2one">
-                  <tree string="Añade un plan de trabajo al proyecto">
-                    <field name="name"/>
-                    <field name="milestone_ids"/>
+
+              <page string="Hitos" attrs="{'invisible': [('id', '==', False)]}">
+                <field name="milestone_ids">
+                  <tree string="Añade un hito al plan de trabajo" editable="bottom">
+                    <field name="ms_name"/>
+                    <field name="ms_responsible_id"/>
                   </tree>
                 </field>
               </page>
               
-               
+              
             </notebook>
 
           </sheet>

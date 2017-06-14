@@ -32,7 +32,6 @@
         'security/agili_security.xml',
         'security/ir.model.access.csv',
         'views/project_view.xml',
-        'views/workplan_view.xml',
         'views/milestone_view.xml',
         'views/deliverable_view.xml',
         'views/activity_view.xml',

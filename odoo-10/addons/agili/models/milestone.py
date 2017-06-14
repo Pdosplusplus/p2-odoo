@@ -16,37 +16,30 @@ class milestone(models.Model):
     ms_name = fields.Char(string="Hito del proyecto",
     					  required=True)
 
-    ms_start_date = fields.Date(string="Fecha de inicio",
-                                compute='_daystart')
+    ms_start_date = fields.Date(string="Fecha de inicio")
 
-    ms_end_date = fields.Date(string="Fecha de Fin",
-                              compute='_dayend')
+    ms_end_date = fields.Date(string="Fecha de Fin")
 
-    ms_days_plan = fields.Integer(string="Dias planificados", 
-                                    compute='_diasLaborales')
+    ms_days_plan = fields.Integer(string="Dias planificados",
+                                  compute="_diasLaborales")
 
     ms_days_exe = fields.Integer(string="Dias ejecutados",
                                  compute='_daysexe')
 
-    ms_progress = fields.Integer(string="Porcentaje de avance",
-                                 compute='_progress')
+    ms_progress = fields.Integer(string="Porcentaje de avance")
 
-    ms_work_real = fields.Integer(string="Reporte de avance real en dias",
-                                  compute="_workreal")
+    ms_work_real = fields.Integer(string="Reporte de avance real en dias")
 
-    ms_workplan_id = fields.Many2one('agili.workplan',
+    ms_project_id = fields.Many2one('agili.project',
                          ondelete='cascade', 
-                         string="Plan de trabajo")
-
-    deliverable_ids = fields.One2many('agili.deliverable', 
-                        'dl_milestone_id', 
-                        string="Entregables")
+                         string="Proyecto")
 
     ms_responsible_id = fields.Many2one('res.users',
                             ondelete='set null',
                             string="Responsable", 
                             required=True)
 
+    """
 
     @api.depends('deliverable_ids')
     def _daystart(self):
@@ -102,6 +95,7 @@ class milestone(models.Model):
 
             r.ms_end_date = higher
     
+    """
 
     @api.depends('ms_start_date')
     def _daysexe(self):
@@ -122,6 +116,7 @@ class milestone(models.Model):
                 r.ms_days_plan = workDays(r.ms_start_date, r.ms_end_date)
                 
 
+    """
     @api.depends('deliverable_ids')
     def _progress(self):
         
@@ -159,3 +154,4 @@ class milestone(models.Model):
                     total_workreal += deliverable.dl_work_real 
 
                 r.ms_work_real = total_workreal 
+    """

@@ -26,26 +26,6 @@
               <field name="ms_progress"/>
               <field name="ms_responsible_id"/>
             </group>
-
-            <notebook>
-
-              <!-- Page Entregable 
-  
-                @Function: Añadir un entregable al hito.
-
-                @Description: Esta page del notebook nos permite añadir el hito de planificacion al milestone y mostramos una lista de ellos solo con los campos necesarios.
-
-              -->
-              <page string="Entregable" attrs="{'invisible': [('id', '==', False)]}">
-                <field name="deliverable_ids">
-                  <tree string="Añade un entregable al hito">
-                    <field name="name_dl"/>
-                    <field name="dl_activity_ids"/>
-                  </tree>
-                </field>
-              </page>
-
-            </notebook>
               
           </sheet>
         </form>
@@ -72,7 +52,6 @@
           <field name="ms_days_exe"/>
           <field name="ms_work_real"/>
           <field name="ms_progress"/>
-          <field name="deliverable_ids"/>
           <field name="ms_responsible_id"/>
         </tree>
       </field>
