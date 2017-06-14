@@ -58,7 +58,7 @@ class Project(models.Model):
         
         for r in self:
 
-            if r.start_date and r.end_date:
+            if r.start_date != False and r.end_date != False:
 
                 r.days_plan = workDays(r.start_date, r.end_date)
 
@@ -67,7 +67,7 @@ class Project(models.Model):
 
         for r in self:
 
-            if r.start_date:
+            if r.start_date != False and r.end_date != False:
 
                 r.days_exe = daysExe(r.start_date, r.end_date)
 

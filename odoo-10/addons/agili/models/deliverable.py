@@ -107,7 +107,7 @@ class Deliverable(models.Model):
         
         for r in self:
 
-            if r.dl_start_date and r.dl_end_date:
+            if r.dl_start_date != False and r.dl_end_date != False:
 
                 r.dl_days_plan = workDays(r.dl_start_date, r.dl_end_date)
 

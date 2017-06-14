@@ -108,7 +108,7 @@ class milestone(models.Model):
 
         for r in self:
 
-            if r.ms_start_date:
+            if r.ms_start_date != False and r.ms_end_date != False:
 
                 r.ms_days_exe = daysExe(r.ms_start_date, r.ms_end_date)
 
@@ -117,7 +117,7 @@ class milestone(models.Model):
         
         for r in self:
 
-            if r.ms_start_date and r.ms_end_date:
+            if r.ms_start_date != False and r.ms_end_date != False:
 
                 r.ms_days_plan = workDays(r.ms_start_date, r.ms_end_date)
                 

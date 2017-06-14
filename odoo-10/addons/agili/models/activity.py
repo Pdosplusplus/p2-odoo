@@ -54,7 +54,7 @@ class Activity(models.Model):
         
         for r in self:
 
-            if r.ac_start_date and r.ac_end_date:
+            if r.ac_start_date != False and r.ac_end_date != False:
 
                 r.ac_days_plan = workDays(r.ac_start_date, r.ac_end_date)
                
@@ -72,7 +72,7 @@ class Activity(models.Model):
 
         for r in self:
             
-            if r.ac_start_date and r.ac_end_date:
+            if r.ac_start_date != False and r.ac_end_date != False:
 
                 if compareDates(r.ac_end_date, r.ac_start_date, 'less'):
                     
@@ -83,7 +83,7 @@ class Activity(models.Model):
 
         for r in self:
 
-            if r.ac_start_date and r.ac_end_date:
+            if r.ac_start_date != False and r.ac_end_date != False:
 
                 r.ac_days_exe = daysExe(r.ac_start_date, r.ac_end_date)
 
