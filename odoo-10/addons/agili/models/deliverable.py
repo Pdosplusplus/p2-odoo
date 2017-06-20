@@ -50,7 +50,7 @@ class Deliverable(models.Model):
 
         for r in self:
 
-            activities = self.env['agili.activity'].search([('ac_deliverable_id','>=', r.id)])
+            activities = self.env['agili.activity'].search([('ac_deliverable_id','=', r.id)])
 
             if activities:
 
@@ -78,7 +78,7 @@ class Deliverable(models.Model):
 
         for r in self:
 
-            activities = self.env['agili.activity'].search([('ac_deliverable_id','>=', r.id)])
+            activities = self.env['agili.activity'].search([('ac_deliverable_id','=', r.id)])
 
             if activities:
 

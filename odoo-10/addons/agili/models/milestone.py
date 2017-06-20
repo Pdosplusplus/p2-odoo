@@ -16,9 +16,11 @@ class milestone(models.Model):
     name = fields.Char(string="Nombre",
     					  required=True)
 
-    ms_start_date = fields.Date(string="Fecha de inicio")
+    ms_start_date = fields.Date(string="Fecha de inicio",
+                                compute="_daystart")
 
-    ms_end_date = fields.Date(string="Fecha de Fin")
+    ms_end_date = fields.Date(string="Fecha de Fin",
+                              compute="_dayend")
 
     ms_days_plan = fields.Integer(string="Dias planificados",
                                   compute="_diasLaborales")
@@ -39,18 +41,18 @@ class milestone(models.Model):
                             string="Responsable", 
                             required=True)
 
-    """
-
-    @api.depends('deliverable_ids')
+    #Function to calculate the date of init
     def _daystart(self):
         
         less = DAYS_LESS
 
         for r in self:
 
-            if r.deliverable_ids:
+            deliverables = self.env['agili.deliverable'].search([('dl_milestone_id','=', r.id)])
 
-                for deliverable in r.deliverable_ids:
+            if deliverables:
+
+                for deliverable in deliverables:
 
                     if deliverable.dl_start_date:
 
@@ -68,16 +70,18 @@ class milestone(models.Model):
 
         r.ms_start_date = less
 
-    @api.depends('deliverable_ids')
+    #Function to calculate the date of finish
     def _dayend(self):
         
         higher = DAYS_HIGHER
 
         for r in self:
 
-            if r.deliverable_ids:
+            deliverables = self.env['agili.deliverable'].search([('dl_milestone_id','=', r.id)])
 
-                for deliverable in r.deliverable_ids:
+            if deliverables:
+
+                for deliverable in deliverables:
 
                     if deliverable.dl_end_date:
 
@@ -95,8 +99,6 @@ class milestone(models.Model):
 
             r.ms_end_date = higher
     
-    """
-
     @api.depends('ms_start_date')
     def _daysexe(self):
 
