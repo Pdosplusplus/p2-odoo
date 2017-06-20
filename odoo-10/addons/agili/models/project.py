@@ -81,13 +81,9 @@ class Project(models.Model):
     @api.multi
     def send_alert(self):
 
-        print "Entro en la funcion de enviar correos"
-
-        projects = self.env['agili.project'].search([('days_plan','>=', 0)])
+        projects = self.env['agili.project'].search([('id','>=', 0)])
 
         for project in projects:
-
-            print "Entro en el for de los proyectos"
 
             ini_date = project.start_date
             end_date = project.end_date
