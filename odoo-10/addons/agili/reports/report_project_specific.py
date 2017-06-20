@@ -36,7 +36,7 @@ class ReportProjectSpecific(models.AbstractModel):
         info['days_exe'] = 0
     
         #Get all projects
-        all_projects = self.env['agili.project'].search([('days_plan', '>=', 0)])
+        all_projects = self.env['agili.project'].search([('id', '>=', 0)])
 
         projects = []
 
