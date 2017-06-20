@@ -9,7 +9,7 @@ class Deliverable(models.Model):
 
     _name = 'agili.deliverable'
 
-    name_dl = fields.Char(string="Nombre", 
+    name = fields.Char(string="Nombre", 
                    required=True)
 
     dl_start_date = fields.Date(string="Fecha de inicio")

@@ -13,7 +13,7 @@ class milestone(models.Model):
 
     _name = 'agili.milestone'
 
-    ms_name = fields.Char(string="Nombre",
+    name = fields.Char(string="Nombre",
     					  required=True)
 
     ms_start_date = fields.Date(string="Fecha de inicio")
