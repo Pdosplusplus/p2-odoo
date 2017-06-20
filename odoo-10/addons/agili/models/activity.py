@@ -25,15 +25,21 @@ class Activity(models.Model):
 
     ac_work_real = fields.Integer(string="Reporte de trabajo real en dias")
 
+    ac_project_id = fields.Many2one('agili.project',
+                         ondelete='cascade', 
+                         string="Proyecto")
+
+    ac_deliverable_id = fields.Many2one('agili.deliverable',
+                         ondelete='cascade',
+                         required=True, 
+                         string="Entregable")
+
     ac_responsible_id = fields.Many2one('res.users',
                             ondelete='set null',
                             string="Responsable", 
                             required=True)
 
-    ac_deliverable_id = fields.Many2one('agili.deliverable',
-                         ondelete='cascade', 
-                         string="Entregable")
-
+    
     _sql_constraints = [
         ('name_description_check',
         'CHECK(name != description)',

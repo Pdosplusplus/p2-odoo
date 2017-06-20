@@ -40,6 +40,10 @@ class Project(models.Model):
                         'dl_project_id', 
                         string="Entregables")
 
+    activity_ids = fields.One2many('agili.activity', 
+                        'ac_project_id', 
+                        string="Entregables")
+
 
     _sql_constraints = [
         ('name_description_check',

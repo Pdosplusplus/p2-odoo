@@ -31,7 +31,8 @@ class Deliverable(models.Model):
                          string="Proyecto")
 
     dl_milestone_id = fields.Many2one('agili.milestone',
-                     ondelete='cascade', 
+                     ondelete='cascade',
+                     required=True, 
                      string="Hito")
 
     dl_responsible_id = fields.Many2one('res.users',

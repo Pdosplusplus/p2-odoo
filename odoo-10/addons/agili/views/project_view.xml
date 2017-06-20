@@ -24,7 +24,7 @@
             </group>
 
             <!-- Agrupamos los campos que generan la toma de decisiones-->
-            <group string="Control">
+            <group string="Control" attrs="{'invisible': [('id', '!=', False)]}">
               <field name="start_date" attrs="{'invisible': [('id', '!=', False)]}"/>
               <field name="end_date" attrs="{'invisible': [('id', '!=', False)]}"/>
               <field name="days_plan" attrs="{'invisible': [('id', '!=', False)]}"/>
@@ -43,7 +43,7 @@
             <group string="Plan de Trabajo"/>
 
 
-            <notebook string="Plan de trabajo">
+            <notebook>
 
               <!-- Page Responsibles
                 
@@ -91,7 +91,21 @@
                   </tree>
                 </field>
               </page>
-              
+
+               <page string="Actividades" attrs="{'invisible': [('id', '==', False)]}">
+                <field name="activity_ids">
+                  <tree string="Añade una Actividad al plan de trabajo">
+                    <field name="ac_deliverable_id"/>
+                    <field name="name"/>
+                    <field name="ac_start_date"/>
+                    <field name="ac_end_date"/>
+                    <field name="ac_responsible_id"/>
+                    <field name="ac_days_exe"/>
+                    <field name="ac_work_real"/>
+                    <field name="ac_progress"/>
+                  </tree>
+                </field>
+              </page>
               
             </notebook>
 
