@@ -36,6 +36,10 @@ class Project(models.Model):
                         'ms_project_id', 
                         string="Hitos")
 
+    deliverable_ids = fields.One2many('agili.deliverable', 
+                        'dl_project_id', 
+                        string="Entregables")
+
 
     _sql_constraints = [
         ('name_description_check',

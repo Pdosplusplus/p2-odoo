@@ -16,7 +16,7 @@
         <form string="Work Plan Form">
           <sheet>
             <group>
-              <field name='id' invisible='True'/>
+              <field name="dl_milestone_id"/>
               <field name="name_dl"/>
               <field name="dl_start_date"/>
               <field name="dl_end_date"/>
@@ -27,29 +27,6 @@
               <field name="dl_responsible_id"/>
             </group>
 
-            <notebook>
-
-              <!-- Page Actividad 
-  
-                @Function: Añadir un Actividad al entregable.
-
-                @Description: Esta page del notebook nos permite añadir al entregable una activdad y mostramos una lista de ellos solo con los campos necesarios.
-
-              -->
-              <page string="Actividad" attrs="{'invisible': [('id', '==', False)]}">
-                <field name="dl_activity_ids">
-                  <tree string="Añade una actividad al entregable">
-                    <field name="name"/>
-                    <field name="ac_start_date"/>
-                    <field name="ac_end_date"/>
-                    <field name="ac_work_real"/>
-                    <field name="ac_progress"/>
-                  </tree>
-                </field>
-              </page>
-
-            </notebook>
-              
           </sheet>
         </form>
 
@@ -68,12 +45,12 @@
 
       <field name="arch" type="xml">
         <tree string="deliverable Tree">
+          <field name="dl_milestone_id"/>
           <field name="name_dl"/>
           <field name="dl_start_date"/>
           <field name="dl_end_date"/>
           <field name="dl_days_plan"/>
           <field name="dl_days_exe"/>
-          <field name="dl_activity_ids"/>
           <field name="dl_work_real"/>
           <field name="dl_progress"/>
           <field name="dl_responsible_id"/>
