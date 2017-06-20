@@ -24,9 +24,11 @@ class Deliverable(models.Model):
     dl_days_exe = fields.Integer(string="Dias ejecutados",
                                  compute="_daysexe")
 
-    dl_progress = fields.Integer(string="Porcentaje de avance")
+    dl_progress = fields.Integer(string="Porcentaje de avance",
+                                 compute="_progress")
 
-    dl_work_real = fields.Integer(string="Reporte de avance real en dias")
+    dl_work_real = fields.Integer(string="Reporte de avance real en dias",
+                                 compute="_workreal")
 
     dl_project_id = fields.Many2one('agili.project',
                          ondelete='cascade', 
@@ -117,4 +119,37 @@ class Deliverable(models.Model):
 
                 r.dl_days_exe = daysExe(r.dl_start_date, r.dl_end_date)
 
-   
+    def _progress(self):
+        
+        for r in self:
+                
+            activities = self.env['agili.activity'].search([('ac_deliverable_id','>=', r.id)])
+
+            activity_sum = 0
+            total_progress = 0
+
+            if activities:
+
+                for activity in activities:
+
+                    total_progress += activity.ac_progress 
+                    activity_sum += 1
+
+                if activity_sum > 0:
+
+                    r.dl_progress = total_progress / activity_sum
+
+    def _workreal(self):
+        
+        for r in self:
+            
+            activities = self.env['agili.activity'].search([('ac_deliverable_id','>=', r.id)])
+            total_workreal = 0
+
+            if activities:
+
+                for activity in activities:
+
+                    total_workreal += activity.ac_work_real 
+
+                r.dl_work_real = total_workreal
