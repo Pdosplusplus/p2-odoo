@@ -28,9 +28,11 @@ class milestone(models.Model):
     ms_days_exe = fields.Integer(string="Dias ejecutados",
                                  compute='_daysexe')
 
-    ms_progress = fields.Integer(string="Porcentaje de avance")
+    ms_progress = fields.Integer(string="Porcentaje de avance",
+                                 compute="_progress")
 
-    ms_work_real = fields.Integer(string="Reporte de avance real en dias")
+    ms_work_real = fields.Integer(string="Reporte de avance real en dias",
+                                 compute="_workreal")
 
     ms_project_id = fields.Many2one('agili.project',
                          ondelete='cascade', 
@@ -118,42 +120,38 @@ class milestone(models.Model):
                 r.ms_days_plan = workDays(r.ms_start_date, r.ms_end_date)
                 
 
-    """
-    @api.depends('deliverable_ids')
     def _progress(self):
         
         for r in self:
-                
-            deliverables = 0
+            
+            deliverables = self.env['agili.deliverable'].search([('dl_milestone_id','=', r.id)])
+
+            deliverables_sum = 0
             total_progress = 0
 
-            if r.deliverable_ids:
+            if deliverables:
 
-                for deliverable in r.deliverable_ids:
+                for deliverable in deliverables:
 
                     total_progress += deliverable.dl_progress 
-                    deliverables += 1
+                    deliverables_sum += 1
 
-                if deliverables > 0:
+                if deliverables_sum > 0:
 
-                    r.ms_progress = total_progress / deliverables
+                    r.ms_progress = total_progress / deliverables_sum
 
-                else:
-
-                    r.ms_progress = 0
-
-    @api.depends('deliverable_ids')
     def _workreal(self):
         
         for r in self:
-                
+            
+            deliverables = self.env['agili.deliverable'].search([('dl_milestone_id','=', r.id)])
+
             total_workreal = 0
 
-            if r.deliverable_ids:
+            if deliverables:
 
-                for deliverable in r.deliverable_ids:
+                for deliverable in deliverables:
 
                     total_workreal += deliverable.dl_work_real 
 
                 r.ms_work_real = total_workreal 
-    """

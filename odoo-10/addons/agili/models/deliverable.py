@@ -70,7 +70,7 @@ class Deliverable(models.Model):
 
                 less = ''
 
-        r.dl_start_date = less
+            r.dl_start_date = less
 
     def _dayend(self):
         
