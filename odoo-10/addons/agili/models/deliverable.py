@@ -12,9 +12,11 @@ class Deliverable(models.Model):
     name = fields.Char(string="Nombre", 
                    required=True)
 
-    dl_start_date = fields.Date(string="Fecha de inicio")
+    dl_start_date = fields.Date(string="Fecha de inicio",
+                                compute='_daystart')
 
-    dl_end_date = fields.Date(string="Fecha de Fin")
+    dl_end_date = fields.Date(string="Fecha de Fin",
+                              compute="_dayend")
 
     dl_days_plan = fields.Integer(string="Dias planificados", 
                                   compute='_diasLaborales')
@@ -40,7 +42,62 @@ class Deliverable(models.Model):
                             string="Responsable", 
                             required=True)
 
-  
+    def _daystart(self):
+        
+        less = DAYS_LESS
+
+        for r in self:
+
+            activities = self.env['agili.activity'].search([('ac_deliverable_id','>=', r.id)])
+
+            if activities:
+
+                for activity in activities:
+
+                    if activity.ac_start_date:
+
+                        if less == '':
+                                
+                            less = DAYS_LESS
+
+                        if compareDates(activity.ac_start_date, less, 'less'):
+
+                            less = activity.ac_start_date
+
+            else:
+
+                less = ''
+
+        r.dl_start_date = less
+
+    def _dayend(self):
+        
+        higher = DAYS_HIGHER
+
+        for r in self:
+
+            activities = self.env['agili.activity'].search([('ac_deliverable_id','>=', r.id)])
+
+            if activities:
+
+                for activity in activities:
+
+                    if activity.ac_end_date:
+
+                        if higher == '':
+
+                            higher = DAYS_HIGHER
+
+                        if compareDates(activity.ac_end_date, higher, 'higher'):
+
+                            higher = activity.ac_end_date
+
+            else:
+
+                higher = ''
+
+            r.dl_end_date = higher
+
     @api.depends('dl_start_date', 'dl_end_date')
     def _diasLaborales(self):
         
@@ -60,5 +117,4 @@ class Deliverable(models.Model):
 
                 r.dl_days_exe = daysExe(r.dl_start_date, r.dl_end_date)
 
-    
    
