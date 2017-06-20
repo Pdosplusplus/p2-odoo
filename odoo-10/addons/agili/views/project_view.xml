@@ -236,6 +236,20 @@
 
     </record>
 
+     <record id="action_report_general" model="ir.actions.server">
+
+      <field name="name">Report General</field>
+      <field name="condition">True</field>
+      <field name="type">ir.actions.server</field>
+      <field name="model_id" ref="model_agili_project" />
+      <field name="state">code</field>
+      <field name="code"> action = {
+                'type': 'ir.actions.report.xml',
+                'report_name': 'agili.report_project_general',
+            }</field>
+
+    </record>
+
     <!-- Añadimos el menu de la barra top -->
     <menuitem id="main_agili_menu" name="Gestion de Cooperativas"/>
 
@@ -248,6 +262,10 @@
     <menuitem id="project_menu" name="Proyectos" 
           parent="agili_menu"
           action="project_list_action"/>
+
+    <menuitem id="report_general" name="Reporte de avance general"
+          parent="agili_report_menu"
+          action="action_report_general"/>
 
   </data>
 </odoo>

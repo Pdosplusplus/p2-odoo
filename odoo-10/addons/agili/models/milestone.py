@@ -119,7 +119,6 @@ class milestone(models.Model):
 
                 r.ms_days_plan = workDays(r.ms_start_date, r.ms_end_date)
                 
-
     def _progress(self):
         
         for r in self:
