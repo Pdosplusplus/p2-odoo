@@ -17,6 +17,7 @@
           <sheet>
             <!-- Agrupamos los campos generales de una actividad -->
             <group string="General">
+              <field name="ac_project_id"/>
               <field name="ac_deliverable_id"/>
               <field name="name"/>
               <field name="ac_responsible_id"/>
@@ -90,6 +91,7 @@
 
       <field name="arch" type="xml">
         <tree string="activity Tree">
+          <field name="ac_project_id"/>
           <field name="ac_deliverable_id"/>
           <field name="name"/>
           <field name="ac_start_date"/>

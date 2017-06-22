@@ -94,7 +94,7 @@
 
                <page string="Actividades" attrs="{'invisible': [('id', '==', False)]}">
                 <field name="activity_ids">
-                  <tree string="Añade una Actividad al plan de trabajo">
+                  <tree string="Añade una Actividad al plan de trabajo" editable="bottom">
                     <field name="ac_deliverable_id"/>
                     <field name="name"/>
                     <field name="ac_start_date"/>
