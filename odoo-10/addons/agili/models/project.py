@@ -19,17 +19,17 @@ class Project(models.Model):
 
     end_date = fields.Date(string="Fecha de Fin")
 
-    days_plan = fields.Integer(string="Dias planificados", 
+    days_plan = fields.Integer(string="Dias de duracion estimados", 
                                     compute='_diasLaborales')
 
-    days_exe = fields.Integer(string="Dias ejecutados",
-                              compute="_daysexe")
+    journeys_plan = fields.Integer(string="Jornadas Planificadas")
+
+    journeys_exe = fields.Integer(string="Jornadas Ejecutadas")
+
+    pj_amount = fields.Float(string="Monto del proyecto")
 
     pj_progress = fields.Float(string="Porcentaje de Avance",
                                compute="_progress")
-
-    pj_work_real = fields.Integer(string="Reporte de avance real en dias",
-                                compute="_workreal")
 
     responsible_ids = fields.Many2many('res.users', 
                                         string="Responsables",
@@ -71,15 +71,6 @@ class Project(models.Model):
 
                 r.days_plan = workDays(r.start_date, r.end_date)
 
-    @api.depends('start_date')
-    def _daysexe(self):
-
-        for r in self:
-
-            if r.start_date != False and r.end_date != False:
-
-                r.days_exe = daysExe(r.start_date, r.end_date)
-
     def _progress(self):
         
         for r in self:
@@ -100,21 +91,6 @@ class Project(models.Model):
 
                     r.pj_progress = total_progress / milestones_sum
 
-    def _workreal(self):
-        
-        for r in self:
-            
-            milestones = self.env['agili.milestone'].search([('ms_project_id','=', r.id)])
-
-            total_workreal = 0
-
-            if milestones:
-
-                for milestone in milestones:
-
-                    total_workreal += milestone.ms_work_real 
-
-                r.pj_work_real = total_workreal
     @api.multi
     def send_alert(self):
 

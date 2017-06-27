@@ -17,22 +17,28 @@
  
           <sheet>
             <!-- Agrupamos los campos generales de un proyecto -->
-            <group string="General" attrs="{'invisible': [('id', '!=', False)]}">
-              <field name='id' invisible='True'/>
-              <field name="name" attrs="{'invisible': [('id', '!=', False)]}"/>
-              <field name="description" attrs="{'invisible': [('id', '!=', False)]}"/>
+            <group>
+              <field name='id'/>
+              <field name="name"/>
+              <field name="description"/>
             </group>
 
             <!-- Agrupamos los campos que generan la toma de decisiones-->
-            <group string="Control" attrs="{'invisible': [('id', '!=', False)]}">
-              <field name="start_date" attrs="{'invisible': [('id', '!=', False)]}"/>
-              <field name="end_date" attrs="{'invisible': [('id', '!=', False)]}"/>
-              <field name="days_plan" attrs="{'invisible': [('id', '!=', False)]}"/>
-              <field name="days_exe" readonly="1" attrs="{'invisible': [('id', '!=', False)]}"/>
-              <field name="pj_progress" readonly="1" attrs="{'invisible': [('id', '!=', False)]}"/>
-              <field name="pj_work_real" readonly="1" attrs="{'invisible': [('id', '!=', False)]}"/>
+            <group col="6">
+              <field name="start_date"/>
+              <field name="end_date"/>
+              <field name="days_plan" />
             </group>
 
+            <group col="4">
+              <field name="journeys_plan" />
+              <field name="journeys_exe" />
+            </group>
+
+            <group>
+              <field name="pj_amount"/>
+              <field name="pj_progress"/>
+            </group>
 
             <!-- Notebook
               @Function: Crear un cuaderno, agrupar mejor la información.
@@ -180,8 +186,9 @@
           <field name="start_date"/>
           <field name="end_date"/>
           <field name="days_plan"/>
-          <field name="days_exe"/>
-          <field name="pj_work_real"/>
+          <field name="journeys_plan"/>
+          <field name="journeys_exe"/>
+          <field name="pj_amount"/>
           <field name="pj_progress"/>
         </tree>
         
