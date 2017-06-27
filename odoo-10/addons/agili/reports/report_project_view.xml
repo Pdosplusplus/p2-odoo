@@ -166,11 +166,11 @@
 
                 <tbody>
 
-                  <t t-foreach="o.workplan_id.milestone_ids" t-as="milestone">
+                  <t t-foreach="o.milestone_ids" t-as="milestone">
                     <tr>
 
                       <td>
-                         <span t-field="milestone.ms_name"/>
+                         <span t-field="milestone.name"/>
                       </td>
 
                       <td>
