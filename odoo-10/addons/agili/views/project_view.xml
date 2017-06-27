@@ -78,11 +78,7 @@
                 <field name="milestone_ids">
                   <tree string="Añade un hito al plan de trabajo" editable="bottom">
                     <field name="name"/>
-                    <field name="ms_start_date"/>
-                    <field name="ms_end_date"/>
-                    <field name="ms_days_plan"/>
-                    <field name="ms_days_exe"/>
-                    <field name="ms_work_real"/>
+                    <field name="ms_amount"/>
                     <field name="ms_responsible_id"/>
                   </tree>
                 </field>

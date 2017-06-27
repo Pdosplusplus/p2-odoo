@@ -28,8 +28,7 @@ class Project(models.Model):
 
     pj_amount = fields.Float(string="Monto del proyecto")
 
-    pj_progress = fields.Float(string="Porcentaje de Avance",
-                               compute="_progress")
+    pj_progress = fields.Float(string="Porcentaje de Avance")
 
     responsible_ids = fields.Many2many('res.users', 
                                         string="Responsables",
@@ -70,26 +69,6 @@ class Project(models.Model):
             if r.start_date != False and r.end_date != False:
 
                 r.days_plan = workDays(r.start_date, r.end_date)
-
-    def _progress(self):
-        
-        for r in self:
-            
-            milestones = self.env['agili.milestone'].search([('ms_project_id','=', r.id)])
-
-            milestones_sum = 0
-            total_progress = 0
-
-            if milestones:
-
-                for milestone in milestones:
-
-                    total_progress += milestone.ms_progress 
-                    milestones_sum += 1
-
-                if milestones_sum > 0:
-
-                    r.pj_progress = total_progress / milestones_sum
 
     @api.multi
     def send_alert(self):
