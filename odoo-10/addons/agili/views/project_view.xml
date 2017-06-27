@@ -42,7 +42,6 @@
 
             <group string="Plan de Trabajo"/>
 
-
             <notebook>
 
               <!-- Page Responsibles
@@ -57,6 +56,11 @@
                   />
               </page>
 
+            </notebook>
+
+
+            <notebook>
+
                <!-- Page Plan de trabajo 
   
                 @Function: Añadir un plan de trabajo a un proyecto
@@ -64,7 +68,7 @@
                 @Description: Esta page del notebook nos permite añadir un plan de trabajo al proyecto y mostramos una lista de ellos solo con los campos necesarios.
               -->
 
-              <page string="Hitos" attrs="{'invisible': [('id', '==', False)]}">
+              <page string="Servicios / Hitos" attrs="{'invisible': [('id', '==', False)]}">
                 <field name="milestone_ids">
                   <tree string="Añade un hito al plan de trabajo" editable="bottom">
                     <field name="name"/>
@@ -78,6 +82,9 @@
                 </field>
               </page>
 
+            </notebook>
+
+            <notebook>
               <page string="Entregables" attrs="{'invisible': [('id', '==', False)]}">
                 <field name="deliverable_ids">
                   <tree string="Añade un Entregable al plan de trabajo" editable="bottom">
@@ -91,7 +98,9 @@
                   </tree>
                 </field>
               </page>
+            </notebook>
 
+            <notebook>
                <page string="Actividades" attrs="{'invisible': [('id', '==', False)]}">
                 <field name="activity_ids">
                   <tree string="Añade una Actividad al plan de trabajo" editable="bottom">
@@ -106,7 +115,6 @@
                   </tree>
                 </field>
               </page>
-              
             </notebook>
 
           </sheet>

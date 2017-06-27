@@ -50,10 +50,10 @@
             <field name="name">Usuario Coordinador Milestone</field>
             <field name="model_id" ref="model_agili_milestone"/>
             <field name="groups" eval="[(4, ref('agili.group_agili_coordinator'))]"/>
-            <field name="perm_read" eval="1"/>
-            <field name="perm_write" eval="1"/>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_write" eval="0"/>
             <field name="perm_create" eval="0"/>
-            <field name="perm_unlink" eval="0"/>
+            <field name="perm_unlink" eval="1"/>
             <field name="domain_force">
                 ['|', ('ms_responsible_id','=',False),
                       ('ms_responsible_id','=',user.id)]
@@ -64,10 +64,10 @@
             <field name="name">Usuario Coordinador Deliverable </field>
             <field name="model_id" ref="model_agili_deliverable"/>
             <field name="groups" eval="[(4, ref('agili.group_agili_coordinator'))]"/>
-            <field name="perm_read" eval="1"/>
-            <field name="perm_write" eval="1"/>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_write" eval="0"/>
             <field name="perm_create" eval="0"/>
-            <field name="perm_unlink" eval="0"/>
+            <field name="perm_unlink" eval="1"/>
             <field name="domain_force">
                 ['|', ('dl_responsible_id','=',False),
                       ('dl_responsible_id','=',user.id)]
