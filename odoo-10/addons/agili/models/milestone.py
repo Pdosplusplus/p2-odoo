@@ -16,6 +16,8 @@ class milestone(models.Model):
     name = fields.Char(string="Nombre",
     					  required=True)
 
+    ms_description = fields.Text(string="Descripción")
+
     ms_amount = fields.Float(string="Monto del Servicio")
 
     ms_project_id = fields.Many2one('agili.project',

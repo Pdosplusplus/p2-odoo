@@ -18,6 +18,7 @@
             <group string="General">
               <field name='id' invisible='True'/>
               <field name="name"/>
+              <field name="ms_description"/>
               <field name="ms_amount"/>
               <field name="ms_responsible_id"/>
             </group>
@@ -41,6 +42,7 @@
       <field name="arch" type="xml">
         <tree string="milestone Tree">
           <field name="name"/>
+          <field name="ms_description"/>
           <field name="ms_amount"/>
           <field name="ms_responsible_id"/>
         </tree>
