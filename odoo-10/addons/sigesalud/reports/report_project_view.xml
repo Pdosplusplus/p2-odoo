@@ -1,0 +1,240 @@
+<odoo>
+  <data>
+    <template id="project_header">
+      <div class="header">
+        <div class="row">
+          <div class="col-xs-12">
+            <img class="img-responsive" src="/agili/static/src/img/report-header.png" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="panel" style="max-height: 50px;">
+            <div class="panel-heading">
+              <h3 class="text-center"> Reporte del Proyecto</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="row zero_min_height">
+          <div class="col-xs-12">
+            <div style="border-bottom: 1px solid black;"/>
+          </div>
+        </div>
+
+      </div>
+    </template>
+
+    <template id="report_project_view">
+      <t t-call="report.html_container">s
+        <t t-call="agili.project_header"/>
+        <t t-foreach="docs" t-as="o">
+          <t t-call="report.external_layout">
+
+            <t t-esc="o"/>
+
+            <div class="page">
+              
+              Fecha Inicio: <span class="badge" t-field="o.start_date"/> 
+              Fecha entrega: <span class="badge" t-field="o.end_date"/>
+              
+              <br/> <br/>
+              
+              <table class="table table-condensed">
+                      
+                <thead>
+                  <th colspan="2" class="center">
+                    Datos del Proyecto
+                  </th>
+                </thead>
+
+                <tbody>
+                  
+                  <tr>
+                      <td>Nombre:</td>
+                      <td>
+                          <t t-esc="o.name"/>
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Descripcion:</td>
+                      <td>
+                          <t t-esc="o.description"/>
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Responsables:</td>
+                      <td>
+                          <t t-foreach="o.responsible_ids" t-as="responsible">
+                             <span class="badge" t-esc="responsible.name"/> 
+                          </t>
+                         
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Dias Planificados:</td>
+                      <td>
+                          <span class="badge" t-esc="o.days_plan"/>
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Dias Ejecutados:</td>
+                      <td>
+                          <span class="badge" t-esc="o.days_exe"/>
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Reporte de avance real en dias:</td>
+                      <td>
+                        <span class="badge" t-esc="o.pj_work_real"/>
+                    
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Porcentaje de Avance:</td>
+                      <td>
+                        
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                              <t t-esc="o.pj_progress"/>
+                              <span> % </span>
+                          </div>
+                        </div>
+                    
+                      </td>
+                  </tr>
+
+                </tbody>
+            
+              </table>
+             
+              <h4> 
+                <strong> Hitos: </strong> 
+              </h4>
+
+              <div class="row zero_min_height">
+                <div class="col-xs-12">
+                  <div style="border-bottom: 1px solid black;"/>
+                </div>
+              </div>
+              
+              <br/>
+
+              <table class="table table-condensed">
+              
+                <thead>
+
+                  <th class="text-center">
+                    Nombre
+                  </th>
+
+                  <th class="text-center">
+                    Fecha de incio
+                  </th>
+
+                  <th>
+                    Fecha de entrega
+                  </th>
+                  
+                  <th class="text-center">
+                    Dias Planificados
+                  </th>
+
+                  <th class="text-center">
+                    Dias Ejecutados
+                  </th>
+
+                  <th class="text-center">
+                    Reporte de avance real en dias
+                  </th>
+
+                  <th class="text-center">
+                    Porcentaje de avance
+                  </th>
+
+                  <th class="text-center">
+                    Responsable
+                  </th>
+
+                </thead>
+
+                <tbody>
+
+                  <t t-foreach="o.milestone_ids" t-as="milestone">
+                    <tr>
+
+                      <td>
+                         <span t-field="milestone.name"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="milestone.ms_start_date"/>
+                      </td>
+                     
+                      <td>
+                         <span class="badge" t-esc="milestone.ms_end_date"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="milestone.ms_days_plan"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="milestone.ms_days_exe"/>
+                      </td>
+
+                      <td>
+                        <span class="badge" t-esc="milestone.ms_work_real"/>
+                      </td>
+
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                              <t t-esc="milestone.ms_progress"/>
+                              <span>%</span>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td>
+                         <span t-field="milestone.ms_responsible_id.name"/>
+                      </td>
+
+                    </tr>
+
+                  </t>              
+                 
+                </tbody>
+            
+              </table>
+
+            </div>
+            
+          </t>
+        </t>
+      </t>
+    </template>
+
+    <template id="external_layout_footer_customized" inherit_id="report.external_layout_footer">
+      <xpath expr="//div[@class='footer']" position="replace">
+        <div class="footer">
+          <div class="row">
+        
+            <div class="col-xs-12">
+              <img class="img-responsive" src="/agili/static/src/img/report-footer.png" />
+            </div>
+
+          </div>
+
+        </div>
+      </xpath>
+    </template>
+
+  </data>
+</odoo>

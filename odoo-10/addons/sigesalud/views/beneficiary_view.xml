@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+        <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo beneficiary
+    -->
+    <record model="ir.ui.view" id="beneficiary_form_view">
+
+      <field name="name">beneficiary.form</field>
+      <field name="model">sigesalud.beneficiary</field>
+      <field name="arch" type="xml">
+
+        <form string="Work Beneficiary Form">
+          <sheet>
+            <group>
+              <field name="relationship"/>
+            </group>
+
+            <group string="Informacion Generica" col="6">
+              <field name="bf_name"/>
+              <field name="bf_last_name"/>
+              <field name="bf_birthdate"/>
+            </group>
+
+            <group col="6">
+              <field name="bf_age"/>
+              <field name="bf_sex"/>
+              <field name="bf_civil_status"/>
+            </group>
+
+            <group col="4">
+              <field name="bf_ci"/>
+              <field name="bf_celphone"/>
+            </group>
+
+            <group>
+              <field name="bf_email"/>
+              <field name="bf_address"/>
+            </group>
+
+            <notebook>
+
+              <!-- Page Enfermedades 
+  
+                @Function: Añadir una enfermedad al expediente
+              -->
+
+              <page string="Enfermedades">
+                <field name="bf_disease_ids">
+                  <tree string="Añade una enfermedad al beneficiario" editable="bottom">
+                    <field name="name"/>
+                    <field name="pathology"/>
+                  </tree>
+                </field>
+              </page>
+
+            </notebook>
+
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en una tabla, donde cada field es una columna.
+    -->
+    <record model="ir.ui.view" id="beneficiary_tree_view">
+      <field name="name">beneficiary.tree</field>
+      <field name="model">sigesalud.beneficiary</field>
+
+      <field name="arch" type="xml">
+        <tree string="beneficiary Tree">
+          <field name="expedient_id"/>
+          <field name="relationship"/>
+          <field name="bf_last_name"/>
+          <field name="bf_birthdate"/>
+          <field name="bf_ci"/>
+          <field name="bf_celphone"/>
+        </tree>
+      </field>
+
+    </record>
+
+    <!-- Tag actions.act_window 
+    
+      @Function: Este tag o record tiene como funcion contralar el flujo de los views a las acciones de los mismos
+
+      @Descripcion: Una de las cosa que ahce este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree>, <form>, <calendar> ,y de ultimo las graficas <graph>.
+    -->
+    <record model="ir.actions.act_window" id="beneficiary_list_action">
+
+      <field name="name">Beneficiario</field>
+      <field name="res_model">sigesalud.beneficiary</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+     
+    </record>
+
+  </data>
+</odoo>

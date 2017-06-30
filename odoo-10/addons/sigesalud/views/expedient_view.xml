@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc
+    -->
+    <record model="ir.ui.view" id="expedient_form_view">
+
+      <field name="name">expedient.form</field>
+      <field name="model">sigesalud.expedient</field>
+      <field name="arch" type="xml">
+
+        <form string="expedient Form">
+ 
+          <sheet>
+
+            <group string="Control" col="4">
+              <field name='cooperative'/>
+              <field name="associated"/>
+            </group>
+
+            <group string="Informacion Generica" col="4">
+              <field name="name"/>
+              <field name="last_name"/>
+            </group>
+
+            <group col="6">
+              <field name="age"/>
+              <field name="sex"/>
+              <field name="civil_status"/>
+            </group>
+
+            <group col="4">
+              <field name="ci"/>
+              <field name="celphone"/>
+            </group>
+
+            <group>
+              <field name="email"/>
+              <field name="address"/>
+            </group>
+
+            <group string="Datos del seguro" col="4">
+              <field name="type_policy"/>
+              <field name="bank"/>
+            </group>
+
+            <group col="4">
+              <field name="bank_account"/>
+              <field name="type_account"/>
+            </group>
+
+
+
+            <!-- Notebook
+              @Function: Crear un cuaderno, agrupar mejor la información.
+
+              @Description: Este data file nos permite crear un cuaderno con paginas; donde cada page es una pestaña. 
+            -->
+
+            <group string="Plan de Trabajo"/>
+
+            <notebook>
+
+              <!-- Page Enfermedades 
+  
+                @Function: Añadir una enfermedad al expediente
+              -->
+
+              <page string="Enfermedades">
+                <field name="disease_ids">
+                  <tree string="Añade una enfermedad al beneficiario" editable="bottom">
+                    <field name="name"/>
+                    <field name="pathology"/>
+                  </tree>
+                </field>
+              </page>
+
+               <!-- Page Beneficiarios 
+  
+                @Function: Añadir un beneficiario al expediente
+              -->
+
+              <page string="Grupo Familiar / Beneficiarios" attrs="{'invisible': [('associated', '==', 'no')]}">
+                <field name="beneficiary_ids">
+                  <tree string="Añade un beneficiario al expediente">
+                    <field name="relationship"/>
+                    <field name="bf_name"/>
+                    <field name="bf_last_name"/>
+                    <field name="bf_ci"/>
+                    <field name="bf_celphone"/>
+                  </tree>
+                </field>
+              </page>
+
+              <!-- Page Soportes 
+  
+                @Function: Añadir un beneficiario al expediente
+              -->
+
+              <page string="Soporte">
+                <field name="beneficiary_ids">
+                  <tree string="Añade un Soporte al expediente" editable="bottom">
+                    <field name="name"/>
+                    <field name="support"/>
+                  </tree>
+                </field>
+              </page>
+
+            </notebook>
+
+
+          </sheet>
+        </form>
+
+      </field>
+
+    </record>
+
+    <!-- Record search 
+      @Function: Para realizar la busqueda de los registros
+      
+      @Description: Con elrecord search definimos de que manera seran buscado los registros, definiendo por cuales campos se haran las busquedas, añadiendo domain entre otros.
+    -->
+    <record model="ir.ui.view" id="expedient_search_view">
+
+      <field name="name">expedient.search</field>
+      <field name="model">sigesalud.expedient</field>
+
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="ci"/>
+        </search>
+
+      </field>
+
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en un modelo, donde cada field es una columna.
+    -->
+    <record model="ir.ui.view" id="expedient_tree_view">
+      <field name="name">expedient.tree</field>
+      <field name="model">sigesalud.expedient</field>
+
+      <field name="arch" type="xml">
+          
+        <tree string="expedient Tree">
+          <field name='cooperative'/>
+              <field name="associated"/>
+              <field name="name"/>
+              <field name="last_name"/>
+              <field name="sex"/>
+              <field name="ci"/>
+        </tree>
+        
+      </field>
+
+    </record>
+
+    <!-- Tag actions.act_window 
+    
+      @Function: Este tag o record tiene como funcion contralar el flujo de los views a las acciones de los mismos
+
+      @Descripcion: Una de las cosa que ahce este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree>, <form>, <calendar> ,y de ultimo las graficas <graph>.
+    -->
+    <record model="ir.actions.act_window" id="expedient_list_action">
+
+      <field name="name">Proyectos</field>
+      <field name="res_model">sigesalud.expedient</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="context" eval="{'search_default_my_expedients': 1}"/>
+
+    </record>
+
+    <!-- Añadimos el menu de la barra top -->
+    <menuitem id="main_sigesalud_menu" name="HCM Seguro"/>
+
+    <!-- Añadimos el menu del panel izquierdo -->
+    <menuitem id="sigesalud_menu" 
+              name="Gestion del HCM"
+              parent="main_sigesalud_menu"/>
+
+    <!-- Añadimos un submenu al menu anterior creado, el cual nos lleva a las views de nuestro modelo -->
+    <menuitem id="expedient_menu" name="Expediente" 
+          parent="sigesalud_menu"
+          action="expedient_list_action"/>
+
+  </data>
+</odoo>

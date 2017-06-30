@@ -30,7 +30,7 @@ class Deliverable(models.Model):
     dl_milestone_id = fields.Many2one('agili.milestone',
                      ondelete='cascade',
                      required=True, 
-                     string="Hito")
+                     string="Servicio / Hito")
 
     dl_responsible_id = fields.Many2one('res.users',
                             ondelete='set null',
