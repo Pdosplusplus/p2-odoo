@@ -93,6 +93,10 @@ class Expedient(models.Model):
                         'expedient_id', 
                         string="Soportes")
 
+    event_ids = fields.One2many('sigesalud.event', 
+                        'expedient_id', 
+                        string="Soportes")
+
     _sql_constraints = [
         ('ci_unique',
         'UNIQUE(ci)',

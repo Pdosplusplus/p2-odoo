@@ -103,11 +103,29 @@
                 @Function: Añadir un beneficiario al expediente
               -->
 
-              <page string="Soporte">
+              <page string="Soportes">
                 <field name="support_ids">
                   <tree string="Añade un Soporte al expediente" editable="bottom">
                     <field name="name"/>
                     <field name="support"/>
+                  </tree>
+                </field>
+              </page>
+
+              <!-- Page Eventos 
+  
+                @Function: Añadir un beneficiario al expediente
+              -->
+
+              <page string="Eventos">
+                <field name="event_ids">
+                  <tree string="Añade un evento al expediente">
+                    <field name='beneficiary_id'/>
+                    <field name="type_event"/>
+                    <field name="description"/>
+                    <field name="city"/>
+                    <field name="date"/>
+                    <field name="cost"/>
                   </tree>
                 </field>
               </page>

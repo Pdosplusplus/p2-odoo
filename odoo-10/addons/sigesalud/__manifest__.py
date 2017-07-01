@@ -47,6 +47,8 @@
         'views/disease_view.xml',
         'views/beneficiary_view.xml',
         'views/support_view.xml',
+        'views/event_view.xml',
+        'views/exam_view.xml',
     ],
     
     'qweb': [

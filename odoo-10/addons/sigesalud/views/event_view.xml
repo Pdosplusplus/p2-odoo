@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc
+    -->
+    <record model="ir.ui.view" id="event_form_view">
+
+      <field name="name">event.form</field>
+      <field name="model">sigesalud.event</field>
+      <field name="arch" type="xml">
+
+        <form string="event Form">
+
+          <header>
+            <button name="action_process" type="object"
+                    string="Reset to process"
+                    states="done"/>
+            <button name="action_done" type="object"
+                    string="Mark as done" states="process"
+                    class="oe_highlight"/>
+                    
+            <field name="state" widget="statusbar"/>
+          </header>
+ 
+          <group string="Control" col="4">
+            <field name='beneficiary_id'/>
+            <field name="type_event"/>
+          </group>
+
+          <group string="Informacion Generica">
+            <field name="description"/>
+          </group>
+
+          <group col="4">
+            <field name="city"/>
+            <field name="date"/>
+          </group>
+
+          <group col="4">
+            <field name="clinic"/>
+            <field name="cost"/>
+          </group>
+
+          <!-- Notebook
+            @Function: Crear un cuaderno, agrupar mejor la información.
+
+            @Description: Este data file nos permite crear un cuaderno con paginas; donde cada page es una pestaña. 
+          -->
+
+          <group string="Utils"/>
+
+          <notebook>
+            <!-- Page Examenes 
+
+              @Function: Añadir un examen al evento
+            -->
+
+            <page string="Examenes">
+              <field name="exam_ids">
+                <tree string="Añade un examen al evento" editable="bottom">
+                  <field name="name"/>
+                  <field name="type_exam"/>
+                  <field name="cost"/>
+                  <field name="support"/>
+                </tree>
+              </field>
+            </page>
+
+          </notebook>
+
+        </form>
+
+      </field>
+
+    </record>
+
+    <!-- Record search 
+      @Function: Para realizar la busqueda de los registros
+      
+      @Description: Con elrecord search definimos de que manera seran buscado los registros, definiendo por cuales campos se haran las busquedas, añadiendo domain entre otros.
+    -->
+    <record model="ir.ui.view" id="event_search_view">
+
+      <field name="name">event.search</field>
+      <field name="model">sigesalud.event</field>
+
+      <field name="arch" type="xml">
+        <search>
+          <field name="beneficiary_id"/>
+          <field name="type_event"/>
+          <field name="clinic"/>
+          <field name="cost"/>
+        </search>
+
+      </field>
+
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en un modelo, donde cada field es una columna.
+    -->
+    <record model="ir.ui.view" id="event_tree_view">
+      <field name="name">event.tree</field>
+      <field name="model">sigesalud.event</field>
+      <field name="arch" type="xml">
+        <tree string="event Tree">
+          <field name='beneficiary_id'/>
+          <field name="type_event"/>
+          <field name="description"/>
+          <field name="city"/>
+          <field name="date"/>
+          <field name="clinic"/>
+          <field name="cost"/>
+        </tree>
+        
+      </field>
+
+    </record>
+
+    <!-- Tag actions.act_window 
+    
+      @Function: Este tag o record tiene como funcion contralar el flujo de los views a las acciones de los mismos
+
+      @Descripcion: Una de las cosa que ahce este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree>, <form>, <calendar> ,y de ultimo las graficas <graph>.
+    -->
+    <record model="ir.actions.act_window" id="event_list_action">
+
+      <field name="name">Eventos</field>
+      <field name="res_model">sigesalud.event</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="context" eval="{'search_default_my_events': 1}"/>
+
+    </record>
+
+  
+  </data>
+</odoo>
