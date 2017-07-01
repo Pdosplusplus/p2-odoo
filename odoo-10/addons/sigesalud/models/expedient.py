@@ -6,6 +6,9 @@ class Expedient(models.Model):
 
     _name = 'sigesalud.expedient'
 
+    name = fields.Char(string="Nombre Completo", 
+                       required=True)
+
     cooperative = fields.Selection([
         ('geekos', "Geekos"),
         ('bmkeros', "Bmkeros"),
@@ -22,9 +25,7 @@ class Expedient(models.Model):
         ('no', "No"),
     ], string="Asociado")
 
-    name = fields.Char(string="Nombre Completo", 
-                       required=True)
-
+   
     birthdate = fields.Date(string="Fecha de nacimiento",
                         required=True)
 
@@ -89,7 +90,7 @@ class Expedient(models.Model):
                         string="Grupo familiar / Beneficiarios")
 
     support_ids = fields.One2many('sigesalud.support', 
-                        'support_id', 
+                        'expedient_id', 
                         string="Soportes")
 
     _sql_constraints = [

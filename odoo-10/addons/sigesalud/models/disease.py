@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 class Disease(models.Model):
 
-    _name = 'sigesalud.expedient'
+    _name = 'sigesalud.disease'
 
     name = fields.Char(string="Nombre", 
                        required=True)
@@ -16,7 +16,7 @@ class Disease(models.Model):
                          ondelete='cascade', 
                          string="Expediente")
 
-    beneficiary_id = fields.Many2one('sigesalud.expedient',
+    beneficiary_id = fields.Many2one('sigesalud.beneficiary',
                          ondelete='cascade', 
-                         string="Expediente")
+                         string="Beneficiario")
 

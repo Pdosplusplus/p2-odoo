@@ -78,7 +78,6 @@
         <tree string="beneficiary Tree">
           <field name="expedient_id"/>
           <field name="relationship"/>
-          <field name="bf_last_name"/>
           <field name="bf_birthdate"/>
           <field name="bf_ci"/>
           <field name="bf_celphone"/>

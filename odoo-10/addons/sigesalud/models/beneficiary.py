@@ -5,7 +5,7 @@ from odoo.exceptions import ValidationError
 
 class Beneficiart(models.Model):
 
-    _name = 'sigesalud.beneficiart'
+    _name = 'sigesalud.beneficiary'
 
     relationship = fields.Selection([
         ('padre', "Padre"),
