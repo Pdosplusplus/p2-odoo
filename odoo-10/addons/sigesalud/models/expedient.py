@@ -22,10 +22,7 @@ class Expedient(models.Model):
         ('no', "No"),
     ], string="Asociado")
 
-    name = fields.Char(string="Nombre", 
-                       required=True)
-
-    last_name = fields.Char(string="Apellido", 
+    name = fields.Char(string="Nombre Completo", 
                        required=True)
 
     birthdate = fields.Date(string="Fecha de nacimiento",

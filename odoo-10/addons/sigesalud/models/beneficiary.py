@@ -16,10 +16,7 @@ class Beneficiart(models.Model):
 
     ], string="Estado Civil", required=True)
 
-    bf_name = fields.Char(string="Nombre", 
-                       required=True)
-
-    bf_last_name = fields.Char(string="Apellido", 
+    bf_name = fields.Char(string="Nombre Completo", 
                        required=True)
 
     bf_birthdate = fields.Date(string="Fecha de nacimiento",

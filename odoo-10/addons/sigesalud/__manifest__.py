@@ -44,7 +44,9 @@
         #'security/agili_security.xml',
         #'security/ir.model.access.csv',
         'views/expedient_view.xml',
+        'views/disease_view.xml',
         'views/beneficiary_view.xml',
+        'views/support_view.xml',
     ],
     
     'qweb': [

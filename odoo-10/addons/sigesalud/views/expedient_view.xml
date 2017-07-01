@@ -22,9 +22,8 @@
               <field name="associated"/>
             </group>
 
-            <group string="Informacion Generica" col="4">
+            <group string="Informacion Generica">
               <field name="name"/>
-              <field name="last_name"/>
             </group>
 
             <group col="6">
