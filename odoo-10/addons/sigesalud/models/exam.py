@@ -9,9 +9,6 @@ class Exam(models.Model):
     name = fields.Char(string="Nombre ", 
                         required=True)
 
-    type_exam = fields.Char(string="Tipo de examen",
-                        required=True)
-
     cost = fields.Char(string="Costo del examen",
                         required=True)
 

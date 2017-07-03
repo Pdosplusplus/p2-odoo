@@ -18,7 +18,6 @@
         
             <group>
               <field name="name"/>
-              <field name="type_exam"/>
               <field name="cost"/>
               <field name="support"/>
             </group>
@@ -43,7 +42,6 @@
         <tree string="exam Tree">
           <field name="event_id"/>
           <field name="name"/>
-          <field name="type_exam"/>
           <field name="cost"/>
           <field name="support"/>
         </tree>
