@@ -1,0 +1,317 @@
+<odoo>
+  <data>
+    <template id="expedient_header">
+      <div class="header">
+        <div class="row">
+          <div class="col-xs-12">
+            <img class="img-responsive" src="/sigesalud/static/src/img/report-header.png" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="panel" style="max-height: 50px;">
+            <div class="panel-heading">
+              <h3 class="text-center"> Reporte del Expediente</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="row zero_min_height">
+          <div class="col-xs-12">
+            <div style="border-bottom: 1px solid black;"/>
+          </div>
+        </div>
+
+      </div>
+    </template>
+
+    <template id="report_expedient">
+      <t t-call="report.html_container">s
+        <t t-call="sigesalud.expedient_header"/>
+        <t t-foreach="docs" t-as="o">
+          <t t-call="report.external_layout">
+
+            <t t-esc="o"/>
+
+            <div class="page">
+              
+              Cooperativa: <span class="badge" t-field="o.cooperative"/> 
+              Asociado: <span class="badge" t-field="o.associated"/>
+              
+              <br/> <br/>
+              
+              <table class="table table-condensed">
+                      
+                <thead>
+                  <th colspan="2" class="center">
+                    Datos del Expediente
+                  </th>
+                </thead>
+
+                <tbody>
+                  
+                  <tr>
+                      <td>Nombre Completo:</td>
+                      <td>
+                          <t t-esc="o.name"/>
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Cedula:</td>
+                      <td>
+                          <t t-esc="o.ci"/>
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Telefono:</td>
+                      <td>
+                          <t  t-esc="o.celphone"/>                          
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Email:</td>
+                      <td>
+                          <span class="badge" t-esc="o.email"/>
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Direccion:</td>
+                      <td>
+                          <span class="badge" t-esc="o.address"/>
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Banco:</td>
+                      <td>
+                        <span class="badge" t-esc="o.bank"/>
+                    
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Numero de cuenta:</td>
+                      <td>
+                        <t t-esc="o.bank_account"/>
+                      </td>
+                  </tr>
+
+                </tbody>
+            
+              </table>
+             
+              <br/><br/><br/>
+
+              <table class="table table-condensed">
+              
+                <thead>
+                  <th colspan="2" class="center">
+                    Enfermedades
+                  </th>
+                </thead>
+
+                <tbody>
+
+                  <t t-foreach="o.disease_ids" t-as="disease">
+                    <tr>
+                      <td>Nombre:</td>
+                      <td>
+                        <t t-esc="disease.name"/>
+                      </td>
+                    </tr>
+                  </t>              
+                 
+                </tbody>
+            
+              </table>
+
+              <h4> 
+                <strong> Beneficiarios: </strong> 
+              </h4>
+
+              <div class="row zero_min_height">
+                <div class="col-xs-12">
+                  <div style="border-bottom: 1px solid black;"/>
+                </div>
+              </div>
+              
+              <br/>
+
+              <table class="table table-condensed">
+              
+                <thead>
+
+                  <th class="text-center">
+                    Parentesco
+                  </th>
+
+                  <th class="text-center">
+                    Nombre Completo
+                  </th>
+
+                  <th class="text-center">
+                    Cedula de identidad
+                  </th>
+
+                  <th class="text-center">
+                    Edad
+                  </th>
+
+                  <th class="text-center">
+                    Telefono
+                  </th>
+
+                  <th class="text-center">
+                    Correo Electronico
+                  </th>
+
+                  <th class="text-center">
+                    Direccion
+                  </th>
+
+                </thead>
+
+                <tbody>
+
+                  <t t-foreach="o.beneficiary_ids" t-as="beneficiary">
+                    <tr>
+                      <td>
+                         <span t-field="beneficiary.relationship"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="beneficiary.name"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="beneficiary.bf_ci"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="beneficiary.bf_age"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="beneficiary.bf_celphone"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="beneficiary.bf_email"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="beneficiary.bf_address"/>
+                      </td>
+
+                    </tr>
+                  </t>              
+                 
+                </tbody>
+            
+              </table>
+
+              <h4> 
+                <strong> Eventos: </strong> 
+              </h4>
+
+              <div class="row zero_min_height">
+                <div class="col-xs-12">
+                  <div style="border-bottom: 1px solid black;"/>
+                </div>
+              </div>
+              
+              <br/>
+
+              <table class="table table-condensed">
+              
+                <thead>
+
+                  <th class="text-center">
+                    Tipo de evento
+                  </th>
+
+                  <th class="text-center">
+                    Descripcion
+                  </th>
+
+                  <th class="text-center">
+                    Ciudad
+                  </th>
+
+                  <th class="text-center">
+                    Fecha
+                  </th>
+
+                  <th class="text-center">
+                    Clinica
+                  </th>
+
+                  <th class="text-center">
+                    Costo del evento
+                  </th>
+
+                </thead>
+
+                <tbody>
+
+                  <t t-foreach="o.event_ids" t-as="event">
+                    <tr>
+                      <td>
+                         <span t-field="event.type_event"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="event.description"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="event.city"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="event.date"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="event.clinic"/>
+                      </td>
+
+                      <td>
+                         <span class="badge" t-esc="event.cost"/>
+                      </td>
+
+                    </tr>
+                  </t>              
+                 
+                </tbody>
+            
+              </table>
+
+            </div>
+            
+          </t>
+        </t>
+      </t>
+    </template>
+
+    <template id="external_layout_footer_customized" inherit_id="report.external_layout_footer">
+      <xpath expr="//div[@class='footer']" position="replace">
+        <div class="footer">
+          <div class="row">
+        
+            <div class="col-xs-12">
+              <img class="img-responsive" src="/sigesalud/static/src/img/report-footer.png" />
+            </div>
+
+          </div>
+
+        </div>
+      </xpath>
+    </template>
+
+  </data>
+</odoo>

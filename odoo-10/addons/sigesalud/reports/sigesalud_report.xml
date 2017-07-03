@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <report
+            id="action_report_expedient"
+            model="sigesalud.expedient"
+            string="Reporte del Expediente"
+            report_type="qweb-pdf" 
+            attachment_use="False"
+            name="sigesalud.report_expedient"
+            file="sigesalud.report_expedient"
+        />
+        
+    </data>
+</odoo>

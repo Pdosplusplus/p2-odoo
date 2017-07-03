@@ -49,6 +49,8 @@
         'views/support_view.xml',
         'views/event_view.xml',
         'views/exam_view.xml',
+        'reports/report_expedient.xml',
+        'reports/sigesalud_report.xml',
     ],
     
     'qweb': [
