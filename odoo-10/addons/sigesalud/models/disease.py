@@ -6,7 +6,7 @@ class Disease(models.Model):
 
     _name = 'sigesalud.disease'
 
-    name = fields.Char(string="Nombre", 
+    name = fields.Char(string="Nombre de Enfermedad", 
                        required=True)
 
     expedient_id = fields.Many2one('sigesalud.expedient',

@@ -20,7 +20,7 @@
             </group>
 
             <group string="Informacion Generica" col="4">
-              <field name="bf_name"/>
+              <field name="name"/>
               <field name="bf_birthdate"/>
             </group>
 
@@ -44,14 +44,30 @@
 
               <!-- Page Enfermedades 
   
-                @Function: Añadir una enfermedad al expediente
+                @Function: Añadir una enfermedad al beneficiario
               -->
 
               <page string="Enfermedades">
                 <field name="bf_disease_ids">
                   <tree string="Añade una enfermedad al beneficiario" editable="bottom">
                     <field name="name"/>
-                    <field name="pathology"/>
+                  </tree>
+                </field>
+              </page>
+
+              <!-- Page Eventos 
+  
+                @Function: Añadir un beneficiario al beneficiario
+              -->
+
+              <page string="Eventos">
+                <field name="event_ids">
+                  <tree string="Añade un evento al beneficiario">
+                    <field name="type_event"/>
+                    <field name="description"/>
+                    <field name="city"/>
+                    <field name="date"/>
+                    <field name="cost"/>
                   </tree>
                 </field>
               </page>

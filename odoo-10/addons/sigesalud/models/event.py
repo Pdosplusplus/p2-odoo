@@ -8,7 +8,6 @@ class Event(models.Model):
 
     beneficiary_id = fields.Many2one('sigesalud.beneficiary',
                      ondelete='cascade',
-                     required=True, 
                      string="Beneficiario")
 
     type_event = fields.Selection([

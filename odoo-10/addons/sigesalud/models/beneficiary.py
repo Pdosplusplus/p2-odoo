@@ -16,7 +16,7 @@ class Beneficiart(models.Model):
 
     ], string="Parentesco", required=True)
 
-    bf_name = fields.Char(string="Nombre Completo", 
+    name = fields.Char(string="Nombre Completo", 
                        required=True)
 
     bf_birthdate = fields.Date(string="Fecha de nacimiento",
@@ -58,6 +58,10 @@ class Beneficiart(models.Model):
     bf_disease_ids = fields.One2many('sigesalud.disease', 
                         'beneficiary_id', 
                         string="Enfermedades")
+
+    event_ids = fields.One2many('sigesalud.event', 
+                        'beneficiary_id', 
+                        string="Soportes")
 
     _sql_constraints = [
         ('bf_ci_unique',

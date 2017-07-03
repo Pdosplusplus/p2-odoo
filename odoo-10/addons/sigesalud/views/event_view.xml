@@ -26,8 +26,7 @@
             <field name="state" widget="statusbar"/>
           </header>
  
-          <group string="Control" col="4">
-            <field name='beneficiary_id'/>
+          <group string="Control">
             <field name="type_event"/>
           </group>
 
@@ -63,7 +62,6 @@
               <field name="exam_ids">
                 <tree string="Añade un examen al evento" editable="bottom">
                   <field name="name"/>
-                  <field name="type_exam"/>
                   <field name="cost"/>
                   <field name="support"/>
                 </tree>
