@@ -17,10 +17,10 @@
 
           <header>
             <button name="action_process" type="object"
-                    string="Reset to process"
+                    string="En proceso"
                     states="done"/>
             <button name="action_done" type="object"
-                    string="Mark as done" states="process"
+                    string="Ejecutado" states="process"
                     class="oe_highlight"/>
                     
             <field name="state" widget="statusbar"/>
