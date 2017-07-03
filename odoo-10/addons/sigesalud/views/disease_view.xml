@@ -18,7 +18,6 @@
         
             <group>
               <field name="name"/>
-              <field name="pathology"/>
             </group>
 
           </sheet>
@@ -40,7 +39,6 @@
       <field name="arch" type="xml">
         <tree string="disease Tree">
           <field name="name"/>
-          <field name="pathology"/>
         </tree>
       </field>
 

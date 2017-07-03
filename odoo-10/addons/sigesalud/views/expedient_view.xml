@@ -77,7 +77,6 @@
                 <field name="disease_ids">
                   <tree string="Añade una enfermedad al beneficiario" editable="bottom">
                     <field name="name"/>
-                    <field name="pathology"/>
                   </tree>
                 </field>
               </page>

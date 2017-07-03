@@ -9,9 +9,6 @@ class Disease(models.Model):
     name = fields.Char(string="Nombre", 
                        required=True)
 
-    pathology = fields.Char(string="Patalogia", 
-                       required=True)
-
     expedient_id = fields.Many2one('sigesalud.expedient',
                          ondelete='cascade', 
                          string="Expediente")

@@ -14,7 +14,7 @@ class Beneficiart(models.Model):
         ('hijo', "Hijo"),
         ('hermano', "Hermano"),
 
-    ], string="Estado Civil", required=True)
+    ], string="Parentesco", required=True)
 
     bf_name = fields.Char(string="Nombre Completo", 
                        required=True)
