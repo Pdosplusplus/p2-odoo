@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sigesalud_report_mounthly_view" model="ir.ui.view">
+        <field name="name">Reporte Mensual</field>
+        <field name="model">sigesalud.report.mounthly</field>
+        <field name="arch" type="xml">
+            <form string="Report Options">
+                
+                <group col="4">
+                    <field name="month"/>
+                    <field name="selection" widget="radio"/>
+                </group>
+
+                <group>
+                    <field name="cooperative" attrs="{'invisible': [('selection', '!=', 'cooperativa')]}"/>
+                    <field name="titular" attrs="{'invisible': [('selection', '!=', 'titular')]}"/>
+                    <field name="beneficiary" attrs="{'invisible': [('selection', '!=', 'beneficiario')]}"/> 
+                </group>
+                
+                <footer>
+                    <button name="print_reporte" 
+                    		string="Imprimir" 
+                    		type="object" 
+                    		class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sigesalud_report_mounthly_view" model="ir.actions.act_window">
+        <field name="name">Reporte Mensual</field>
+        <field name="res_model">sigesalud.report.mounthly</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sigesalud_report_mounthly_view"/>
+        <field name="target">new</field>
+    </record>
+    
+    <menuitem id="sigesalud_report_mounthly_menu" 
+    		name="Reporte Mensual" 
+        	parent="sigesalud_report_menu"
+        	action="action_sigesalud_report_mounthly_view"/>
+
+</odoo>

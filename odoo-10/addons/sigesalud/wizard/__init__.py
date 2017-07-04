@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-import agili_report_project_specific
+import sigesalud_report_monthly

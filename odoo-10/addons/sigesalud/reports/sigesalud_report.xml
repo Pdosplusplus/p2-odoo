@@ -12,5 +12,10 @@
             file="sigesalud.report_expedient"
         />
         
+        <!-- Añadimos el menu del panel izquierdo -->
+        <menuitem id="sigesalud_report_menu" 
+              name="Reportes"
+              parent="main_sigesalud_menu"/>
+              
     </data>
 </odoo>
