@@ -31,15 +31,10 @@
         <t t-foreach="docs" t-as="o">
           <t t-call="report.external_layout">
 
-            <t t-esc="o"/>
-
             <div class="page">
-              
-              Cooperativa: <span class="badge" t-field="o.cooperative"/> 
-              Asociado: <span class="badge" t-field="o.associated"/>
-              
-              <br/> <br/>
-              
+
+              <br/><br/><br/><br/><br/><br/><br/>
+
               <table class="table table-condensed">
                       
                 <thead>
@@ -49,6 +44,20 @@
                 </thead>
 
                 <tbody>
+
+                  <tr>
+                      <td>Cooperativa:</td>
+                      <td>
+                          <t t-esc="o.cooperative"/>
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td>Asociado:</td>
+                      <td>
+                          <t t-esc="o.associated"/>
+                      </td>
+                  </tr>
                   
                   <tr>
                       <td>Nombre Completo:</td>
@@ -104,192 +113,192 @@
             
               </table>
              
-              <br/><br/><br/>
+              <br/><br/>
 
-              <table class="table table-condensed">
+              <t t-if="o.disease_ids">
+
+                <table class="table table-condensed">
+                
+                  <thead>
+                    <th colspan="2" class="center">
+                      Enfermedades
+                    </th>
+                  </thead>
+
+                  <tbody>
+
+                    <t t-foreach="o.disease_ids" t-as="disease">
+                      <tr>
+                        <td>Nombre:</td>
+                        <td>
+                          <t t-esc="disease.name"/>
+                        </td>
+                      </tr>
+                    </t>              
+                   
+                  </tbody>
               
-                <thead>
-                  <th colspan="2" class="center">
-                    Enfermedades
-                  </th>
-                </thead>
+                </table>
 
-                <tbody>
-
-                  <t t-foreach="o.disease_ids" t-as="disease">
-                    <tr>
-                      <td>Nombre:</td>
-                      <td>
-                        <t t-esc="disease.name"/>
-                      </td>
-                    </tr>
-                  </t>              
-                 
-                </tbody>
-            
-              </table>
-
-              <h4> 
-                <strong> Beneficiarios: </strong> 
-              </h4>
-
-              <div class="row zero_min_height">
-                <div class="col-xs-12">
-                  <div style="border-bottom: 1px solid black;"/>
-                </div>
-              </div>
+              </t>
               
-              <br/>
+              <t t-if="o.beneficiary_ids">
 
-              <table class="table table-condensed">
+                <h4> 
+                  <strong> Beneficiarios: </strong> 
+                </h4>
+
+                <br/>
+
+                <table class="table table-condensed">
+                
+                  <thead>
+
+                    <th class="text-center">
+                      Parentesco
+                    </th>
+
+                    <th class="text-center">
+                      Nombre Completo
+                    </th>
+
+                    <th class="text-center">
+                      Cedula de identidad
+                    </th>
+
+                    <th class="text-center">
+                      Edad
+                    </th>
+
+                    <th class="text-center">
+                      Telefono
+                    </th>
+
+                    <th class="text-center">
+                      Correo Electronico
+                    </th>
+
+                    <th class="text-center">
+                      Direccion
+                    </th>
+
+                  </thead>
+
+                  <tbody>
+
+                    <t t-foreach="o.beneficiary_ids" t-as="beneficiary">
+                      <tr>
+                        <td>
+                           <span t-field="beneficiary.relationship"/>
+                        </td>
+
+                        <td>
+                           <span class="badge" t-esc="beneficiary.name"/>
+                        </td>
+
+                        <td>
+                           <span class="badge" t-esc="beneficiary.bf_ci"/>
+                        </td>
+
+                        <td>
+                           <span class="badge" t-esc="beneficiary.bf_age"/>
+                        </td>
+
+                        <td>
+                           <span class="badge" t-esc="beneficiary.bf_celphone"/>
+                        </td>
+
+                        <td>
+                           <span class="badge" t-esc="beneficiary.bf_email"/>
+                        </td>
+
+                        <td>
+                           <span class="badge" t-esc="beneficiary.bf_address"/>
+                        </td>
+
+                      </tr>
+                    </t>              
+                   
+                  </tbody>
               
-                <thead>
+                </table>
 
-                  <th class="text-center">
-                    Parentesco
-                  </th>
+              </t>
 
-                  <th class="text-center">
-                    Nombre Completo
-                  </th>
+              <t t-if="o.event_ids">
 
-                  <th class="text-center">
-                    Cedula de identidad
-                  </th>
+                <h4> 
+                  <strong> Eventos: </strong> 
+                </h4>
+                
+                <br/>
 
-                  <th class="text-center">
-                    Edad
-                  </th>
+                <table class="table table-condensed">
+                
+                  <thead>
 
-                  <th class="text-center">
-                    Telefono
-                  </th>
+                    <th class="text-center">
+                      Tipo de evento
+                    </th>
 
-                  <th class="text-center">
-                    Correo Electronico
-                  </th>
+                    <th class="text-center">
+                      Descripcion
+                    </th>
 
-                  <th class="text-center">
-                    Direccion
-                  </th>
+                    <th class="text-center">
+                      Ciudad
+                    </th>
 
-                </thead>
+                    <th class="text-center">
+                      Fecha
+                    </th>
 
-                <tbody>
+                    <th class="text-center">
+                      Clinica
+                    </th>
 
-                  <t t-foreach="o.beneficiary_ids" t-as="beneficiary">
-                    <tr>
-                      <td>
-                         <span t-field="beneficiary.relationship"/>
-                      </td>
+                    <th class="text-center">
+                      Costo del evento
+                    </th>
 
-                      <td>
-                         <span class="badge" t-esc="beneficiary.name"/>
-                      </td>
+                  </thead>
 
-                      <td>
-                         <span class="badge" t-esc="beneficiary.bf_ci"/>
-                      </td>
+                  <tbody>
 
-                      <td>
-                         <span class="badge" t-esc="beneficiary.bf_age"/>
-                      </td>
+                    <t t-foreach="o.event_ids" t-as="event">
+                      <tr>
+                        <td>
+                           <span t-field="event.type_event"/>
+                        </td>
 
-                      <td>
-                         <span class="badge" t-esc="beneficiary.bf_celphone"/>
-                      </td>
+                        <td>
+                           <span class="badge" t-esc="event.description"/>
+                        </td>
 
-                      <td>
-                         <span class="badge" t-esc="beneficiary.bf_email"/>
-                      </td>
+                        <td>
+                           <span class="badge" t-esc="event.city"/>
+                        </td>
 
-                      <td>
-                         <span class="badge" t-esc="beneficiary.bf_address"/>
-                      </td>
+                        <td>
+                           <span class="badge" t-esc="event.date"/>
+                        </td>
 
-                    </tr>
-                  </t>              
-                 
-                </tbody>
-            
-              </table>
+                        <td>
+                           <span class="badge" t-esc="event.clinic"/>
+                        </td>
 
-              <h4> 
-                <strong> Eventos: </strong> 
-              </h4>
+                        <td>
+                           <span class="badge" t-esc="event.cost"/>
+                        </td>
 
-              <div class="row zero_min_height">
-                <div class="col-xs-12">
-                  <div style="border-bottom: 1px solid black;"/>
-                </div>
-              </div>
+                      </tr>
+                    </t>              
+                   
+                  </tbody>
               
-              <br/>
+                </table>
 
-              <table class="table table-condensed">
-              
-                <thead>
-
-                  <th class="text-center">
-                    Tipo de evento
-                  </th>
-
-                  <th class="text-center">
-                    Descripcion
-                  </th>
-
-                  <th class="text-center">
-                    Ciudad
-                  </th>
-
-                  <th class="text-center">
-                    Fecha
-                  </th>
-
-                  <th class="text-center">
-                    Clinica
-                  </th>
-
-                  <th class="text-center">
-                    Costo del evento
-                  </th>
-
-                </thead>
-
-                <tbody>
-
-                  <t t-foreach="o.event_ids" t-as="event">
-                    <tr>
-                      <td>
-                         <span t-field="event.type_event"/>
-                      </td>
-
-                      <td>
-                         <span class="badge" t-esc="event.description"/>
-                      </td>
-
-                      <td>
-                         <span class="badge" t-esc="event.city"/>
-                      </td>
-
-                      <td>
-                         <span class="badge" t-esc="event.date"/>
-                      </td>
-
-                      <td>
-                         <span class="badge" t-esc="event.clinic"/>
-                      </td>
-
-                      <td>
-                         <span class="badge" t-esc="event.cost"/>
-                      </td>
-
-                    </tr>
-                  </t>              
-                 
-                </tbody>
-            
-              </table>
+              </t>
 
             </div>
             
