@@ -47,7 +47,7 @@
             </group>
 
             <group string="Datos del seguro" col="4">
-              <field name="type_policy"/>
+              <field name="policy_id"/>
               <field name="bank"/>
             </group>
 
@@ -190,7 +190,7 @@
     -->
     <record model="ir.actions.act_window" id="expedient_list_action">
 
-      <field name="name">Proyectos</field>
+      <field name="name">Expedientes</field>
       <field name="res_model">sigesalud.expedient</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>

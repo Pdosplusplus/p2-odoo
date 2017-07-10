@@ -58,12 +58,9 @@ class Expedient(models.Model):
     address = fields.Text(string="Direccion", 
                        required=True)
 
-    type_policy = fields.Selection([
-        ('1', "1"),
-        ('2', "2"),
-        ('3', "3"),
-        ('4', "4"),
-    ], string="Tipo de Poliza", required=True)
+    policy_id = fields.Many2one('sigesalud.policy',
+                            ondelete='cascade', 
+                            string="Poliza")
 
     bank = fields.Selection([
         ('venezuela', "Venezuela"),

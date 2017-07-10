@@ -63,6 +63,10 @@ class Beneficiart(models.Model):
                         'beneficiary_id', 
                         string="Soportes")
 
+    policy_id = fields.Many2one('sigesalud.policy',
+                            ondelete='cascade', 
+                            string="Poliza")
+
     _sql_constraints = [
         ('bf_ci_unique',
         'UNIQUE(bf_ci)',

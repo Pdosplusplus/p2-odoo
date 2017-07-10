@@ -38,6 +38,7 @@
             <group>
               <field name="bf_email"/>
               <field name="bf_address"/>
+              <field name="policy_id"/>
             </group>
 
             <notebook>
