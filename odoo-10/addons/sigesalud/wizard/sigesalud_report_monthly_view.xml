@@ -15,7 +15,7 @@
                 <group>
                     <field name="cooperative" attrs="{'invisible': [('selection', '!=', 'cooperativa')]}"/>
                     <field name="titular" attrs="{'invisible': [('selection', '!=', 'titular')]}"/>
-                    <field name="beneficiary" attrs="{'invisible': [('selection', '!=', 'beneficiario')]}"/> 
+                    <field name="beneficiary" attrs="{'invisible': [('selection', '!=', 'beneficiario')]}" options="{'no_create': True}"/> 
                 </group>
                 
                 <footer>
