@@ -51,6 +51,7 @@
         'views/exam_view.xml',
         'views/policy_view.xml',
         'reports/report_expedient.xml',
+        'reports/report_mounthly.xml',
         'reports/sigesalud_report.xml',
         'wizard/sigesalud_report_monthly_view.xml',
     ],

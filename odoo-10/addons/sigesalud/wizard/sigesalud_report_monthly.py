@@ -58,15 +58,19 @@ class SigesaludReportMounthly(models.TransientModel):
         data = {}
         data['ids'] = self.env.context.get('active_ids', [])
         data['model'] = self.env.context.get('active_model', 'ir.ui.menu')
-        data['form'] = self.read(['selection',
+        data['form'] = self.read(['month',
+                                'selection',
                                 'cooperative', 
                                 'titular', 
                                 'beneficiary'])[0]
         
+        if not data['form'].get('month'):
+            raise UserError("Debe seleccionar un mes")
+
         if not data['form'].get('selection'):
             raise UserError("Debe seleccionar el tipo de reporte que quiere")
 
-        if data['form'].get('selection') == 'cooperative' and not data['form'].get('cooperative'):
+        if data['form'].get('selection') == 'cooperativa' and not data['form'].get('cooperative'):
             raise UserError("Debe seleccionar una cooperativa.")
 
         if data['form'].get('selection') == 'titular' and not data['form'].get('titular'):

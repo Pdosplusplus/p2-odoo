@@ -11,6 +11,15 @@
             name="sigesalud.report_expedient"
             file="sigesalud.report_expedient"
         />
+
+        <report
+            id="action_report_mounthly"
+            model="sigesalud.report.mounthly"
+            string="Reporte Mensual"
+            report_type="qweb-pdf" 
+            name="sigesalud.report_mounthly"
+            file="sigesalud.report_mounthly"
+        />
         
         <!-- Añadimos el menu del panel izquierdo -->
         <menuitem id="sigesalud_report_menu" 

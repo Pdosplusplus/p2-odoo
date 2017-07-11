@@ -1,0 +1,239 @@
+<odoo>
+  <data>
+    <template id="mounthly_header">
+      <div class="header">
+        <div class="row">
+          <div class="col-xs-12">
+            <img class="img-responsive" src="/sigesalud/static/src/img/report-header.png" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="panel" style="max-height: 50px;">
+            <div class="panel-heading">
+              <h3 class="text-center"> Reporte Mensual </h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="row zero_min_height">
+          <div class="col-xs-12">
+            <div style="border-bottom: 1px solid black;"/>
+          </div>
+        </div>
+
+      </div>
+    </template>
+
+    <template id="report_mounthly">
+      <t t-call="report.html_container">s
+        <t t-call="sigesalud.mounthly_header"/>
+          <t t-call="report.external_layout">
+
+            <div class="page">
+              
+              <br/><br/><br/><br/><br/><br/><br/>
+
+              <t t-if="data['cooperative']">
+
+                <h4> <strong> Cooperativa: </strong> <span t-esc="data['cooperative']"/> -- Mes <span t-esc="data['month']"/> </h4> 
+                  
+                <ul class="list-group">
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['titular']['num_aso']"/> </span>
+                    Numero de asociados:
+                  </li>
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['titular']['events_aso']"/> </span>
+                    Numero de eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['titular']['mount_aso']"/> </span>
+                    Monto de los eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    Porcentaje de uso: <div class="progress">
+                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                        <t t-esc="data['titular']['percentage_aso']"/> %
+                      </div>
+                    </div>
+                  </li>
+
+                </ul>
+
+                <h4> <strong> No asociados: </strong> </h4> 
+
+                <ul class="list-group">
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['titular']['num_no_aso']"/> </span>
+                    Numero de No asociados:
+                  </li>
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['titular']['events_no_aso']"/> </span>
+                    Numero de eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['titular']['mount_no_aso']"/> </span>
+                    Monto de los eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    
+                    Porcentaje de uso: <div class="progress">
+                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                        <t t-esc="data['titular']['percentage_no_aso']"/> %
+                      </div>
+                    </div>
+                  </li>
+
+                </ul>
+
+                <h4> <strong> Beneficiarios: </strong> </h4> 
+
+                <ul class="list-group">
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['beneficiary']['num']"/> </span>
+                    Numero de Beneficiarios:
+                  </li>
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['beneficiary']['events']"/> </span>
+                    Numero de eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['beneficiary']['mount']"/> </span>
+                    Monto de los eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    
+                    Porcentaje de uso: <div class="progress">
+                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                        <t t-esc="data['beneficiary']['percentage']"/> %
+                      </div>
+                    </div>
+                  </li>
+
+                </ul>
+                
+              </t>
+
+              <t t-if="data['titular']">
+
+                <h4> <strong> Titular: </strong> <span t-esc="data['titular']['name']"/> - Mes <span t-esc="data['month']"/> </h4> 
+                  
+                <ul class="list-group">
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['titular']['events_aso']"/> </span>
+                    Numero de eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['titular']['mount_aso']"/> </span>
+                    Monto de los eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    Porcentaje de uso: <div class="progress">
+                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                        <t t-esc="data['titular']['percentage_aso']"/> %
+                      </div>
+                    </div>
+                  </li>
+
+                </ul>
+
+                <h4> <strong> Beneficiarios: </strong> </h4> 
+
+                <ul class="list-group">
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['beneficiary']['num']"/> </span>
+                    Numero de Beneficiarios:
+                  </li>
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['beneficiary']['events']"/> </span>
+                    Numero de eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['beneficiary']['mount']"/> </span>
+                    Monto de los eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    
+                    Porcentaje de uso: <div class="progress">
+                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                        <t t-esc="data['beneficiary']['percentage']"/> %
+                      </div>
+                    </div>
+                  </li>
+
+                </ul>
+                
+              </t>
+
+              <t t-if="data['beneficiary']">
+
+                <h4> <strong> Beneficiario: </strong> <span t-esc="data['beneficiary']['name']"/> - Mes <span t-esc="data['month']"/> </h4> 
+                  
+                <ul class="list-group">
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['beneficiary']['events']"/> </span>
+                    Numero de eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    <span class="badge"> <t t-esc="data['beneficiary']['mount']"/> </span>
+                    Monto de los eventos:
+                  </li>
+
+                  <li class="list-group-item">
+                    
+                    Porcentaje de uso: <div class="progress">
+                      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                        <t t-esc="data['beneficiary']['percentage']"/> %
+                      </div>
+                    </div>
+                  </li>
+
+                </ul>
+                
+              </t>
+
+            </div>
+
+          </t>
+      </t>
+    </template>
+
+    <template id="external_layout_footer_customized_mountly" inherit_id="report.external_layout_footer">
+      <xpath expr="//div[@class='footer']" position="replace">
+        <div class="footer">
+          <div class="row">
+        
+            <div class="col-xs-12">
+              <img class="img-responsive" src="/sigesalud/static/src/img/report-footer.png" />
+            </div>
+
+          </div>
+
+        </div>
+      </xpath>
+    </template>
+
+  </data>
+</odoo>
