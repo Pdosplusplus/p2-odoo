@@ -128,6 +128,33 @@
                 </field>
               </page>
 
+              <!-- Page Reembolsos 
+  
+                @Function: Añadir un beneficiario al beneficiario
+              -->
+              <page string="Reembolsos">
+                <field name="repayment_ids">
+                  <tree string="Añade un reembolso">
+                    <field name="date"/>
+                    <field name="document_ids"/>
+                  </tree>
+                </field>
+              </page>
+
+              <!-- Page Reclamos 
+  
+                @Function: Añadir un beneficiario al beneficiario
+              -->
+              <page string="Reclamos">
+                <field name="complaint_ids">
+                  <tree string="Añade un Reclamo">
+                    <field name="date"/>
+                    <field name="repayment_id"/>
+                    <field name="description"/>
+                  </tree>
+                </field>
+              </page>
+
             </notebook>
 
 

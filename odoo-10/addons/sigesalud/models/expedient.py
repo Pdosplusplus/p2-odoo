@@ -94,6 +94,14 @@ class Expedient(models.Model):
                         'expedient_id', 
                         string="Soportes")
 
+    repayment_ids = fields.One2many('sigesalud.repayment', 
+                        'expedient_id', 
+                        string="Reembolsos")
+
+    complaint_ids = fields.One2many('sigesalud.complaint', 
+                        'expedient_id', 
+                        string="Reclamos")
+
     _sql_constraints = [
         ('ci_unique',
         'UNIQUE(ci)',

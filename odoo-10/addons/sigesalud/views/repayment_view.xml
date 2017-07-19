@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+        <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo repayment
+    -->
+    <record model="ir.ui.view" id="repayment_form_view">
+
+      <field name="name">repayment.form</field>
+      <field name="model">sigesalud.repayment</field>
+      <field name="arch" type="xml">
+
+        <form string="Work repayment Form">
+          <sheet>
+            <group>
+              <field name="date"/>
+            </group>
+
+            <notebook>
+
+              <!-- Page Documentos 
+  
+                @Function: Añadir un beneficiario al beneficiario
+              -->
+
+              <page string="Documentos">
+                <field name="document_ids">
+                  <tree string="Añade un documento al reembolso" editable="bottom">
+                    <field name="type_doc"/>
+                    <field name="original"/>
+                    <field name="copy"/>
+                    <field name="date"/>
+                    <field name="cost"/>
+                    <field name="support"/>
+                  </tree>
+                </field>
+              </page>
+
+            </notebook>
+
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en una tabla, donde cada field es una columna.
+    -->
+    <record model="ir.ui.view" id="repayment_tree_view">
+      <field name="name">repayment.tree</field>
+      <field name="model">sigesalud.repayment</field>
+
+      <field name="arch" type="xml">
+        <tree string="repayment Tree">
+          <field name="date"/>
+          <field name="document_ids"/>
+        </tree>
+      </field>
+
+    </record>
+
+    <!-- Tag actions.act_window 
+    
+      @Function: Este tag o record tiene como funcion contralar el flujo de los views a las acciones de los mismos
+
+      @Descripcion: Una de las cosa que ahce este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree>, <form>, <calendar> ,y de ultimo las graficas <graph>.
+    -->
+    <record model="ir.actions.act_window" id="repayment_list_action">
+
+      <field name="name">Reembolso</field>
+      <field name="res_model">sigesalud.repayment</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+     
+    </record>
+
+  </data>
+</odoo>
