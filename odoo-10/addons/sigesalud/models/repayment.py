@@ -6,7 +6,10 @@ class Repayment(models.Model):
     
     _name = 'sigesalud.repayment'
 
-    date = fields.Date(string="Fecha ", 
+    name = fields.Char(string="Nombre Completo", 
+                       required=True)
+
+    date = fields.Date(string="Fecha de entrega a la compania de seguros", 
                         required=True)
 
     document_ids = fields.One2many('sigesalud.document', 

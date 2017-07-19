@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from datetime import datetime, date
 
 class Complaint(models.Model):
     
@@ -11,7 +12,8 @@ class Complaint(models.Model):
                          string="Reembolso")
 
     date = fields.Date(string="Fecha ", 
-                        required=True)
+                        required=True,
+                        default= datetime.now().date())
 
     description = fields.Text(string="Descripcion", 
                         required=True)

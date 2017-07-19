@@ -15,15 +15,8 @@
 
         <form string="event Form">
 
-          <header>
-            <button name="action_process" type="object"
-                    string="En proceso"
-                    states="done"/>
-            <button name="action_done" type="object"
-                    string="Ejecutado" states="process"
-                    class="oe_highlight"/>
-                    
-            <field name="state" widget="statusbar"/>
+          <header>  
+            <field name="state"/>
           </header>
  
           <group string="Control">

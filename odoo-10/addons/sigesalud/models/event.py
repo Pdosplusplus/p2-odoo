@@ -52,7 +52,3 @@ class Event(models.Model):
     @api.multi
     def action_done(self):
         self.state = 'done'
-
-
-
-

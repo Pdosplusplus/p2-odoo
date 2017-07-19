@@ -46,8 +46,7 @@
               <field name="address"/>
             </group>
 
-            <group string="Datos del seguro" col="4">
-              <field name="policy_id"/>
+            <group string="Datos del seguro">
               <field name="bank"/>
             </group>
 
@@ -67,6 +66,15 @@
             <group string="Utils"/>
 
             <notebook>
+
+              <!-- Page Polizas 
+  
+                @Function: Añadir una poliza al expediente
+              -->
+
+              <page string="Polizas">
+                <field name="policy_ids" options="{'no_create': True}"/>
+              </page>
 
               <!-- Page Enfermedades 
   
@@ -135,6 +143,7 @@
               <page string="Reembolsos">
                 <field name="repayment_ids">
                   <tree string="Añade un reembolso">
+                    <field name="id"/>
                     <field name="date"/>
                     <field name="document_ids"/>
                   </tree>
@@ -147,9 +156,9 @@
               -->
               <page string="Reclamos">
                 <field name="complaint_ids">
-                  <tree string="Añade un Reclamo">
-                    <field name="date"/>
-                    <field name="repayment_id"/>
+                  <tree string="Añade un Reclamo" editable="bottom">
+                    <field name="date" readonly="1"/>
+                    <field name="repayment_id" options="{'no_create': True}"/>
                     <field name="description"/>
                   </tree>
                 </field>
