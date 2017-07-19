@@ -33,7 +33,7 @@
 
             <div class="page">
 
-              <br/><br/><br/><br/><br/><br/><br/>
+              <br/>
 
               <table class="table table-condensed">
                       
@@ -113,7 +113,11 @@
             
               </table>
              
+              <h3> Polizas: </h3> <t t-foreach="o.policy_ids" t-as="policy">  <span t-esc="policy.name"/> </t>
               <br/><br/>
+              <h4> 
+                <strong> Enfermedades: </strong> 
+              </h4>
 
               <t t-if="o.disease_ids">
 
@@ -142,12 +146,11 @@
 
               </t>
               
-              <t t-if="o.beneficiary_ids">
-
                 <h4> 
                   <strong> Beneficiarios: </strong> 
                 </h4>
 
+              <t t-if="o.beneficiary_ids">
                 <br/>
 
                 <table class="table table-condensed">
@@ -225,11 +228,11 @@
 
               </t>
 
-              <t t-if="o.event_ids">
+              <h4> 
+                <strong> Eventos: </strong> 
+              </h4>
 
-                <h4> 
-                  <strong> Eventos: </strong> 
-                </h4>
+              <t t-if="o.event_ids">
                 
                 <br/>
 
