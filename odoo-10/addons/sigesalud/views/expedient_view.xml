@@ -63,7 +63,7 @@
               @Description: Este data file nos permite crear un cuaderno con paginas; donde cada page es una pestaña. 
             -->
 
-            <group string="Utils"/>
+            <group string="Utilidades"/>
 
             <notebook>
 
@@ -145,6 +145,8 @@
                   <tree string="Añade un reembolso">
                     <field name="id"/>
                     <field name="date"/>
+                    <field name="name"/>
+                    <field name="event_id" options="{'no_create': True}"/>
                     <field name="document_ids"/>
                   </tree>
                 </field>

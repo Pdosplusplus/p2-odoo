@@ -16,7 +16,9 @@
         <form string="Work repayment Form">
           <sheet>
             <group>
+              <field name="name"/>
               <field name="date"/>
+              <field name="event_id" options="{'no_create': True}"/>
             </group>
 
             <notebook>

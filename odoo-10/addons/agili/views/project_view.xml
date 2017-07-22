@@ -275,9 +275,11 @@
           parent="agili_menu"
           action="project_list_action"/>
 
+    <!--
     <menuitem id="report_general" name="Reporte de avance general"
           parent="agili_report_menu"
           action="action_report_general"/>
+    -->
 
   </data>
 </odoo>

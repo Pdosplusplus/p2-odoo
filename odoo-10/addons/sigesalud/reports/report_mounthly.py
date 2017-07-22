@@ -2,7 +2,7 @@
 
 from odoo import api, models
 from odoo.addons.sigesalud.common.utils import compareMounts
-
+from datetime import datetime, date
 
 class ReportMounthly(models.AbstractModel):
     _name = 'report.sigesalud.report_mounthly'
@@ -35,6 +35,22 @@ class ReportMounthly(models.AbstractModel):
         info['cooperative'] = cooperative
         info['titular'] = titular
         info['beneficiary'] = beneficiary
+        info['date'] = datetime.now().date() 
+
+        cooperatives = {}
+        cooperatives["name"] = cooperative
+        cooperatives["beneficiaries"] = ""
+        cooperatives["num_aso"] = 0
+        cooperatives["events_aso"] = 0
+        cooperatives["num_no_aso"] = 0
+        cooperatives["events_no_aso"] = 0
+        cooperatives["mount_total"] = 0
+        cooperatives["mount_aso"] = 0
+        cooperatives["mount_no_aso"] = 0
+        cooperatives["percentage_aso"] = 0.0
+        cooperatives["percentage_no_aso"] = 0.0
+        cooperatives["events_total"] = 0
+
 
         #Vars to show in the report
         titulars = {}
@@ -58,29 +74,23 @@ class ReportMounthly(models.AbstractModel):
         beneficiaries["mount"] = 0
         beneficiaries["percentage"] = 0
 
-        if cooperative or titular:
+        if cooperative:
 
             if cooperative:
                 #Get all expedient    
                 all_expedient = self.env['sigesalud.expedient'].search([('cooperative', '=', cooperative)])
 
-            else:
-
-                all_expedient = self.env['sigesalud.expedient'].search([('id', '=', titular[0])])
-
-                titulars["name"] = titular[1]
-
             for expedient in all_expedient:
 
                 if expedient.associated == 'si':
                     
-                    titulars["num_aso"] += 1
+                    cooperatives["num_aso"] += 1
         
                 else:
 
-                    titulars["num_no_aso"] += 1
+                    cooperatives["num_no_aso"] += 1
 
-                titulars["events_total"] += len(expedient.event_ids)
+                cooperatives["events_total"] += len(expedient.event_ids)
 
                 #Recorremos los eventos realizados por el titular
                 for event in expedient.event_ids:
@@ -90,13 +100,13 @@ class ReportMounthly(models.AbstractModel):
 
                         if expedient.associated == 'si':
                     
-                            titulars["events_aso"] += 1
-                            titulars["mount_aso"] += int(event.cost)
+                            cooperatives["events_aso"] += 1
+                            cooperatives["mount_aso"] += int(event.cost)
 
                         else:
 
-                            titulars["events_no_aso"] += 1
-                            titulars["mount_no_aso"] += int(event.cost)
+                            cooperatives["events_no_aso"] += 1
+                            cooperatives["mount_no_aso"] += int(event.cost)
 
                 beneficiaries["events_total"] += len(expedient.beneficiary_ids)
 
@@ -110,19 +120,25 @@ class ReportMounthly(models.AbstractModel):
                             beneficiaries["events"] += 1
                             beneficiaries["mount"] += int(event.cost)
 
-            if titulars["events_total"] > 0:
+            if cooperatives["events_total"] > 0:
 
-                titulars["percentage_aso"] = titulars["events_aso"] * 100 / titulars["events_total"]
-                titulars["percentage_no_aso"] = titulars["events_no_aso"] * 100 / titulars["events_total"]
+                cooperatives["percentage_aso"] = cooperatives["events_aso"] * 100 / cooperatives["events_total"]
+                cooperatives["percentage_no_aso"] = cooperatives["events_no_aso"] * 100 / cooperatives["events_total"]
 
-            titulars["mount_total"] = titulars["mount_aso"] + titulars["mount_no_aso"]
+            cooperatives["mount_total"] = cooperatives["mount_aso"] + cooperatives["mount_no_aso"]
 
             if beneficiaries["events_total"] > 0:
 
                 beneficiaries["percentage"] = beneficiaries["events"] * 100 / beneficiaries["events_total"]
 
-            info['titular'] = titulars
-            info['beneficiary'] = beneficiaries
+            cooperatives["beneficiaries"] = beneficiaries
+            info['cooperative'] = cooperatives
+        
+        if titular:
+
+            all_expedient = self.env['sigesalud.expedient'].search([('id', '=', titular[0])])
+            titulars["name"] = titular[1]
+
 
         if beneficiary:
 
