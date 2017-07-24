@@ -85,26 +85,36 @@
 
                     <tr>
 
-                      <td> 
-                        <t class="text-center" t-esc="data['cooperative']['name']"/> 
+                      <td style="border: 1px solid black;"> 
+                        <t t-esc="data['cooperative']['name']"/> 
                       </td>
 
-                      <td> 
-                        <span class="badge"> <t class="text-center" t-esc="data['cooperative']['num_aso']"/> </span>
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['cooperative']['num_titu']"/> </span>
                       </td>
 
-                      <td> 
-                        <span class="badge"> <t class="text-center" t-esc="data['cooperative']['events_aso']"/> </span>
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['cooperative']['num_beneficiaries']"/> </span>
                       </td>
 
-                      <td> 
-                        <span class="badge"> <t class="text-center" t-esc="data['cooperative']['mount_aso']"/> </span>
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['cooperative']['num_events']"/> </span>
                       </td>
 
-                      <td>
+                      <td style="border: 1px solid black;"> 
+                        <t t-foreach="data['cooperative']['type_events']" t-as="event">
+                           <span class="badge"> <t t-esc="event"/> </span>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['cooperative']['mount']"/> </span>
+                      </td>
+
+                      <td style="border: 1px solid black;">
                         <div class="progress">
                           <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                            <t t-esc="data['cooperative']['percentage_aso']"/> %
+                            <t t-esc="data['cooperative']['porcentage_use']"/> %
                           </div>
                         </div>
                       </td>
@@ -115,6 +125,99 @@
 
                 </table>
                 
+              </t>
+
+              <t t-if="data['titular']">
+
+                <table class="table">
+
+                  <thead>
+
+                    <tr style="border: 0;">
+                      <th class="text-center" style="border-left: 1px solid black; border-top: 0; border-bottom: 1px;  border-right: 1px solid black;">
+                        Titular
+                      </th>
+
+                      <th class="text-center" style="border-left: 1px solid black; border-top: 0; border-bottom: 1px;  border-right: 1px solid black;">
+                        Cooperativa
+                      </th>
+
+                      <th colspan="4" class="text-center" style="border-top: 1px solid black; border-left: 1; border-bottom: 0px; border-right: 1px solid black;">
+                        Uso de Poliza
+                      </th>
+                      
+                    </tr>
+
+                    <th colspan="1" class="text-center" style="border-top: 1px solid black; border-left: 1px solid black; border-bottom: 0px; border-right: 1px solid black">
+
+                    </th>
+
+                    <th colspan="1" class="text-center" style="border-top: 1px solid black; border-left: 1px solid black; border-bottom: 0px; border-right: 1px solid black">
+                      
+                    </th>
+  
+                    <th class="text-center" style="border: 1px solid black;">
+                      Numero de Eventos
+                    </th>
+
+                    <th class="text-center" style="border: 1px solid black;">
+                      Tipo de Eventos:
+                    </th>
+
+                    <th class="text-center" style="border: 1px solid black;">
+                      Monto total:
+                    </th>
+
+                    <th class="text-center" style="border: 1px solid black;">
+                      Porcentaje de uso:
+                    </th>
+
+                  </thead>
+
+                  <tbody>
+
+                    <tr>
+
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['titular']['name']"/> </span>
+                      </td>
+
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['titular']['cooperative']"/> </span>
+                      </td>
+
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['titular']['num_events']"/> </span>
+                      </td>
+
+                      <td style="border: 1px solid black;"> 
+                        <t t-foreach="data['titular']['type_events']" t-as="event">
+                           <span class="badge"> <t t-esc="event"/> </span>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['titular']['mount']"/> </span>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            <t t-esc="data['titular']['porcentage_use']"/> %
+                          </div>
+                        </div>
+                      </td>
+
+                    </tr>
+
+                  </tbody>
+
+                </table>
+
+              </t>
+
+              <t t-if="data['beneficiary']">
+
                 <table class="table">
 
                   <thead>
@@ -172,21 +275,36 @@
                     <tr>
 
                       <td style="border: 1px solid black;"> 
-                        <span class="badge"> <t class="text-center" t-esc="data['cooperative']['beneficiaries']['num']"/> </span>
+                        <span class="badge"> <t t-esc="data['beneficiary']['name']"/> </span>
                       </td>
 
                       <td style="border: 1px solid black;"> 
-                        <span class="badge"> <t class="text-center" t-esc="data['cooperative']['beneficiaries']['events']"/> </span>
+                        <span class="badge"> <t t-esc="data['beneficiary']['cooperative']"/> </span>
                       </td>
 
                       <td style="border: 1px solid black;"> 
-                        <span class="badge"> <t  class="text-center" t-esc="data['cooperative']['beneficiaries']['mount']"/> </span>
+                        <span class="badge"> <t t-esc="data['beneficiary']['relationship']"/> </span>
+                      </td>
+
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['beneficiary']['num_events']"/> </span>
+                      </td>
+
+                      <td style="border: 1px solid black;"> 
+                        <t t-foreach="data['beneficiary']['type_events']" t-as="event">
+                           <span class="badge"> <t t-esc="event"/> </span>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;"> 
+
+                        <span class="badge"> <t t-esc="data['beneficiary']['mount']"/> </span>
                       </td>
 
                       <td style="border: 1px solid black;">
                         <div class="progress">
                           <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                            <t t-esc="data['cooperative']['beneficiaries']['percentage']"/> %
+                            <t t-esc="data['beneficiary']['porcentage_use']"/> %
                           </div>
                         </div>
                       </td>
