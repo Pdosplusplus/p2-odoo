@@ -41,8 +41,8 @@
 
     # always loaded
     'data': [
-        #'security/agili_security.xml',
-        #'security/ir.model.access.csv',
+        'security/sigesalud_security.xml',
+        'security/ir.model.access.csv',
         'views/expedient_view.xml',
         'views/disease_view.xml',
         'views/beneficiary_view.xml',
@@ -50,10 +50,12 @@
         'views/event_view.xml',
         'views/exam_view.xml',
         'views/policy_view.xml',
-        'views/repayment_view.xml',
+        'views/res_users_view.xml',
         'reports/report_expedient.xml',
         'reports/report_mounthly.xml',
         'reports/sigesalud_report.xml',
+        'reports/report_repayment.xml',
+        'views/repayment_view.xml',
         'wizard/sigesalud_report_monthly_view.xml',
     ],
     

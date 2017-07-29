@@ -20,6 +20,16 @@
             name="sigesalud.report_mounthly"
             file="sigesalud.report_mounthly"
         />
+
+        <report
+            id="action_report_repayment"
+            model="sigesalud.repayment"
+            string="Reporte Reembolso"
+            report_type="qweb-pdf"
+            attachment_use="False"
+            name="sigesalud.report_repayment"
+            file="sigesalud.report_repayment"
+        />
         
         <!-- Añadimos el menu del panel izquierdo -->
         <menuitem id="sigesalud_report_menu" 

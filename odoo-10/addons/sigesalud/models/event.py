@@ -15,6 +15,7 @@ class Event(models.Model):
         ('maternidad', "Maternidad"),
         ('emergencia', "Emergencia"),
         ('consulta', "Consulta"),
+        ('terapia', "Terapia"),
     ], string="Tipo de evento", required=True)
 
     description = fields.Text(string="Descripcion", 
@@ -41,9 +42,9 @@ class Event(models.Model):
                          string="Expediente")
 
     state = fields.Selection([
-        ('process', "En Proceso"),
-        ('done', "Ejecutado"),
-    ], default='process')
+        ('En Proceso', "En Proceso"),
+        ('Ejecutado', "Ejecutado"),
+    ], default='En Proceso')
 
     @api.multi
     def action_process(self):

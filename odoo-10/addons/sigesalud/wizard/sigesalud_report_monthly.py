@@ -26,7 +26,8 @@ class SigesaludReportMounthly(models.TransientModel):
         ('cooperativa', "Cooperativa"),
         ('titular', "Titular"),
         ('beneficiario', "Beneficiario"),
-        ('eventos', "Eventos"),
+        ('evento', "Evento"),
+        ('reembolso', "Reembolso"),
     ], string="Reporte por")
 
     cooperative = fields.Selection([
@@ -52,6 +53,21 @@ class SigesaludReportMounthly(models.TransientModel):
         string="Beneficiario",  
         index=True)
 
+    type_event = fields.Selection([
+        ('accidente', "Accidente"),
+        ('maternidad', "Maternidad"),
+        ('emergencia', "Emergencia"),
+        ('consulta', "Consulta"),
+        ('terapia', "Terapia"),
+        ('medicina', "Medicina"),
+    ], string="Tipo de evento")
+
+    type_repayment = fields.Selection([
+        ('process', "En proceso"),
+        ('maternidad', "Ejecutado"),
+        ('cancel', "Cancelado"),
+    ], string="Tipo de evento")
+
     @api.multi
     def print_reporte(self):
         
@@ -62,7 +78,9 @@ class SigesaludReportMounthly(models.TransientModel):
                                 'selection',
                                 'cooperative', 
                                 'titular', 
-                                'beneficiary'])[0]
+                                'beneficiary',
+                                'type_event',
+                                'type_repayment'])[0]
         
         if not data['form'].get('month'):
             raise UserError("Debe seleccionar un mes")
@@ -78,6 +96,12 @@ class SigesaludReportMounthly(models.TransientModel):
 
         if data['form'].get('selection') == 'beneficiario' and not data['form'].get('beneficiary'):
             raise UserError("Debe seleccionar un beneficiario.")
+
+        if data['form'].get('selection') == 'evento' and not data['form'].get('type_event'):
+            raise UserError("Debe seleccionar el tipo de evento.")
+
+        if data['form'].get('selection') == 'reembolso' and not data['form'].get('type_repayment'):
+            raise UserError("Debe seleccionar el tipo de reembolso.")
                 
         return self.env['report'].get_action(self, 'sigesalud.report_mounthly', data=data)
 

@@ -273,7 +273,6 @@
                   <tbody>
 
                     <tr>
-
                       <td style="border: 1px solid black;"> 
                         <span class="badge"> <t t-esc="data['beneficiary']['name']"/> </span>
                       </td>
@@ -315,6 +314,56 @@
 
                 </table>
 
+              </t>
+
+              <t t-if="data['event']">
+
+                <table class="table">
+                  <thead>
+                    <th class="text-center" style="border: 1px solid black;">
+                      Name
+                    </th>
+                    <th class="text-center" style="border: 1px solid black;">
+                      Numero de Eventos
+                    </th>
+                    <th class="text-center" style="border: 1px solid black;">
+                      Monto toltal:
+                    </th>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['event']['name']"/> </span>
+                      </td>
+
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['event']['num']"/> </span>
+                      </td>
+
+                      <td style="border: 1px solid black;"> 
+                        <span class="badge"> <t t-esc="data['event']['mount']"/> </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </t>
+
+              <t t-if="data['repayment']">
+                <table class="table">
+
+                  <center> <h4> Porcentaje de Reembolsos: <t t-esc="data['repayment']['name']"/>  </h4> </center>
+                  
+                  <tbody>
+                    <tr>
+                        <td>Porcentaje:</td>
+                        <td>
+                           <div class="progress"><div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"> <t t-esc="data['repayment']['porcentage_use']"/> % </div> </div>
+                        </td>
+                    </tr>
+                  </tbody>
+
+                </table>
               </t>
 
             </div>

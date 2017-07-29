@@ -15,10 +15,16 @@
 
         <form string="Work repayment Form">
           <sheet>
+            <header>  
+              <button name="%(action_report_repayment)d" class="btn btn-primary" string="Imprimir Reembolso" type="action"/>
+            </header>
+
             <group>
-              <field name="name"/>
+              <field name="name"/>class="btn btn-danger" 
               <field name="date"/>
-              <field name="event_id" options="{'no_create': True}"/>
+              <field name="expedient_id"/>
+              <field name="event_id" domain="[('expedient_id', '=', expedient_id)]" options="{'no_create': True}"/>
+              <field name="state"/>
             </group>
 
             <notebook>

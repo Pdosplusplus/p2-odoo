@@ -54,6 +54,8 @@ class Beneficiart(models.Model):
     expedient_id = fields.Many2one('sigesalud.expedient',
                             ondelete='cascade', 
                             string="Expediente")
+
+    policy_ids = fields.Many2many('sigesalud.policy', string="Polizas")
     
     bf_disease_ids = fields.One2many('sigesalud.disease', 
                         'beneficiary_id', 
@@ -63,9 +65,9 @@ class Beneficiart(models.Model):
                         'beneficiary_id', 
                         string="Soportes")
 
-    policy_id = fields.Many2one('sigesalud.policy',
-                            ondelete='cascade', 
-                            string="Poliza")
+    repayment_ids = fields.One2many('sigesalud.repayment', 
+                        'beneficiary_id', 
+                        string="Reembolsos")
 
     _sql_constraints = [
         ('bf_ci_unique',

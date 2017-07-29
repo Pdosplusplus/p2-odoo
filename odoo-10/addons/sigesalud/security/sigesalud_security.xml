@@ -1,127 +1,139 @@
 <odoo>
     <data>
-        <record id="group_agili_manager" model="res.groups">
-            <field name="name">Agili / Administrador</field>
+        <record id="group_sigesalud_manager" model="res.groups">
+            <field name="name">SIGESALUD / Administrador</field>
         </record>
 
-        <record id="agili_user_admin_project" model="ir.rule">
-            <field name="name"> Usuario Administrador Proyecto </field>
-            <field name="model_id" ref="model_agili_project"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
+        <record id="sigesalud_user_admin_expedient" model="ir.rule">
+            <field name="name"> Usuario Administrador Expedient </field>
+            <field name="model_id" ref="model_sigesalud_expedient"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
-        <record id="agili_user_admin_milestone" model="ir.rule">
-            <field name="name"> Usuario Administrador milestone </field>
-            <field name="model_id" ref="model_agili_milestone"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
+        <record id="sigesalud_user_admin_beneficiary" model="ir.rule">
+            <field name="name"> Usuario Administrador Beneficiary </field>
+            <field name="model_id" ref="model_sigesalud_beneficiary"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
-        <record id="agili_user_admin_deliverable" model="ir.rule">
-            <field name="name"> Usuario Administrador Deliverable </field>
-            <field name="model_id" ref="model_agili_deliverable"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
+        <record id="sigesalud_user_admin_disease" model="ir.rule">
+            <field name="name"> Usuario Administrador Disease </field>
+            <field name="model_id" ref="model_sigesalud_disease"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
-        <record id="agili_user_admin_activity" model="ir.rule">
-            <field name="name"> Usuario Administrador Activity </field>
-            <field name="model_id" ref="model_agili_activity"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_manager'))]"/>
+        <record id="sigesalud_user_admin_support" model="ir.rule">
+            <field name="name"> Usuario Administrador Support </field>
+            <field name="model_id" ref="model_sigesalud_support"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
-        <record id="group_agili_coordinator" model="res.groups">
-            <field name="name">Agili / Coordinador </field>
+        <record id="sigesalud_user_admin_event" model="ir.rule">
+            <field name="name"> Usuario Administrador Event </field>
+            <field name="model_id" ref="model_sigesalud_event"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
-        <record id="agili_user_coordinator_project" model="ir.rule">
-            <field name="name">Usuario Coordinador Proyecto</field>
-            <field name="model_id" ref="model_agili_project"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_coordinator'))]"/>
-            <field name="perm_read" eval="0"/>
-            <field name="perm_write" eval="1"/>
-            <field name="perm_create" eval="0"/>
-            <field name="perm_unlink" eval="0"/>
-            <field name="domain_force">
-                ['|', ('responsible_ids','=',False),
-                      ('responsible_ids','=',user.id)]
-            </field>
+        <record id="sigesalud_user_admin_exam" model="ir.rule">
+            <field name="name"> Usuario Administrador Exam </field>
+            <field name="model_id" ref="model_sigesalud_exam"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
-        <record id="agili_user_coordinator_milestone" model="ir.rule">
-            <field name="name">Usuario Coordinador Milestone</field>
-            <field name="model_id" ref="model_agili_milestone"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_coordinator'))]"/>
-            <field name="perm_read" eval="0"/>
-            <field name="perm_write" eval="0"/>
-            <field name="perm_create" eval="0"/>
-            <field name="perm_unlink" eval="1"/>
-            <field name="domain_force">
-                ['|', ('ms_responsible_id','=',False),
-                      ('ms_responsible_id','=',user.id)]
-            </field>
+        <record id="sigesalud_user_admin_policy" model="ir.rule">
+            <field name="name"> Usuario Administrador Policy </field>
+            <field name="model_id" ref="model_sigesalud_policy"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
-        <record id="agili_user_coordinator_deliverable" model="ir.rule">
-            <field name="name">Usuario Coordinador Deliverable </field>
-            <field name="model_id" ref="model_agili_deliverable"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_coordinator'))]"/>
-            <field name="perm_read" eval="0"/>
-            <field name="perm_write" eval="0"/>
-            <field name="perm_create" eval="0"/>
-            <field name="perm_unlink" eval="1"/>
-            <field name="domain_force">
-                ['|', ('dl_responsible_id','=',False),
-                      ('dl_responsible_id','=',user.id)]
-            </field>
+        <record id="sigesalud_user_admin_repayment" model="ir.rule">
+            <field name="name"> Usuario Administrador Repayment </field>
+            <field name="model_id" ref="model_sigesalud_repayment"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
-        <record id="agili_user_coordinator_activity" model="ir.rule">
-            <field name="name">Usuario Coordinador Actividad</field>
-            <field name="model_id" ref="model_agili_activity"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_coordinator'))]"/>
-            <field name="perm_read" eval="0"/>
-            <field name="perm_write" eval="1"/>
-            <field name="perm_create" eval="0"/>
-            <field name="perm_unlink" eval="0"/>
-            <field name="domain_force">
-                ['|', ('ac_responsible_id','=',False),
-                      ('ac_responsible_id','=',user.id)]
-            </field>
+        <record id="sigesalud_user_admin_document" model="ir.rule">
+            <field name="name"> Usuario Administrador Document </field>
+            <field name="model_id" ref="model_sigesalud_document"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
-        <record id="group_agili_cooperative" model="res.groups">
-            <field name="name">Agili / Cooperativista  </field>
+        <record id="sigesalud_user_admin_complaint" model="ir.rule">
+            <field name="name"> Usuario Administrador Complaint </field>
+            <field name="model_id" ref="model_sigesalud_complaint"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
-        <record id="agili_user_cooperative_project" model="ir.rule">
-            <field name="name"> Usuario Cooperativista Proyecto </field>
-            <field name="model_id" ref="model_agili_project"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
+        <record id="group_sigesalud_coordinator" model="res.groups">
+            <field name="name">SIGESALUD / Coordinador </field>
         </record>
 
-        <record id="agili_user_cooperative_milestone" model="ir.rule">
-            <field name="name"> Usuario Cooperativista milestone </field>
-            <field name="model_id" ref="model_agili_milestone"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
-        </record>
-
-        <record id="agili_user_cooperative_deliverable" model="ir.rule">
-            <field name="name"> Usuario Cooperativista Deliverable </field>
-            <field name="model_id" ref="model_agili_deliverable"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
-        </record>
-
-        <record id="agili_user_cooperative_activity" model="ir.rule">
-            <field name="name"> Usuario Cooperativista Activity </field>
-            <field name="model_id" ref="model_agili_activity"/>
-            <field name="groups" eval="[(4, ref('agili.group_agili_cooperative'))]"/>
+        <record id="sigesalud_user_coordinator_expedient" model="ir.rule">
+            <field name="name">Usuario Coordinador Expedient</field>
+            <field name="model_id" ref="model_sigesalud_expedient"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
             <field name="perm_read" eval="1"/>
             <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="0"/>
             <field name="perm_unlink" eval="0"/>
             <field name="domain_force">
-                ['|', ('ac_responsible_id','=',False),
-                      ('ac_responsible_id','=',user.id)]
+                ['|', ('cooperative','=',False),
+                      ('cooperative','=',user.cooperative)]
             </field>
+        </record>
+
+        <record id="sigesalud_user_coordinator_beneficiary" model="ir.rule">
+            <field name="name">Usuario Coordinador Beneficiary</field>
+            <field name="model_id" ref="model_sigesalud_beneficiary"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
+        </record>
+
+        <record id="sigesalud_user_coordinator_disease" model="ir.rule">
+            <field name="name">Usuario Coordinador Disease</field>
+            <field name="model_id" ref="model_sigesalud_disease"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
+        </record>
+
+        <record id="sigesalud_user_coordinator_support" model="ir.rule">
+            <field name="name">Usuario Coordinador Support</field>
+            <field name="model_id" ref="model_sigesalud_support"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
+        </record>
+
+        <record id="sigesalud_user_coordinator_event" model="ir.rule">
+            <field name="name">Usuario Coordinador Event</field>
+            <field name="model_id" ref="model_sigesalud_event"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
+        </record>
+
+        <record id="sigesalud_user_coordinator_exam" model="ir.rule">
+            <field name="name">Usuario Coordinador Exam</field>
+            <field name="model_id" ref="model_sigesalud_exam"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
+        </record>
+
+        <record id="sigesalud_user_coordinator_policy" model="ir.rule">
+            <field name="name">Usuario Coordinador Policy</field>
+            <field name="model_id" ref="model_sigesalud_policy"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
+        </record>
+
+        <record id="sigesalud_user_coordinator_repayment" model="ir.rule">
+            <field name="name">Usuario Coordinador Repayment</field>
+            <field name="model_id" ref="model_sigesalud_repayment"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
+        </record>
+
+        <record id="sigesalud_user_coordinator_document" model="ir.rule">
+            <field name="name">Usuario Coordinador Document</field>
+            <field name="model_id" ref="model_sigesalud_document"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
+        </record>
+
+        <record id="sigesalud_user_coordinator_complaint" model="ir.rule">
+            <field name="name">Usuario Coordinador Complaint</field>
+            <field name="model_id" ref="model_sigesalud_complaint"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
         </record>
 
     </data>

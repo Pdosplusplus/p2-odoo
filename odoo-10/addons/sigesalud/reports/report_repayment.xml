@@ -1,0 +1,618 @@
+<odoo>
+  <data>
+    <template id="repayment_header">
+      <div class="header">
+      
+        <div class="row">
+          <div class="panel" style="max-height: 50px;">
+            <div class="panel-heading">
+              <center> <img class="img-responsive" src="/sigesalud/static/src/img/logo-geekos.png"/> </center>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </template>
+
+    <template id="report_repayment">
+      <t t-call="report.html_container">
+        <t t-call="sigesalud.repayment_header"/>
+        <t t-foreach="docs" t-as="o">
+          <t t-call="report.external_layout">
+
+            <div class="page">
+
+              <br/><br/><br/><br/><br/>
+
+              <div class="row">
+                <div class="col-xs-6">
+                  <strong> Datos del Titular: </strong> <t t-esc="o.expedient_id.name"/>
+                </div>
+
+                <div class="col-xs-6 col-xs-push-3">
+                  <strong> Cedula de Identidad: </strong>  <t t-esc="o.expedient_id.ci"/>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-6">
+                  <strong> Datos del Paciente: </strong> <t t-esc="o.expedient_id.name"/>
+                </div>
+
+                <div class="col-xs-6 col-xs-push-3">
+                  <strong> Cedula de Identidad: </strong>  <t t-esc="o.expedient_id.ci"/>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <strong> Cooperativa: </strong> <t t-esc="o.expedient_id.cooperative"/>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <strong> Fecha de entregado a la compañía de seguros: </strong> <t t-esc="o.date"/>
+                </div>
+              </div>
+
+              <br/><br/><br/>
+
+              <table style="border: 1px solid black;" class="table table-condensed">
+                <thead>
+
+                  <th class="text-center" style="border: 1px solid black;">
+                    Documentos entregados a la compañía de seguros
+                  </th>
+
+                  <th class="text-center" style="border: 1px solid black;">
+                    Original
+                  </th>
+
+                  <th class="text-center" style="border: 1px solid black;">
+                    Copia
+                  </th>
+
+                  <th class="text-center" style="border: 1px solid black;">
+                    Cantidad
+                  </th>
+
+                  <th class="text-center" style="border: 1px solid black;">
+                    Rango de Fechas
+                  </th>
+
+                  <th class="text-center" style="border: 1px solid black;">
+                    Monto
+                  </th>
+
+                </thead>
+
+                <t t-set="im_can" t-value="0"> </t>
+                <t t-set="im_mount" t-value="0"> </t>
+                
+                <t t-set="rt_can" t-value="0"> </t>
+                <t t-set="rt_mount" t-value="0"> </t>
+
+                <t t-set="it_can" t-value="0"> </t>
+                <t t-set="it_mount" t-value="0"> </t>
+
+                <t t-set="oem_can" t-value="0"> </t>
+                <t t-set="oem_mount" t-value="0"> </t>
+                  
+                <t t-set="rem_can" t-value="0"> </t>
+                <t t-set="rem_mount" t-value="0"> </t>
+                  
+                <t t-set="fcm_can" t-value="0"> </t>
+                <t t-set="fcm_mount" t-value="0"> </t>
+  
+                <t t-set="fem_can" t-value="0"> </t>
+                <t t-set="fem_mount" t-value="0"> </t>
+
+                <t t-set="fmt_can" t-value="0"> </t>
+                <t t-set="fmt_mount" t-value="0"> </t>
+                  
+                <t t-set="imt_can" t-value="0"> </t>
+                <t t-set="imt_mount" t-value="0"> </t>
+                  
+                <t t-set="gt_can" t-value="0"> </t>
+                <t t-set="gt_mount" t-value="0"> </t>
+
+                <t t-foreach="o.document_ids" t-as="document">
+
+                  <t t-if="document.type_doc == 'im'">
+                    <t t-set="im_can" t-value="im_can+1"> </t>
+                    <t t-set="im_mount" t-value="im_mount+document.cost"> </t>
+                  </t>
+                  
+                  <t t-if="document.type_doc == 'rt'">
+                    <t t-set="rt_can" t-value="rt_can+1"> </t>
+                    <t t-set="rt_mount" t-value="rt_mount+document.cost"> </t>
+                  </t>
+                  
+                  <t t-if="document.type_doc == 'it'">
+                    <t t-set="it_can" t-value="it_can+1"> </t>
+                    <t t-set="it_mount" t-value="it_mount+document.cost"> </t>
+                  </t>
+                  
+                  <t t-if="document.type_doc == 'oem'">
+                    <t t-set="oem_can" t-value="oem_can+1"> </t>
+                    <t t-set="oem_mount" t-value="oem_mount+document.cost"> </t>
+                  </t>
+                  
+                  <t t-if="document.type_doc == 'rem'">
+                    <t t-set="rem_can" t-value="rem_can+1"> </t>
+                    <t t-set="rem_mount" t-value="rem_mount+document.cost"> </t>
+                  </t>
+                  
+                  <t t-if="document.type_doc == 'fcm'">
+                    <t t-set="fcm_can" t-value="fcm_can+1"> </t>
+                    <t t-set="fcm_mount" t-value="fcm_mount+document.cost"> </t>
+                  </t>
+                  
+                  <t t-if="document.type_doc == 'fem'">
+                    <t t-set="fem_can" t-value="fem_can+1"> </t>
+                    <t t-set="fem_mount" t-value="fem_mount+document.cost"> </t>
+                  </t>
+                  
+                  <t t-if="document.type_doc == 'fmt'">
+                    <t t-set="fmt_can" t-value="fmt_can+1"> </t>
+                    <t t-set="fmt_mount" t-value="fmt_mount+document.cost"> </t>
+                  </t>
+                  
+                  <t t-if="document.type_doc == 'imt'">
+                    <t t-set="imt_can" t-value="imt_can+1"> </t>
+                    <t t-set="imt_mount" t-value="imt_mount+document.cost"> </t>
+                  </t>
+
+                  <t t-if="document.type_doc == 'gt'">
+                    <t t-set="gt_can" t-value="gt_can+1"> </t>
+                    <t t-set="gt_mount" t-value="gt_mount+document.cost"> </t>
+                  </t>
+
+                </t>
+
+                <t t-set="total" t-value="im_mount+rt_mount+it_mount+oem_mount+rem_mount+fcm_mount+fem_mount+fmt_mount+imt_mount+gt_mount"> </t>
+
+
+                <tbody>
+
+                    <tr>
+                      <td style="border: 1px solid black;">
+                        Informe Medico
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="im_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="im_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="im_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="im_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="im_can"/> 
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="im_mount"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid black;">
+                        Recipe de Tratamiento
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="rt_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="rt_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="rt_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="rt_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="rt_can"/> 
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="rt_mount"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid black;">
+                        Indicaciones de Tratamiento
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="it_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="it_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="it_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="it_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="it_can"/> 
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="it_mount"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid black;">
+                        Ordenes de examenes medicos
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="oem_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="oem_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="oem_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="oem_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="oem_can"/> 
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="oem_mount"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid black;">
+                        Resultado de examenes medicos
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="rem_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="rem_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="rem_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="rem_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="rem_can"/> 
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="rem_mount"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid black;">
+                        Factura consulta medica
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="fcm_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="fcm_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="fcm_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="fcm_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="fcm_can"/> 
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="fcm_mount"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid black;">
+                        Factura de examenes medicos
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="fem_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="fem_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="fem_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="fem_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="fem_can"/> 
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="fem_mount"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid black;">
+                        Factura de medicinas por tratamiento
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="fmt_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="fmt_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="fmt_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="fmt_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="fmt_can"/> 
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="fmt_mount"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid black;">
+                        Informe medico de terapias
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="imt_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="imt_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="imt_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="imt_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="imt_can"/> 
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="imt_mount"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="border: 1px solid black;">
+                        Gastos en Terapias
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="gt_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="gt_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-if="gt_can">
+                          <input type="checkbox" checked="checked"/>
+                        </t>
+
+                        <t t-if="gt_can == False">
+                          <input type="checkbox"/>
+                        </t>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="gt_can"/> 
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="gt_mount"/>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td class="text-align-right" colspan="5">
+                        <strong> Total a ser reembolsado: </strong>
+                      </td>
+
+                      <td style="border: 1px solid black;">
+                        <t t-esc="total"/>
+                      </td>
+                    </tr>
+
+                </tbody>
+
+              </table>
+
+              <br/><br/><br/><br/>
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <strong> Entregado al seguro por: ______________________________________________________ </strong>
+                </div>
+              </div>
+
+              <br/><br/><br/>
+
+              <div class="row">
+                <div class="col-xs-12">
+                  <strong> Recibe conforme: ____________________________________________________________ </strong> 
+                </div>
+              </div>
+
+              <br/><br/><br/><br/><br/><br/>
+
+              <p>
+                <strong> Nota: </strong> El siguiente formato sirve de comprobante de entrega de los documentos al seguro, por concepto de reembolsos. Está diseñado para uso y control interno de la A.C. Geekos, R.L. Se agrade al funcionario receptor firma como constancia de recibido y estado de conformidad de la información acá incluida. No se aceptan enmiendas, ni tachaduras.
+              </p>
+
+            </div>
+            
+          </t>
+        </t>
+      </t>
+    </template>
+
+    <template id="external_layout_footer_repayment_customized" inherit_id="report.external_layout_footer">
+      <xpath expr="//div[@class='footer']" position="replace">
+        <div class="footer">
+          <div class="row">
+        
+            <div class="col-xs-12">
+              <img class="img-responsive" src="/sigesalud/static/src/img/report-footer.png" />
+            </div>
+
+          </div>
+
+        </div>
+      </xpath>
+    </template>
+
+  </data>
+</odoo>

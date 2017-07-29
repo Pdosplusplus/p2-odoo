@@ -17,7 +17,6 @@ class ReportMounthly(models.AbstractModel):
 
         return self.env['report'].render('sigesalud.report_mounthly', docargs)
 
-
     def _get_data_specific(self, data):
 
         #Dictionary that containt the data
@@ -29,6 +28,8 @@ class ReportMounthly(models.AbstractModel):
         cooperative = data['form'].get('cooperative')
         titulars = data['form'].get('titular')
         beneficiary = data['form'].get('beneficiary')
+        type_event = data['form'].get('type_event')
+        repayment = data['form'].get('type_repayment')
 
         #Vars for the control of the data
         info['month'] = month
@@ -36,6 +37,8 @@ class ReportMounthly(models.AbstractModel):
         info['titular'] = titulars
         info['beneficiary'] = beneficiary
         info['date'] = datetime.now().date() 
+        info['event'] = type_event
+        info['repayment'] = repayment
 
         cooperatives = {}
         cooperatives["name"] = cooperative
@@ -66,6 +69,17 @@ class ReportMounthly(models.AbstractModel):
         beneficiaries["total_events"] = 0
         beneficiaries["mount"] = 0
         beneficiaries["porcentage_use"] = 0
+
+        evento = {}
+        evento["name"] = type_event
+        evento["num"] = 0
+        evento["mount"] = 0
+
+        repayments = {}
+        repayments["name"] = repayment
+        repayments["num"] = 0
+        repayments["num_total"] = 0
+        repayments["porcentage_use"] = 0
 
         events = []
 
@@ -149,7 +163,6 @@ class ReportMounthly(models.AbstractModel):
             
             beneficiaries["name"] = beneficiary[1]
 
-
             for expedient in all_expedient:
 
                 for beneficiar in expedient.beneficiary_ids:
@@ -179,5 +192,55 @@ class ReportMounthly(models.AbstractModel):
 
             beneficiaries["type_events"] = events
             info['beneficiary'] = beneficiaries
-        
+
+        if type_event:
+
+            all_expedient = self.env['sigesalud.expedient'].search([('id', '>', 0)])
+            
+            for expedient in all_expedient:
+
+                for event in expedient.event_ids:
+
+                    if event.type_event == type_event:
+
+                        #Verificamos si el mes del evento es igual al seleccionado.
+                        if compareMounts(month, event.date):
+
+                            evento["num"] += 1
+                            evento["mount"] += float(event.cost)
+
+                for beneficiar in expedient.beneficiary_ids:
+
+                    for event in beneficiar.event_ids:
+
+                        if event.type_event == type_event:
+
+                            #Verificamos si el mes del evento es igual al seleccionado.
+                            if compareMounts(month, event.date):
+
+                                evento["num"] += 1
+                                evento["mount"] += float(events.cost)
+           
+            info['event'] = evento
+
+        if repayment:
+
+            all_expedient = self.env['sigesalud.expedient'].search([('id', '>', 0)])
+            
+            for expedient in all_expedient:
+
+                repayments["num_total"] += len(expedient.repayment_ids)
+
+                for repay in expedient.repayment_ids:
+
+                    if repay.state == repayment:
+
+                        repayments["num"] += 1
+
+            if repayments["num_total"] > 0:
+
+                repayments['porcentage_use'] = repayments["num"] * 100 / repayments["num_total"]
+
+            info['repayment'] = repayments
+
         return info

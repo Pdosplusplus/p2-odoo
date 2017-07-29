@@ -7,7 +7,7 @@ class Document(models.Model):
     _name = 'sigesalud.document'
 
     type_doc = fields.Selection([
-        ('if', "Informe Medico"),
+        ('im', "Informe Medico"),
         ('rt', "Recipe de Tratamiento"),
         ('it', "Indicaciones de Tratamiento"),
         ('oem', "Ordenes de examenes medicos"),
@@ -17,7 +17,6 @@ class Document(models.Model):
         ('fmt', "Factura de medicinas por tratamiento"),
         ('imt', "Informe medico de terapias"),
         ('gt', "Gastos en terapias"),
-        ('other', "Otros"),
     ], string="Tipo de documento")
 
     original = fields.Boolean(string="Original ", 

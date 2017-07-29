@@ -12,6 +12,12 @@ class Repayment(models.Model):
     date = fields.Date(string="Fecha de entrega a la compania de seguros", 
                         required=True)
 
+    state = fields.Selection([
+        ('En Proceso', "En Proceso"),
+        ('Ejecutado', "Ejecutado"),
+        ('Cancelado', "Cancelado"),
+    ], default='En Proceso', string="Estado")
+
     event_id = fields.Many2one('sigesalud.event',
                          ondelete='cascade', 
                          string="Evento")
@@ -23,3 +29,8 @@ class Repayment(models.Model):
     expedient_id = fields.Many2one('sigesalud.expedient',
                          ondelete='cascade', 
                          string="Expediente")
+
+    beneficiary_id = fields.Many2one('sigesalud.beneficiary',
+                         ondelete='cascade', 
+                         string="Beneficiario")
+
