@@ -1,4 +1,4 @@
-#SIGESALUD
+# SIGESALUD
   
 El proyecto de gestión de la póliza del seguro colectivo surge por la necesidad de
 gestionar un sistema que automatice los procesos de administración del beneficio
