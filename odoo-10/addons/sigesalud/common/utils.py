@@ -13,3 +13,15 @@ def compareMounts(dateone, datetwo):
 		return True
 
 	return False
+
+def years(dateone):
+
+	fecha = datetime.strptime(dateone,  FORMA_DATE)
+
+	today = datetime.now().date()
+
+	today = datetime.strptime(str(today), FORMA_DATE)
+
+	diferencia = today - fecha
+
+	return diferencia.days / 365

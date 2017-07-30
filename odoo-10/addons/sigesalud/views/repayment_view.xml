@@ -20,10 +20,11 @@
             </header>
 
             <group>
-              <field name="name"/>class="btn btn-danger" 
+              <field name="name"/> 
               <field name="date"/>
-              <field name="expedient_id"/>
-              <field name="event_id" domain="[('expedient_id', '=', expedient_id)]" options="{'no_create': True}"/>
+              <field name="flag" invisible="1"/>
+              <field name="event_id" domain="[('expedient_id', '=', parent.id)]" attrs="{'invisible': [('flag', '=', 'Beneficiary')]}" options="{'no_create': True}"/>
+              <field name="event_id" domain="[('beneficiary_id', '=', parent.id)]" attrs="{'invisible': [('flag', '=', 'Expedient')]}" options="{'no_create': True}"/>
               <field name="state"/>
             </group>
 

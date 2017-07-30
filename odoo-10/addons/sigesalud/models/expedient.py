@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from datetime import datetime, date
+from odoo.addons.sigesalud.common.utils import years
+
 
 class Expedient(models.Model):
 
@@ -25,11 +28,11 @@ class Expedient(models.Model):
         ('no', "No"),
     ], string="Asociado")
 
-   
     birthdate = fields.Date(string="Fecha de nacimiento",
                         required=True)
 
     age = fields.Integer(string="Edad",
+                        compute="_years",
                         required=True)
 
     sex = fields.Selection([
@@ -114,3 +117,10 @@ class Expedient(models.Model):
         "El numero de cuenta digitado ya se encuentra registado"),
 
     ]
+
+    @api.depends('birthdate')
+    def _years(self):
+
+        for r in self:
+            
+            r.age = years(r.birthdate)

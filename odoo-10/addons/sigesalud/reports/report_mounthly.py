@@ -106,12 +106,14 @@ class ReportMounthly(models.AbstractModel):
                         if not event.type_event in events:
 
                             events.append(event.type_event)
+
+                    cooperatives["num_beneficiaries"] = len(expedient.beneficiary_ids)
                         
-                for beneficiary in expedient.beneficiary_ids:
+                for beneficiar in expedient.beneficiary_ids:
 
                     cooperatives["total_events"] += len(expedient.event_ids)
 
-                    for event in beneficiary.event_ids:
+                    for event in beneficiar.event_ids:
 
                         #Verificamos si el mes del evento es igual al seleccionado.
                         if compareMounts(month, event.date):

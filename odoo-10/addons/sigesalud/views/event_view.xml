@@ -109,11 +109,12 @@
           <field name="date"/>
           <field name="clinic"/>
           <field name="cost"/>
+          <field name="exam_ids"/>
         </tree>
         
       </field>
 
-    </record>
+      </record>
 
     <!-- Tag actions.act_window 
     

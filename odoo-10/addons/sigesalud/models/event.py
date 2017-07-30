@@ -11,11 +11,12 @@ class Event(models.Model):
                      string="Beneficiario")
 
     type_event = fields.Selection([
-        ('accidente', "Accidente"),
+        ('hospitalizacion', "Hospitalizacion"),
         ('maternidad', "Maternidad"),
         ('emergencia', "Emergencia"),
         ('consulta', "Consulta"),
         ('terapia', "Terapia"),
+        ('cirugia', "Cirugia"),
     ], string="Tipo de evento", required=True)
 
     description = fields.Text(string="Descripcion", 
@@ -30,7 +31,7 @@ class Event(models.Model):
     clinic = fields.Char(string="Clinica", 
                        required=True)
 
-    cost = fields.Char(string="Costo del evento", 
+    cost = fields.Float(string="Costo del evento", 
                        required=True)
 
     exam_ids = fields.One2many('sigesalud.exam', 

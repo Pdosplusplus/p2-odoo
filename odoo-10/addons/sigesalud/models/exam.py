@@ -13,9 +13,8 @@ class Exam(models.Model):
                         required=True)
 
     support = fields.Binary(string="Soporte", 
-                        attachment=True,
-                        required=True)
+                        attachment=True)
 
-    event_id = fields.Many2one('sigesalud.exam',
+    event_id = fields.Many2one('sigesalud.event',
                             ondelete='cascade', 
                             string="Evento")

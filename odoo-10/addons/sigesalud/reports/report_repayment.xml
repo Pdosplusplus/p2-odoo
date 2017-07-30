@@ -24,25 +24,50 @@
 
               <br/><br/><br/><br/><br/>
 
-              <div class="row">
-                <div class="col-xs-6">
-                  <strong> Datos del Titular: </strong> <t t-esc="o.expedient_id.name"/>
-                </div>
+                <t t-if="o.expedient_id">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <strong> Datos del Titular: </strong> <t t-esc="o.expedient_id.name"/>
+                    </div>
 
-                <div class="col-xs-6 col-xs-push-3">
-                  <strong> Cedula de Identidad: </strong>  <t t-esc="o.expedient_id.ci"/>
-                </div>
-              </div>
+                    <div class="col-xs-6 col-xs-push-3">
+                      <strong> Cedula de Identidad: </strong> <t t-esc="o.expedient_id.ci"/> 
+                    </div>
+                  </div>
 
-              <div class="row">
-                <div class="col-xs-6">
-                  <strong> Datos del Paciente: </strong> <t t-esc="o.expedient_id.name"/>
-                </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <strong> Datos del Paciente: </strong> <t t-esc="o.expedient_id.name"/>
+                    </div>
 
-                <div class="col-xs-6 col-xs-push-3">
-                  <strong> Cedula de Identidad: </strong>  <t t-esc="o.expedient_id.ci"/>
-                </div>
-              </div>
+                    <div class="col-xs-6 col-xs-push-3">
+                      <strong> Cedula de Identidad: </strong>  <t t-esc="o.expedient_id.ci"/>
+                    </div>
+                  </div>
+                </t>
+
+                <t t-if="o.beneficiary_id">
+
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <strong> Datos del Titular: </strong> <t t-esc="o.beneficiary_id.expedient_id.name"/>
+                    </div>
+
+                    <div class="col-xs-6 col-xs-push-3">
+                      <strong> Cedula de Identidad: </strong>  <t t-esc="o.beneficiary_id.expedient_id.ci"/> 
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <strong> Datos del Paciente: </strong> <t t-esc="o.beneficiary_id.name"/>
+                    </div>
+
+                    <div class="col-xs-6 col-xs-push-3">
+                      <strong> Cedula de Identidad: </strong>  <t t-esc="o.expedient_id.ci"/> <t t-esc="o.beneficiary_id.bf_ci"/>
+                    </div>
+                  </div>
+                </t>
 
               <div class="row">
                 <div class="col-xs-12">
