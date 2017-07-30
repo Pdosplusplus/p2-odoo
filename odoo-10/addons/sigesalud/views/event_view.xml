@@ -19,10 +19,14 @@
             <field name="state"/>
           </header>
  
-          <group string="Control">
+          <group col="4" string="Control">
+            <field name="actor"/>
             <field name="type_event"/>
           </group>
 
+          <group>
+            <field name="beneficiary_id" domain="[('expedient_id', '=', parent.id)]" attrs="{'invisible': [('actor', '!=', 'beneficiario')]}" options="{'no_create': True}"/>
+          </group>
           <group string="Informacion Generica">
             <field name="description"/>
           </group>

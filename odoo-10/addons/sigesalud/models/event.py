@@ -6,9 +6,11 @@ class Event(models.Model):
 
     _name = 'sigesalud.event'
 
-    beneficiary_id = fields.Many2one('sigesalud.beneficiary',
-                     ondelete='cascade',
-                     string="Beneficiario")
+    actor = fields.Selection([
+        ('titular', "Titular"),
+        ('beneficiario', "Beneficiario"),
+    ], string="Actor", required=True)
+
 
     type_event = fields.Selection([
         ('hospitalizacion', "Hospitalizacion"),
@@ -38,14 +40,20 @@ class Event(models.Model):
                         'event_id', 
                         string="Examenes")
 
-    expedient_id = fields.Many2one('sigesalud.expedient',
-                         ondelete='cascade', 
-                         string="Expediente")
-
     state = fields.Selection([
         ('En Proceso', "En Proceso"),
         ('Ejecutado', "Ejecutado"),
     ], default='En Proceso')
+
+    expedient_id = fields.Many2one('sigesalud.expedient',
+                         ondelete='cascade', 
+                         string="Expediente")
+
+    beneficiary_id = fields.Many2one('sigesalud.beneficiary',
+                     ondelete='cascade',
+                     string="Beneficiario")
+
+    
 
     @api.multi
     def action_process(self):
