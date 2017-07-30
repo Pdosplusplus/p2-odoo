@@ -61,14 +61,6 @@ class Beneficiart(models.Model):
                         'beneficiary_id', 
                         string="Enfermedades")
 
-    event_ids = fields.One2many('sigesalud.event', 
-                        'beneficiary_id', 
-                        string="Soportes")
-
-    repayment_ids = fields.One2many('sigesalud.repayment', 
-                        'beneficiary_id', 
-                        string="Reembolsos")
-
     _sql_constraints = [
         ('bf_ci_unique',
         'UNIQUE(bf_ci)',

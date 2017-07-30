@@ -63,39 +63,6 @@
                 </field>
               </page>
 
-              <!-- Page Eventos 
-  
-                @Function: Añadir un beneficiario al beneficiario
-              -->
-              <page string="Eventos">
-                <field name="event_ids">
-                  <tree string="Añade un evento al beneficiario">
-                    <field name="type_event"/>
-                    <field name="description"/>
-                    <field name="city"/>
-                    <field name="date"/>
-                    <field name="cost"/>
-                    <field name="exam_ids"/>
-                  </tree>
-                </field>
-              </page>
-
-              <!-- Page Reembolsos 
-  
-                @Function: Añadir un beneficiario al beneficiario
-              -->
-              <page string="Reembolsos">
-                <field name="repayment_ids">
-                  <tree string="Añade un reembolso">
-                    <field name="id"/>
-                    <field name="date"/>
-                    <field name="name"/>
-                    <field name="event_id" options="{'no_create': True}"/>
-                    <field name="document_ids"/>
-                  </tree>
-                </field>
-              </page>
-
             </notebook>
 
           </sheet>
