@@ -11,7 +11,6 @@ class Event(models.Model):
         ('beneficiario', "Beneficiario"),
     ], string="Actor", required=True)
 
-
     type_event = fields.Selection([
         ('hospitalizacion', "Hospitalizacion"),
         ('maternidad', "Maternidad"),
@@ -52,8 +51,6 @@ class Event(models.Model):
     beneficiary_id = fields.Many2one('sigesalud.beneficiary',
                      ondelete='cascade',
                      string="Beneficiario")
-
-    
 
     @api.multi
     def action_process(self):

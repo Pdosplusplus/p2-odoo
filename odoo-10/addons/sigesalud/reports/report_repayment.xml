@@ -24,7 +24,7 @@
 
               <br/><br/><br/><br/><br/>
 
-                <t t-if="o.expedient_id">
+                <t t-if="o.event_id.actor == 'titular'">
                   <div class="row">
                     <div class="col-xs-6">
                       <strong> Datos del Titular: </strong> <t t-esc="o.expedient_id.name"/>
@@ -46,25 +46,25 @@
                   </div>
                 </t>
 
-                <t t-if="o.beneficiary_id">
+                <t t-if="o.event_id.actor == 'beneficiario'">
 
                   <div class="row">
                     <div class="col-xs-6">
-                      <strong> Datos del Titular: </strong> <t t-esc="o.beneficiary_id.expedient_id.name"/>
+                      <strong> Datos del Titular: </strong> <t t-esc="o.expedient_id.name"/>
                     </div>
 
                     <div class="col-xs-6 col-xs-push-3">
-                      <strong> Cedula de Identidad: </strong>  <t t-esc="o.beneficiary_id.expedient_id.ci"/> 
+                      <strong> Cedula de Identidad: </strong>  <t t-esc="o.expedient_id.ci"/> 
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="col-xs-6">
-                      <strong> Datos del Paciente: </strong> <t t-esc="o.beneficiary_id.name"/>
+                      <strong> Datos del Paciente: </strong> <t t-esc="o.event_id.beneficiary_id.name"/>
                     </div>
 
                     <div class="col-xs-6 col-xs-push-3">
-                      <strong> Cedula de Identidad: </strong>  <t t-esc="o.expedient_id.ci"/> <t t-esc="o.beneficiary_id.bf_ci"/>
+                      <strong> Cedula de Identidad: </strong>  <t t-esc="o.event_id.beneficiary_id.bf_ci"/>
                     </div>
                   </div>
                 </t>
@@ -582,8 +582,8 @@
                     </tr>
 
                     <tr>
-                      <td class="text-align-right" colspan="5">
-                        <strong> Total a ser reembolsado: </strong>
+                      <td lass="text-right" colspan="5">
+                        <strong class="pull-right"> Total a ser reembolsado: </strong>
                       </td>
 
                       <td style="border: 1px solid black;">

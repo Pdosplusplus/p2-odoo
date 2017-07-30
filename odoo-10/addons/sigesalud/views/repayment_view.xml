@@ -15,16 +15,14 @@
 
         <form string="Work repayment Form">
           <sheet>
-            <header>  
-              <button name="%(action_report_repayment)d" class="btn btn-primary" string="Imprimir Reembolso" type="action"/>
+            <header>
+              <button name="%(action_report_repayment)d" class="btn btn-primary" string="Imprimir Reembolso" type="action" attrs="{'invisible': [('id', '==', False)]}"/>
             </header>
 
-            <group>
+            <group>  
               <field name="name"/> 
               <field name="date"/>
-              <field name="flag" invisible="1"/>
-              <field name="event_id" domain="[('expedient_id', '=', parent.id)]" attrs="{'invisible': [('flag', '=', 'Beneficiary')]}" options="{'no_create': True}"/>
-              <field name="event_id" domain="[('beneficiary_id', '=', parent.id)]" attrs="{'invisible': [('flag', '=', 'Expedient')]}" options="{'no_create': True}"/>
+              <field name="event_id" domain="[('expedient_id', '=', parent.id)]" options="{'no_create': True}"/>
               <field name="state"/>
             </group>
 
@@ -50,6 +48,8 @@
 
             </notebook>
 
+            <field name='id' invisible="1" /> 
+            
           </sheet>
         </form>
 

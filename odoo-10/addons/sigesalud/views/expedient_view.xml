@@ -127,6 +127,8 @@
               <page string="Eventos">
                 <field name="event_ids">
                   <tree string="Añade un evento al expediente">
+                    <field name="id"/>
+                    <field name="actor"/>
                     <field name="type_event"/>
                     <field name="description"/>
                     <field name="city"/>
@@ -143,7 +145,6 @@
               <page string="Reembolsos">
                 <field name="repayment_ids">
                   <tree string="Añade un reembolso">
-                    <field name="id"/>
                     <field name="date"/>
                     <field name="name"/>
                     <field name="event_id" options="{'no_create': True}"/>

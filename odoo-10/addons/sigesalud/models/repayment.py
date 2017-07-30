@@ -29,23 +29,3 @@ class Repayment(models.Model):
     expedient_id = fields.Many2one('sigesalud.expedient',
                          ondelete='cascade', 
                          string="Expediente")
-
-    beneficiary_id = fields.Many2one('sigesalud.beneficiary',
-                         ondelete='cascade', 
-                         string="Beneficiario")
-
-    flag = fields.Char(string="Bandera",
-                        compute="_flag",
-                        required=True)
-
-    def _flag(self):
-
-        for r in self:
-            
-            if r.expedient_id:
-
-                r.flag = "Expedient"
-
-            if r.beneficiary_id:
-
-                r.flag = "Beneficiary"
