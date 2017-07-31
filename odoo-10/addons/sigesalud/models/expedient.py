@@ -155,18 +155,13 @@ class Expedient(models.Model):
             for repayment in expedient.repayment_ids:
 
                 ini_date = datetime.strptime(repayment.date, FORMA_DATE)
-                end_date = datetime.strptime('30/08/2007', FORMA_DATE)
+                end_date = datetime.strptime(datetime.now(), FORMA_DATE)
             
-                days = str((end_date-today).days)
-
-                print('dias: ' + str(days))
+                days = str((end_date-ini_date).days)
 
                 if days >= 40 and repayment.state == 'En Proceso':
 
-                    print "El reembolso cumple con las condiciones para enviarle una alerta"
-
                     info = {}
-
                     info['name'] = expedient.name
                     info['date'] = end_date
                     info['id'] = repayment.id
@@ -174,4 +169,3 @@ class Expedient(models.Model):
                     addressee = "vpino.geekos@test.com"
                 
                     response = sendEmail(addressee, info, emitter=None)
-

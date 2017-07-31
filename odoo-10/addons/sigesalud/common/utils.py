@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import smtplib
 from datetime import datetime, date
 from dateutil import rrule
 from email.MIMEText import MIMEText
@@ -7,8 +8,8 @@ from email.MIMEText import MIMEText
 #EMITTER = os.environ['EMITTER']
 #PASSWD_MAIL = os.environ['PASSWDMAIL']
 FORMA_DATE="%Y-%m-%d"
-EMITTER ="SABE"
-PASSWD_MAIL="vpino"
+EMITTER ="vpino.geekos@test.com"
+PASSWD_MAIL="...."
 
 def compareMounts(dateone, datetwo):
 
@@ -56,9 +57,9 @@ def sendEmail(addressee, info, emitter=None):
 
 	message_template = """\
 El Reembolso de id <strong> %(id)s </strong> del titular: <strong> %(name)s </strong> 
-a la fecha de: <strong> %(date)s </strong> ya cumplidos los 40 dias en los cuales tiene
-el seguro fecha limite para para pagarlo, se le agradece a los ADMINISTRADORES verificar 
-el caso el solventarlo a la mayor brevedad posible.
+a la fecha de: <strong> %(date)s </strong> ya cumplio los 40 dias de fecha limite 
+que tiene el seguro para cancelarlo. Se le agradece a los ADMINISTRADORES verificar 
+el caso y solventarlo a la mayor brevedad posible.
 
 Sistema de Alertas SIGESALUD.
 
