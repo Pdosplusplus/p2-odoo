@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from odoo.addons.agili.common.utils import FORMA_DATE, compareDates, DAYS_LESS, DAYS_HIGHER, validKey, workDays, daysExe
+from odoo.addons.agilis.common.utils import FORMA_DATE, compareDates, DAYS_LESS, DAYS_HIGHER, validKey, workDays, daysExe
 from datetime import datetime, date
 from dateutil import rrule
 
@@ -11,7 +11,7 @@ higher = ''
 
 class milestone(models.Model):
 
-    _name = 'agili.milestone'
+    _name = 'agilis.milestone'
 
     name = fields.Char(string="Nombre",
     					  required=True)
@@ -20,7 +20,7 @@ class milestone(models.Model):
 
     ms_amount = fields.Float(string="Monto del Servicio")
 
-    ms_project_id = fields.Many2one('agili.project',
+    ms_project_id = fields.Many2one('agilis.project',
                          ondelete='cascade', 
                          string="Proyecto")
 

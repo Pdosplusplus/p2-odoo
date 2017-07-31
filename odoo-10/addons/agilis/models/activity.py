@@ -2,11 +2,11 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from odoo.addons.agili.common.utils import workDays, daysExe, compareDates
+from odoo.addons.agilis.common.utils import workDays, daysExe, compareDates
 
 class Activity(models.Model):
 
-    _name = 'agili.activity'
+    _name = 'agilis.activity'
 
     name = fields.Char(string="Nombre de Actividad", required=True)
 
@@ -25,11 +25,11 @@ class Activity(models.Model):
 
     ac_work_real = fields.Integer(string="Reporte de trabajo real en dias")
 
-    ac_project_id = fields.Many2one('agili.project',
+    ac_project_id = fields.Many2one('agilis.project',
                          ondelete='cascade', 
                          string="Proyecto")
 
-    ac_deliverable_id = fields.Many2one('agili.deliverable',
+    ac_deliverable_id = fields.Many2one('agilis.deliverable',
                          ondelete='cascade',
                          required=True, 
                          string="Entregable")

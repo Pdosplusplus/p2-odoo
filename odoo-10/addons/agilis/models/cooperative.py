@@ -5,7 +5,7 @@ from odoo import models, fields, api
 
 class Cooperative(models.Model):
 
-	_name = 'agili.cooperative'
+	_name = 'agilis.cooperative'
 
 	name = fields.Char(string="Nombre de la cooperativa", 
                        required=True,

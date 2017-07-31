@@ -2,12 +2,12 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from odoo.addons.agili.common.utils import FORMA_DATE, validKey, workDays, sendEmail, daysExe
+from odoo.addons.agilis.common.utils import FORMA_DATE, validKey, workDays, sendEmail, daysExe
 from datetime import datetime, date
 
 class Project(models.Model):
 
-    _name = 'agili.project'
+    _name = 'agilis.project'
 
     name = fields.Char(string="Nombre del Proyecto", 
                        required=True,
@@ -28,15 +28,15 @@ class Project(models.Model):
                                         string="Responsables",
                                         required=True)
 
-    milestone_ids = fields.One2many('agili.milestone', 
+    milestone_ids = fields.One2many('agilis.milestone', 
                         'ms_project_id', 
                         string="Hitos")
 
-    deliverable_ids = fields.One2many('agili.deliverable', 
+    deliverable_ids = fields.One2many('agilis.deliverable', 
                         'dl_project_id', 
                         string="Entregables")
 
-    activity_ids = fields.One2many('agili.activity', 
+    activity_ids = fields.One2many('agilis.activity', 
                         'ac_project_id', 
                         string="Entregables")
 
@@ -54,7 +54,7 @@ class Project(models.Model):
     @api.multi
     def send_alert(self):
 
-        projects = self.env['agili.project'].search([('id','>=', 0)])
+        projects = self.env['agilis.project'].search([('id','>=', 0)])
 
         for project in projects:
 

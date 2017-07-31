@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, exceptions
-from odoo.addons.agili.common.utils import FORMA_DATE, compareDates, DAYS_LESS, DAYS_HIGHER, validKey, workDays, daysExe
+from odoo.addons.agilis.common.utils import FORMA_DATE, compareDates, DAYS_LESS, DAYS_HIGHER, validKey, workDays, daysExe
 
 higher = ''
 less = ''
 
 class Deliverable(models.Model):
 
-    _name = 'agili.deliverable'
+    _name = 'agilis.deliverable'
 
     name = fields.Char(string="Nombre", 
                    required=True)
@@ -23,11 +23,11 @@ class Deliverable(models.Model):
 
     dl_amount = fields.Float(string="Inversion")
 
-    dl_project_id = fields.Many2one('agili.project',
+    dl_project_id = fields.Many2one('agilis.project',
                          ondelete='cascade', 
                          string="Proyecto")
 
-    dl_milestone_id = fields.Many2one('agili.milestone',
+    dl_milestone_id = fields.Many2one('agilis.milestone',
                      ondelete='cascade',
                      required=True, 
                      string="Servicio / Hito")

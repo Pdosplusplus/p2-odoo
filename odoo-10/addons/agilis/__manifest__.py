@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "agili",
+    'name': "agilis",
 
     'summary': """
         Gestion y Control de las Cooperetivas
@@ -29,7 +29,7 @@
 
     # always loaded
     'data': [
-        'security/agili_security.xml',
+        'security/agilis_security.xml',
         'security/ir.model.access.csv',
         'views/project_view.xml',
         'views/milestone_view.xml',
@@ -39,11 +39,11 @@
         'views/report_general_js.xml',
         'views/webclient_templates.xml',
         'views/crons_view.xml',
-        'wizard/agili_report_project_specific_view.xml',
+        'wizard/agilis_report_project_specific_view.xml',
         'reports/report_project_general.xml',
         'reports/report_project_specific.xml',
         'reports/report_project_view.xml',
-        'reports/agili_report.xml',
+        'reports/agilis_report.xml',
     ],
     
     'qweb': [
