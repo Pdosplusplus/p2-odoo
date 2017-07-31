@@ -7,3 +7,4 @@ import activity
 import res_company
 import res_users
 import cooperative
+import trimester

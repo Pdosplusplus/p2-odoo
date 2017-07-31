@@ -2,7 +2,6 @@
 
 from odoo import models, fields, api
 
-
 class Cooperative(models.Model):
 
 	_name = 'agilis.cooperative'
