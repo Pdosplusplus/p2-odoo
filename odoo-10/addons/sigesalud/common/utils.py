@@ -2,8 +2,13 @@
 
 from datetime import datetime, date
 from dateutil import rrule
+from email.MIMEText import MIMEText
 
+#EMITTER = os.environ['EMITTER']
+#PASSWD_MAIL = os.environ['PASSWDMAIL']
 FORMA_DATE="%Y-%m-%d"
+EMITTER ="SABE"
+PASSWD_MAIL="vpino"
 
 def compareMounts(dateone, datetwo):
 
@@ -46,3 +51,42 @@ def workDays(start_date):
 						byweekday=laborales)
 
 	return totalDias.count()
+
+def sendEmail(addressee, info, emitter=None):
+
+	message_template = """\
+El Reembolso de id <strong> %(id)s </strong> del titular: <strong> %(name)s </strong> 
+a la fecha de: <strong> %(date)s </strong> ya cumplidos los 40 dias en los cuales tiene
+el seguro fecha limite para para pagarlo, se le agradece a los ADMINISTRADORES verificar 
+el caso el solventarlo a la mayor brevedad posible.
+
+Sistema de Alertas SIGESALUD.
+
+<a link="geekos.co.ve"> Cooperativa Geekos <a/>
+""" % info
+
+	# Mail Struct
+	email = MIMEText(message_template)
+	email['From'] = EMITTER
+	email['To'] = addressee
+	email['Subject'] = "Alerta de Reembolso :: HCM-SIGESALUD"
+
+	try:
+		
+		# Server SMTP Gmail 
+		serverSMTP = smtplib.SMTP(host='smtp.gmail.com', port=587)
+		serverSMTP.ehlo() 
+		serverSMTP.starttls() 
+		serverSMTP.ehlo() 
+		serverSMTP.login(EMITTER, PASSWD_MAIL)
+
+		# Send mail
+		serverSMTP.sendmail(EMITTER, addressee, email.as_string()) 
+
+		# Close conexion
+		serverSMTP.close()
+
+	except Exception as e:
+		
+		return e
+	
