@@ -6,12 +6,14 @@ class res_users(models.Model):
     _inherit = "res.users"
 
     cooperative = fields.Selection([
-        ('geekos', "Geekos"),
-        ('bmkeros', "Bmkeros"),
-        ('vultur', "Vultur"),
-        ('tecnoparaguana', "Tecno Paraguana"),
-        ('hoatzin', "Hoatzin"),
-        ('3punto0', "Tres Punto Cero"),
-        ('simonrodriguez', "Simon Rodriguez"),
-        ('juventudproductiva', "Juventud Productiva"),
+        ('Geekos', "Geekos"),
+        ('Bmkeros', "Bmkeros"),
+        ('Vultur', "Vultur"),
+        ('Tecno Paraguana', "Tecno Paraguana"),
+        ('Hoatzin', "Hoatzin"),
+        ('Tres Punto Cero', "Tres Punto Cero"),
+        ('Simon Rodriguez', "Simon Rodriguez"),
+        ('Juventud Productiva', "Juventud Productiva"),
+        ('Sinapsis', "Sinapsis"),
     ], string="Cooperativa")
+

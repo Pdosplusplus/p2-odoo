@@ -14,14 +14,15 @@ class Expedient(models.Model):
                        required=True)
 
     cooperative = fields.Selection([
-        ('geekos', "Geekos"),
-        ('bmkeros', "Bmkeros"),
-        ('vultur', "Vultur"),
-        ('tecnoparaguana', "Tecno Paraguana"),
-        ('hoatzin', "Hoatzin"),
-        ('3punto0', "Tres Punto Cero"),
-        ('simonrodriguez', "Simon Rodriguez"),
-        ('juventudproductiva', "Juventud Productiva"),
+        ('Geekos', "Geekos"),
+        ('Bmkeros', "Bmkeros"),
+        ('Vultur', "Vultur"),
+        ('Tecno Paraguana', "Tecno Paraguana"),
+        ('Hoatzin', "Hoatzin"),
+        ('Tres Punto Cero', "Tres Punto Cero"),
+        ('Simon Rodriguez', "Simon Rodriguez"),
+        ('Juventud Productiva', "Juventud Productiva"),
+        ('Sinapsis', "Sinapsis"),
     ], string="Cooperativa")
 
     associated = fields.Selection([
@@ -75,8 +76,8 @@ class Expedient(models.Model):
                         unique=True)
 
     type_account = fields.Selection([
-        ('corriente', "Corriente@"),
-        ('ahoroo', "Ahorro"),
+        ('Corriente', "Corriente"),
+        ('Ahorro', "Ahorro"),
     ], string="Tipo de cuenta", required=True)
 
     policy_ids = fields.Many2many('sigesalud.policy', string="Polizas")
