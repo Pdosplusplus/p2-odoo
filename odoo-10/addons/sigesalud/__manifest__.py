@@ -56,6 +56,7 @@
         'reports/sigesalud_report.xml',
         'reports/report_repayment.xml',
         'views/repayment_view.xml',
+        'views/cron_view.xml',
         'wizard/sigesalud_report_monthly_view.xml',
     ],
     
