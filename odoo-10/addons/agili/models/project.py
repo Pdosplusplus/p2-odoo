@@ -15,12 +15,6 @@ class Project(models.Model):
 
     description = fields.Text(string="Descripción")
 
-    start_date = fields.Date(string="Fecha de inicio")
-
-    end_date = fields.Date(string="Fecha de Fin")
-
-    days_plan = fields.Integer(string="Dias de duracion estimados", 
-                                    compute='_diasLaborales')
 
     journeys_plan = fields.Integer(string="Jornadas Planificadas")
 
@@ -55,20 +49,7 @@ class Project(models.Model):
         ('name_unique',
         'UNIQUE(name)',
         "El nombre del proyecto es unico"),
-
-        ('days_valid',
-        'CHECK(days_plan > 0)',
-        "Los dias planificados tienen que ser mayor a 0"),
     ]
-
-    @api.depends('start_date', 'end_date')
-    def _diasLaborales(self):
-        
-        for r in self:
-
-            if r.start_date != False and r.end_date != False:
-
-                r.days_plan = workDays(r.start_date, r.end_date)
 
     @api.multi
     def send_alert(self):
@@ -108,13 +89,3 @@ class Project(models.Model):
                 
                 response = sendEmail(addressee, info, emitter=None)
 
-    @api.model
-    def print_report(self):
-
-        context = self.env.context
-    
-        return {
-            'type': 'ir.actions.report.xml',
-            'report_name': 'agili.report_project_general',
-            'context': context,
-        }
