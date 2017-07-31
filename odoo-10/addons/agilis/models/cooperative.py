@@ -12,8 +12,8 @@ class Cooperative(models.Model):
                        unique=True)
 
 	cooperativista_ids = fields.Many2many('res.users', 
-                                        string="Comperativista",
-                                        required=True)
+                      string="Cooperativista",
+                      required=True)
 
 	_sql_constraints = [
         ('name_unique',

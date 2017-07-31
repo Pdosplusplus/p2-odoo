@@ -10,7 +10,7 @@
     <record model="ir.ui.view" id="cooperative_form_view">
 
       <field name="name">cooperative.form</field>
-      <field name="model">agili.cooperative</field>
+      <field name="model">agilis.cooperative</field>
       <field name="arch" type="xml">
 
         <form string="Work Plan Form">
@@ -36,13 +36,12 @@
     -->
     <record model="ir.ui.view" id="cooperative_tree_view">
       <field name="name">cooperative.tree</field>
-      <field name="model">agili.cooperative</field>
+      <field name="model">agilis.cooperative</field>
 
       <field name="arch" type="xml">
         <tree string="cooperative Tree">
           <field name="id"/>
           <field name="name"/>
-          <field name="cooperativista_ids"/>
         </tree>
       </field>
 
@@ -57,18 +56,17 @@
     <record model="ir.actions.act_window" id="cooperative_list_action">
 
       <field name="name"> Cooperativa </field>
-      <field name="res_model">agili.cooperative</field>
+      <field name="res_model">agilis.cooperative</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
      
     </record>
 
-    <!-- Añadimos un submenu al menu de gestion de proyectos 
+    <!-- Añadimos un submenu al menu de gestion de proyectos  -->
     <menuitem id="cooperative_menu" 
           name="Cooperativa" 
-          parent="agili_menu"
+          parent="project_menu"
           action="cooperative_list_action"/>
-    -->
-
+    
   </data>
 </odoo>

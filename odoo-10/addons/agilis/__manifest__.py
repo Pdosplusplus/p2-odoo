@@ -31,19 +31,9 @@
     'data': [
         'security/agilis_security.xml',
         'security/ir.model.access.csv',
-        'views/project_view.xml',
-        'views/milestone_view.xml',
-        'views/deliverable_view.xml',
-        'views/activity_view.xml',
         'views/res_users_view.xml',
-        'views/report_general_js.xml',
-        'views/webclient_templates.xml',
-        'views/crons_view.xml',
-        'wizard/agilis_report_project_specific_view.xml',
-        'reports/report_project_general.xml',
-        'reports/report_project_specific.xml',
-        'reports/report_project_view.xml',
-        'reports/agilis_report.xml',
+        'views/project_view.xml',
+        'views/cooperative_view.xml',
     ],
     
     'qweb': [
