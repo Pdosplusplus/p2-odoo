@@ -52,11 +52,10 @@
               <field name='value_journal'/>
             </group>
 
-
-            <notebook>
-
-
-            </notebook>
+            <group string="Despliegue Trimestral"/>
+            
+            <br/><br/>
+            <field name="trimestre_ids"  widget="many2many_checkboxes" options="{'no_create': True}"/>
          
           </sheet>
         </form>

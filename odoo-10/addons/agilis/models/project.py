@@ -22,6 +22,10 @@ class Project(models.Model):
                         string="Cooperativa",
                         required=True)
 
+    trimestre_ids = fields.Many2many('agilis.trimestre', 
+                        string="Cooperativa",
+                        required=True)
+
     _sql_constraints = [
          ('name_unique',
         'UNIQUE(name)',
