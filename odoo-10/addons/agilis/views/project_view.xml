@@ -18,34 +18,20 @@
           <sheet>
             <!-- Agrupamos los campos generales de un proyecto -->
             <group string="Identificación">
+              <br/><br/>
               <field name='id'/>
               <field name="name"/>
               <field name="description"/>
             </group>
 
-            <!-- Notebook
-              @Function: Crear un cuaderno, agrupar mejor la información.
-
-              @Description: Este data file nos permite crear un cuaderno con paginas; donde cada page es una pestaña. 
-            -->
-            <notebook>
-
-              <!-- Page Cooperativas
-                
-                @Function: Añadir una cooperativa a un proyecto
-
-                @Description: Esta page del notebook nos permite añadir una cooperativa al proyecto y mostranos una lista de ellos solo con los campos necesarios.
-              -->
-              <page string="Cooperativas Adscritas al Proyecto">
-                <field name="cooperative_ids"  widget="many2many_checkboxes" options="{'no_create': True}">
-                  <tree>
-                    <field name="id"/>
-                    <field name="name"/>
-                  </tree>
-                </field>
-              </page>
-
-            </notebook>
+            <group string="Cooperativas Adscritas al Proyecto"/>
+            <br/><br/>
+            <field name="cooperative_ids" options="{'no_create': True}">
+              <tree>
+                <field name="id"/>
+                <field name="name"/>
+              </tree>
+            </field>
 
             <group string="Valor de la Jornada">
               <br/><br/><br/><br/>
@@ -55,7 +41,13 @@
             <group string="Despliegue Trimestral"/>
             
             <br/><br/>
-            <field name="trimestre_ids"  widget="many2many_checkboxes" options="{'no_create': True}"/>
+            <field name="trimestre_ids">
+              <tree>
+                <field name="name"/>
+                <field name="date_ini"/>
+                <field name="date_end"/>
+              </tree>
+            </field>
          
           </sheet>
         </form>
