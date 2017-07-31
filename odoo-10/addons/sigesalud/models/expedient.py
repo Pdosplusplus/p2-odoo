@@ -2,9 +2,8 @@
 
 from odoo import models, fields, api
 from datetime import datetime, date
-from odoo.addons.sigesalud.common.utils import years
+from odoo.addons.sigesalud.common.utils import years, sendEmail, FORMA_DATE
 from odoo.exceptions import ValidationError
-
 
 class Expedient(models.Model):
 
@@ -144,3 +143,35 @@ class Expedient(models.Model):
         except ValueError:
         
             raise ValidationError('Por favor digite solo numeros.')
+
+
+    @api.multi
+    def send_alert(self):
+
+        expedients = self.env['sigesalud.expedient'].search([('id','>=', 0)])
+
+        for expedient in expedients:
+
+            for repayment in expedient.repayment_ids:
+
+                ini_date = datetime.strptime(repayment.date, FORMA_DATE)
+                end_date = datetime.strptime('30/08/2007', FORMA_DATE)
+            
+                days = str((end_date-today).days)
+
+                print('dias: ' + str(days))
+
+                if days >= 40 and repayment.state == 'En Proceso':
+
+                    print "El reembolso cumple con las condiciones para enviarle una alerta"
+
+                    info = {}
+
+                    info['name'] = expedient.name
+                    info['date'] = end_date
+                    info['id'] = repayment.id
+
+                    addressee = "vpino.geekos@test.com"
+                
+                    response = sendEmail(addressee, info, emitter=None)
+
