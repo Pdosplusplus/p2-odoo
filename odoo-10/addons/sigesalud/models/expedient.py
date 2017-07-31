@@ -3,6 +3,7 @@
 from odoo import models, fields, api
 from datetime import datetime, date
 from odoo.addons.sigesalud.common.utils import years
+from odoo.exceptions import ValidationError
 
 
 class Expedient(models.Model):
@@ -68,9 +69,10 @@ class Expedient(models.Model):
         ('tesoro', "Tesoro"),
     ], string="Banco", required=True)
 
-    bank_account = fields.Integer(string="Numero de cuenta bancaria", 
-                       required=True,
-                       unique=True)
+    bank_account = fields.Char(string="Numero de cuenta bancaria",
+                        size=20, 
+                        required=True,
+                        unique=True)
 
     type_account = fields.Selection([
         ('corriente', "Corriente@"),
@@ -124,3 +126,20 @@ class Expedient(models.Model):
         for r in self:
             
             r.age = years(r.birthdate)
+
+
+    @api.constrains('bank_account')
+    def _check_number(self):
+
+        bank_account = self.bank_account
+        
+        if bank_account and len(bank_account) < 20:
+        
+            raise ValidationError('El numero de cuenta debe contener 20 digitos, por favor ingrese un numero de cuenta valido')
+
+        try:
+            return int(bank_account)
+
+        except ValueError:
+        
+            raise ValidationError('Por favor digite solo numeros.')
