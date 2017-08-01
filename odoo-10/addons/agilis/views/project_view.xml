@@ -97,6 +97,23 @@
             </page>
           </notebook>
 
+          <group string="Gestion de Actividades"/>
+
+          <notebook>
+            <page string="Planificacion">
+              <field name="activity_ids">
+                <tree string="Añade una actvidad al proyecto" editable="bottom">
+                  <field name="deliverable_id" options="{'no_create': True}"/>
+                  <field name="name"/>
+                  <field name="cooperativista_id" options="{'no_create': True}"/>
+                  <field name="journals"/>
+                </tree>
+              </field>
+            </page>
+
+          </notebook>
+
+
         </form>
 
       </field>
