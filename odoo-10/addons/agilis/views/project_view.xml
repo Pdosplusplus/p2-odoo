@@ -53,6 +53,22 @@
               </page>
             </notebook>
 
+            <br/><br/>
+
+            <group string="Registros de Servicios / Hitos"/>
+
+            <notebook>
+              <page string="Servicios">
+                <field name="service_ids">
+                  <tree string="Añade un servicio al proyecto" editable="bottom">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="journals"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+
           </sheet>
         </form>
 

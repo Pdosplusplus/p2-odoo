@@ -35,6 +35,7 @@
         'views/project_view.xml',
         'views/cooperative_view.xml',
         'views/trimestre_view.xml',
+        'views/service_view.xml',
     ],
     
     'qweb': [

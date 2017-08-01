@@ -2,7 +2,6 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from odoo.addons.agilis.common.utils import FORMA_DATE, validKey, workDays, sendEmail, daysExe
 from datetime import datetime, date
 
 class Project(models.Model):
@@ -25,6 +24,12 @@ class Project(models.Model):
     trimestre_ids = fields.Many2many('agilis.trimestre', 
                         string="Cooperativa",
                         required=True)
+
+    service_ids = fields.One2many('agilis.service', 
+                        'project_id', 
+                        string="Servicios")
+
+
 
     _sql_constraints = [
          ('name_unique',
