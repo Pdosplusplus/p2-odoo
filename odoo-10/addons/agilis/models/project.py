@@ -18,12 +18,10 @@ class Project(models.Model):
                         required=True)
 
     cooperative_ids = fields.Many2many('agilis.cooperative', 
-                        string="Cooperativa",
-                        required=True)
+                        string="Cooperativa")
 
     trimestre_ids = fields.Many2many('agilis.trimestre', 
-                        string="Cooperativa",
-                        required=True)
+                        string="Cooperativa")
 
     service_ids = fields.One2many('agilis.service', 
                         'project_id', 
@@ -33,7 +31,9 @@ class Project(models.Model):
                         'project_id', 
                         string="Entregables")
 
-
+    load_ids = fields.One2many('agilis.load', 
+                        'project_id', 
+                        string="Entregables")
 
     _sql_constraints = [
          ('name_unique',

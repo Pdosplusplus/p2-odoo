@@ -37,6 +37,7 @@
         'views/trimestre_view.xml',
         'views/service_view.xml',
         'views/measure_view.xml',
+        'views/load_view.xml',
     ],
     
     'qweb': [

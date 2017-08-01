@@ -13,81 +13,90 @@
       <field name="model">agilis.project</field>
       <field name="arch" type="xml">
 
-        <form string="Project Form">
-          <sheet>
-            
-            <notebook>
-              <page string="Identificación">
-                <group string="Proyecto">
-                  <br/><br/>
-                  <field name='id'/>
+        <form string="Project Form"> 
+
+          <notebook>
+            <page string="Identificación">
+              <group string="Proyecto">
+                <br/><br/>
+                <field name='id'/>
+                <field name="name"/>
+                <field name="description"/>
+              </group>
+
+              <group string="Cooperativas Adscritas al Proyecto"/>
+              <br/><br/>
+              <field name="cooperative_ids" options="{'no_create': True}">
+                <tree>
+                  <field name="id"/>
+                  <field name="name"/>
+                </tree>
+              </field>
+
+              <group string="Valor de la Jornada">
+                <br/><br/><br/><br/>
+                <field name='value_journal'/>
+              </group>
+            </page>
+
+            <page string="Planificacion">
+              <group string="Despliegue Trimestral"/>
+              <br/><br/>
+              <field name="trimestre_ids" options="{'no_create': True}">
+                <tree>
+                  <field name="name"/>
+                  <field name="date_ini"/>
+                  <field name="date_end"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
+
+          <br/><br/>
+
+          <group string="Registros de Servicios / Hitos"/>
+
+          <notebook>
+            <page string="Servicios">
+              <field name="service_ids">
+                <tree string="Añade un servicio al proyecto" editable="bottom">
                   <field name="name"/>
                   <field name="description"/>
-                </group>
+                  <field name="journals"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
 
-                <group string="Cooperativas Adscritas al Proyecto"/>
-                <br/><br/>
-                <field name="cooperative_ids" options="{'no_create': True}">
-                  <tree>
-                    <field name="id"/>
-                    <field name="name"/>
-                  </tree>
-                </field>
+          <group string="Entregables"/>
 
-                <group string="Valor de la Jornada">
-                  <br/><br/><br/><br/>
-                  <field name='value_journal'/>
-                </group>
-              </page>
+          <notebook>
+            <page string="Identificación y Planificacion">
+              <field name="deliverable_ids">
+                <tree string="Añade un entregable al proyecto" editable="bottom">
+                  <field name="service_id" domain="[('project_id', '=', parent.id)]" options="{'no_create': True}"/>
+                  <field name="name"/>
+                  <field name="description"/>
+                  <field name="journals"/>
+                  <field name="type_measure"/>
+                  <field name="num_advances"/>
+                  <field name="num_journals"/>
+                </tree>
+              </field>
+            </page>
 
-              <page string="Planificacion">
-                <group string="Despliegue Trimestral"/>
-                <br/><br/>
-                <field name="trimestre_ids">
-                  <tree>
-                    <field name="name"/>
-                    <field name="date_ini"/>
-                    <field name="date_end"/>
-                  </tree>
-                </field>
-              </page>
-            </notebook>
+            <page string="Asignacion de carga">
+              <field name="load_ids">
+                <tree string="Añade un entregable al proyecto" editable="bottom">
+                  <field name="deliverable_id" domain="[('project_id', '=', parent.id)]" options="{'no_create': True}"/>
+                  <field name="cooperative_id" domain="[('id', 'in', parent.cooperative_ids[0][2])]" options="{'no_create': True}"/>
+                  <field name="cooperativista_id" domain="[('cooperative_id', '=', cooperative_id)]" options="{'no_create': True}"/>
+                  <field name="journals"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
 
-            <br/><br/>
-
-            <group string="Registros de Servicios / Hitos"/>
-
-            <notebook>
-              <page string="Servicios">
-                <field name="service_ids">
-                  <tree string="Añade un servicio al proyecto" editable="bottom">
-                    <field name="name"/>
-                    <field name="description"/>
-                    <field name="journals"/>
-                  </tree>
-                </field>
-              </page>
-            </notebook>
-
-            <group string="Entregables"/>
-
-            <notebook>
-              <page string="Identificación y Planificacion">
-                <field name="deliverable_ids">
-                  <tree string="Añade un entregable al proyecto" editable="bottom">
-                    <field name="service_id" domain="[('project_id', '=', parent.id)]" options="{'no_create': True}"/>
-                    <field name="name"/>
-                    <field name="description"/>
-                    <field name="journals"/>
-                    <field name="type_measure"/>
-                    <field name="num_advances"/>
-                    <field name="num_journals"/>
-                  </tree>
-                </field>
-              </page>
-            </notebook>
-
-          </sheet>
         </form>
 
       </field>
@@ -198,7 +207,7 @@
 
     <!-- Añadimos el menu del panel izquierdo -->
     <menuitem id="agilis_menu" 
-              name="Gestion de Cooperativas"
+              name="AGILIS"
               parent="main_agilis_menu"/>
 
     <!-- Añadimos un submenu al menu anterior creado, el cual nos lleva a las views de nuestro modelo -->

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+        <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo load
+    -->
+    <record model="ir.ui.view" id="load_form_view">
+
+      <field name="name">load.form</field>
+      <field name="model">agilis.load</field>
+      <field name="arch" type="xml">
+
+        <form string="Work Plan Form">
+          <sheet>
+            <group>
+              <field name="deliverable_id"/>
+              <field name="cooperative_id"/>
+              <field name="cooperativista_id"/>
+              <field name="journals"/>
+            </group>
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en una tabla, donde cada field es una columna.
+    -->
+    <record model="ir.ui.view" id="load_tree_view">
+      <field name="name">load.tree</field>
+      <field name="model">agilis.load</field>
+
+      <field name="arch" type="xml">
+        <tree string="load Tree">
+          <field name="deliverable_id"/>
+          <field name="cooperative_id"/>
+          <field name="cooperativista_id"/>
+          <field name="journals"/>
+        </tree>
+      </field>
+
+    </record>
+
+    <!-- Tag actions.act_window 
+    
+      @Function: Este tag o record tiene como funcion contralar el flujo de los views a las acciones de los mismos
+
+      @Descripcion: Una de las cosa que hace este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree> y de ultimo las graficas <form>.
+    -->
+    <record model="ir.actions.act_window" id="load_list_action">
+
+      <field name="name"> Carga </field>
+      <field name="res_model">agilis.load</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+     
+    </record>
+
+    
+  </data>
+</odoo>
