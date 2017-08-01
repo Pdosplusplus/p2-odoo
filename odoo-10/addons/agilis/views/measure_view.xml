@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+        <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo measure
+    -->
+    <record model="ir.ui.view" id="measure_form_view">
+
+      <field name="name">measure.form</field>
+      <field name="model">agilis.measure</field>
+      <field name="arch" type="xml">
+
+        <form string="Measure Form">
+          <sheet>
+            <group>
+              <field name="name"/>
+            </group>
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en una tabla, donde cada field es una columna.
+    -->
+    <record model="ir.ui.view" id="measure_tree_view">
+      <field name="name">measure.tree</field>
+      <field name="model">agilis.measure</field>
+
+      <field name="arch" type="xml">
+        <tree string="measure Tree">
+          <field name="name"/>
+        </tree>
+      </field>
+
+    </record>
+
+    <!-- Tag actions.act_window 
+    
+      @Function: Este tag o record tiene como funcion contralar el flujo de los views a las acciones de los mismos
+
+      @Descripcion: Una de las cosa que ahce este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree>, <form>, <calendar> ,y de ultimo las graficas <graph>.
+    -->
+    <record model="ir.actions.act_window" id="measure_list_action">
+
+      <field name="name"> measure </field>
+      <field name="res_model">agilis.measure</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+     
+    </record>
+
+    <!-- Añadimos un submenu al menu de gestion de proyectos  -->
+    <menuitem id="measure_menu" 
+          name="Tipo de documento" 
+          parent="project_menu"
+          action="measure_list_action"/>
+    
+  </data>
+</odoo>

@@ -69,6 +69,24 @@
               </page>
             </notebook>
 
+            <group string="Entregables"/>
+
+            <notebook>
+              <page string="Identificación y Planificacion">
+                <field name="deliverable_ids">
+                  <tree string="Añade un entregable al proyecto" editable="bottom">
+                    <field name="service_id" domain="[('project_id', '=', parent.id)]" options="{'no_create': True}"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="journals"/>
+                    <field name="type_measure"/>
+                    <field name="num_advances"/>
+                    <field name="num_journals"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+
           </sheet>
         </form>
 

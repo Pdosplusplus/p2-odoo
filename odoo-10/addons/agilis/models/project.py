@@ -29,6 +29,10 @@ class Project(models.Model):
                         'project_id', 
                         string="Servicios")
 
+    deliverable_ids = fields.One2many('agilis.deliverable', 
+                        'project_id', 
+                        string="Entregables")
+
 
 
     _sql_constraints = [

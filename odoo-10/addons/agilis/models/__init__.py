@@ -5,3 +5,5 @@ import project
 import cooperative
 import trimester
 import service
+import measure
+import deliverable
