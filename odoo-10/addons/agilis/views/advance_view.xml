@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- Data file form 
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo advance
+    -->
+    <record model="ir.ui.view" id="advance_form_view">
+
+      <field name="name">advance.form</field>
+      <field name="model">agilis.advance</field>
+      <field name="arch" type="xml">
+
+        <form string="advance Form">
+          <sheet>
+            <group>
+              <field name="activity_id" options="{'no_create': True}"/>
+              <field name="date"/>
+              <field name="description"/>
+              <field name="percentage"/>
+              <field name="talents"/>
+              <field name="journals"/>
+            </group>
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en una tabla, donde cada field es una columna.
+    -->
+    <record model="ir.ui.view" id="advance_tree_view">
+      <field name="name">advance.tree</field>
+      <field name="model">agilis.advance</field>
+
+      <field name="arch" type="xml">
+        <tree string="advance Tree">
+          <field name="activity_id"/>
+          <field name="date"/>
+          <field name="description"/>
+          <field name="percentage"/>
+          <field name="talents"/>
+          <field name="journals"/>
+        </tree>
+      </field>
+
+    </record>
+
+    <!-- Tag actions.act_window 
+    
+      @Function: Este tag o record tiene como funcion contralar el flujo de los views a las acciones de los mismos
+
+      @Descripcion: Una de las cosa que ahce este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree>, <form>, <calendar> ,y de ultimo las graficas <graph>.
+    -->
+    <record model="ir.actions.act_window" id="advance_list_action">
+
+      <field name="name"> Avance </field>
+      <field name="res_model">agilis.advance</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+     
+    </record>
+    
+  </data>
+</odoo>

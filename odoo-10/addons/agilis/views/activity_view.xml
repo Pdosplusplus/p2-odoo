@@ -17,7 +17,7 @@
             <group>
               <field name="deliverable_id" options="{'no_create': True}"/>
               <field name="name"/>
-              <field name="cooperativista_id" options="{'no_create': True}"/>
+              <field name="cooperativista_ids" widget="many2many_checkboxes" options="{'no_create': True}"/>
               <field name="journals"/>
             </group>
           </sheet>

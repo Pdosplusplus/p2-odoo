@@ -105,7 +105,20 @@
                 <tree string="Añade una actvidad al proyecto" editable="bottom">
                   <field name="deliverable_id" options="{'no_create': True}"/>
                   <field name="name"/>
-                  <field name="cooperativista_id" options="{'no_create': True}"/>
+                  <field name="cooperativista_ids" widget="many2many_checkboxes" options="{'no_create': True}"/>
+                  <field name="journals"/>
+                </tree>
+              </field>
+            </page>
+
+            <page string="Reporte de Avance">
+              <field name="advance_ids">
+                <tree string="Añade un avance al proyecto" editable="bottom">
+                  <field name="activity_id" options="{'no_create': True}"/>
+                  <field name="date"/>
+                  <field name="description"/>
+                  <field name="percentage"/>
+                  <field name="talents"/>
                   <field name="journals"/>
                 </tree>
               </field>

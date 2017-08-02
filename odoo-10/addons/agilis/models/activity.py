@@ -14,9 +14,8 @@ class Activity(models.Model):
     name = fields.Char(string="Nombre de Actividad", 
                         required=True)
 
-    cooperativista_id = fields.Many2one('res.users', 
-                        string="Cooperativista",
-                        ondelete='cascade',
+    cooperativista_ids = fields.Many2many('res.users', 
+                        string="Responsables",
                         required=True)
 
     journals = fields.Integer(string="N Jornadas Planificadas", 

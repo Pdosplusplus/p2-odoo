@@ -39,6 +39,7 @@
         'views/measure_view.xml',
         'views/load_view.xml',
         'views/activity_view.xml',
+        'views/advance_view.xml',
     ],
     
     'qweb': [

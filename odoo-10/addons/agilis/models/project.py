@@ -39,6 +39,10 @@ class Project(models.Model):
                         'project_id', 
                         string="Actividades")
 
+    advance_ids = fields.One2many('agilis.advance', 
+                        'project_id', 
+                        string="Avance")
+
     _sql_constraints = [
          ('name_unique',
         'UNIQUE(name)',
