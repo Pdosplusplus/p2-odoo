@@ -47,7 +47,7 @@
             @Description: Este data file nos permite crear un cuaderno con paginas; donde cada page es una pestaña. 
           -->
 
-          <group string="Utils"/>
+          <group string="Utilidades"/>
 
           <notebook>
             <!-- Page Examenes 

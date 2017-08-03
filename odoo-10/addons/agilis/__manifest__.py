@@ -40,6 +40,7 @@
         'views/load_view.xml',
         'views/activity_view.xml',
         'views/advance_view.xml',
+        'views/bitacora_view.xml',
     ],
     
     'qweb': [

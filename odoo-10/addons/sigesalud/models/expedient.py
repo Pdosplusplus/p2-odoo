@@ -125,7 +125,9 @@ class Expedient(models.Model):
 
         for r in self:
             
-            r.age = years(r.birthdate)
+            if r.birthdate:
+
+                r.age = years(r.birthdate)
 
 
     @api.constrains('bank_account')
@@ -154,18 +156,20 @@ class Expedient(models.Model):
 
             for repayment in expedient.repayment_ids:
 
-                ini_date = datetime.strptime(repayment.date, FORMA_DATE)
-                end_date = datetime.strptime(datetime.now(), FORMA_DATE)
-            
-                days = str((end_date-ini_date).days)
+                if repayment.date:
 
-                if days >= 40 and repayment.state == 'En Proceso':
-
-                    info = {}
-                    info['name'] = expedient.name
-                    info['date'] = end_date
-                    info['id'] = repayment.id
-
-                    addressee = "vpino.geekos@test.com"
+                    ini_date = datetime.strptime(repayment.date, FORMA_DATE)
+                    end_date = datetime.strptime(str(datetime.now().date()), FORMA_DATE)
                 
-                    response = sendEmail(addressee, info, emitter=None)
+                    days = str((end_date-ini_date).days)
+
+                    if days >= 40 and repayment.state == 'En Proceso':
+
+                        info = {}
+                        info['name'] = expedient.name
+                        info['date'] = end_date
+                        info['id'] = repayment.id
+
+                        addressee = "vpino.geekos@test.com"
+                    
+                        response = sendEmail(addressee, info, emitter=None)

@@ -20,7 +20,6 @@
             </header>
 
             <group>  
-              <field name="name"/> 
               <field name="date"/>
               <field name="event_id" domain="[('expedient_id', '=', parent.id)]" options="{'no_create': True}"/>
               <field name="state"/>
@@ -32,7 +31,6 @@
   
                 @Function: Añadir un beneficiario al beneficiario
               -->
-
               <page string="Documentos">
                 <field name="document_ids">
                   <tree string="Añade un documento al reembolso" editable="bottom">

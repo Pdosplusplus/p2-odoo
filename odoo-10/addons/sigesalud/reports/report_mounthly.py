@@ -108,22 +108,6 @@ class ReportMounthly(models.AbstractModel):
                             events.append(event.type_event)
 
                     cooperatives["num_beneficiaries"] = len(expedient.beneficiary_ids)
-                        
-                for beneficiar in expedient.beneficiary_ids:
-
-                    cooperatives["total_events"] += len(expedient.event_ids)
-
-                    for event in beneficiar.event_ids:
-
-                        #Verificamos si el mes del evento es igual al seleccionado.
-                        if compareMounts(month, event.date):
-
-                            cooperatives["num_events"] += 1
-                            cooperatives["mount"] += float(event.cost)
-
-                            if not event.type_event in events:
-
-                                events.append(event.type_event)
 
             if cooperatives["total_events"] > 0:
 
@@ -142,15 +126,17 @@ class ReportMounthly(models.AbstractModel):
 
             for event in expedient.event_ids:
 
-                #Verificamos si el mes del evento es igual al seleccionado.
-                if compareMounts(month, event.date):
+                if event.beneficiary_id != True:
 
-                    titular["num_events"] += 1
-                    titular["mount"] += float(event.cost)
+                    #Verificamos si el mes del evento es igual al seleccionado.
+                    if compareMounts(month, event.date):
 
-                    if not event.type_event in events:
+                        titular["num_events"] += 1
+                        titular["mount"] += float(event.cost)
 
-                        events.append(event.type_event)
+                        if not event.type_event in events:
+
+                            events.append(event.type_event)
 
             if titular["total_events"] > 0:
 
@@ -167,25 +153,23 @@ class ReportMounthly(models.AbstractModel):
 
             for expedient in all_expedient:
 
-                for beneficiar in expedient.beneficiary_ids:
+                for event in expedient.event_ids:
 
-                    if beneficiar.id == beneficiary[0]:
+                    if event.beneficiary_id.id == beneficiary[0]:
 
                         beneficiaries["cooperative"] = expedient.cooperative
-                        beneficiaries["relationship"] = beneficiar.relationship
-                        beneficiaries["total_events"] = len(beneficiar.event_ids)
+                        beneficiaries["relationship"] = event.beneficiary_id.relationship
+                        beneficiaries["total_events"] += 1
 
-                        for event in beneficiar.event_ids:
+                        #Verificamos si el mes del evento es igual al seleccionado.
+                        if compareMounts(month, event.date):
 
-                            #Verificamos si el mes del evento es igual al seleccionado.
-                            if compareMounts(month, event.date):
+                            beneficiaries["num_events"] += 1
+                            beneficiaries["mount"] += float(event.cost)
 
-                                beneficiaries["num_events"] += 1
-                                beneficiaries["mount"] += float(event.cost)
+                            if not event.type_event in events:
 
-                                if not event.type_event in events:
-
-                                    events.append(event.type_event)
+                                events.append(event.type_event)
 
 
             if beneficiaries["total_events"] > 0:
@@ -211,18 +195,6 @@ class ReportMounthly(models.AbstractModel):
                             evento["num"] += 1
                             evento["mount"] += float(event.cost)
 
-                for beneficiar in expedient.beneficiary_ids:
-
-                    for event in beneficiar.event_ids:
-
-                        if event.type_event == type_event:
-
-                            #Verificamos si el mes del evento es igual al seleccionado.
-                            if compareMounts(month, event.date):
-
-                                evento["num"] += 1
-                                evento["mount"] += float(events.cost)
-           
             info['event'] = evento
 
         if repayment:

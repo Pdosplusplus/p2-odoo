@@ -146,7 +146,6 @@
                 <field name="repayment_ids">
                   <tree string="Añade un reembolso">
                     <field name="date"/>
-                    <field name="name"/>
                     <field name="event_id" options="{'no_create': True}"/>
                     <field name="document_ids"/>
                   </tree>
@@ -161,7 +160,7 @@
                 <field name="complaint_ids">
                   <tree string="Añade un Reclamo" editable="bottom">
                     <field name="date" readonly="1"/>
-                    <field name="repayment_id" options="{'no_create': True}"/>
+                    <field name="repayment_id" domain="[('expedient_id', '=', parent.id)]" options="{'no_create': True}"/>
                     <field name="description"/>
                   </tree>
                 </field>

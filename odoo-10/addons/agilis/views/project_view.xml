@@ -233,11 +233,11 @@
     -->
 
     <!-- Añadimos el menu de la barra top -->
-    <menuitem id="main_agilis_menu" name="Gestion de Cooperativas"/>
+    <menuitem id="main_agilis_menu" name="AGILIS"/>
 
     <!-- Añadimos el menu del panel izquierdo -->
     <menuitem id="agilis_menu" 
-              name="AGILIS"
+              name="Gestion de Proyectos"
               parent="main_agilis_menu"/>
 
     <!-- Añadimos un submenu al menu anterior creado, el cual nos lleva a las views de nuestro modelo -->

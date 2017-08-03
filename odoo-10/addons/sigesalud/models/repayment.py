@@ -6,9 +6,6 @@ class Repayment(models.Model):
     
     _name = 'sigesalud.repayment'
 
-    name = fields.Char(string="Nombre", 
-                       required=True)
-
     date = fields.Date(string="Fecha de entrega a la compania de seguros", 
                         required=True)
 

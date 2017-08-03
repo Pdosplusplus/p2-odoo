@@ -31,14 +31,15 @@ class SigesaludReportMounthly(models.TransientModel):
     ], string="Reporte por")
 
     cooperative = fields.Selection([
-        ('geekos', "Geekos"),
-        ('bmkeros', "Bmkeros"),
-        ('vultur', "Vultur"),
-        ('tecnoparaguana', "Tecno Paraguana"),
-        ('hoatzin', "Hoatzin"),
-        ('3punto0', "Tres Punto Cero"),
-        ('simonrodriguez', "Simon Rodriguez"),
-        ('juventudproductiva', "Juventud Productiva"),
+        ('Geekos', "Geekos"),
+        ('Bmkeros', "Bmkeros"),
+        ('Vultur', "Vultur"),
+        ('Tecno Paraguana', "Tecno Paraguana"),
+        ('Hoatzin', "Hoatzin"),
+        ('Tres Punto Cero', "Tres Punto Cero"),
+        ('Simon Rodriguez', "Simon Rodriguez"),
+        ('Juventud Productiva', "Juventud Productiva"),
+        ('Sinapsis', "Sinapsis"),
     ], string="Cooperativa")
 
     titular = fields.Many2one(
@@ -54,19 +55,19 @@ class SigesaludReportMounthly(models.TransientModel):
         index=True)
 
     type_event = fields.Selection([
-        ('accidente', "Accidente"),
+        ('hospitalizacion', "Hospitalizacion"),
         ('maternidad', "Maternidad"),
         ('emergencia', "Emergencia"),
         ('consulta', "Consulta"),
         ('terapia', "Terapia"),
-        ('medicina', "Medicina"),
-    ], string="Tipo de evento")
+        ('cirugia', "Cirugia"),
+    ], string="Tipo de evento", required=True)
 
     type_repayment = fields.Selection([
         ('En proceso', "En proceso"),
         ('Ejecutado', "Ejecutado"),
         ('Cancelado', "Cancelado"),
-    ], string="Tipo de evento")
+    ], string="Tipo de reembolso")
 
     @api.multi
     def print_reporte(self):
@@ -104,4 +105,43 @@ class SigesaludReportMounthly(models.TransientModel):
             raise UserError("Debe seleccionar el tipo de reembolso.")
                 
         return self.env['report'].get_action(self, 'sigesalud.report_mounthly', data=data)
+
+    @api.onchange('selection')
+    def _selection(self):
+
+        if self.selection ==  'cooperativa':
+
+            self.titular = False
+            self.beneficiary = False
+            self.type_event = False
+            self.type_repayment = False
+
+        if self.selection ==  'titular':
+
+            self.cooperative = False
+            self.beneficiary = False
+            self.type_event = False
+            self.type_repayment = False
+
+        if self.selection ==  'beneficiario':
+
+            self.cooperative = False
+            self.titular = False
+            self.type_event = False
+            self.type_repayment = False
+
+        if self.selection ==  'evento':
+
+            self.cooperative = False
+            self.titular = False
+            self.beneficiary = False
+            self.type_repayment = False
+
+        if self.selection ==  'reembolso':
+
+            self.cooperative = False
+            self.titular = False
+            self.beneficiary = False
+            self.type_event = False
+
 

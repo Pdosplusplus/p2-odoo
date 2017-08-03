@@ -20,6 +20,7 @@
             </group>
 
             <group string="Informacion Generica" col="4">
+              <br/><br/>
               <field name="name"/>
               <field name="bf_birthdate"/>
             </group>
@@ -54,7 +55,6 @@
   
                 @Function: Añadir una enfermedad al beneficiario
               -->
-
               <page string="Enfermedades">
                 <field name="bf_disease_ids">
                   <tree string="Añade una enfermedad al beneficiario" editable="bottom">

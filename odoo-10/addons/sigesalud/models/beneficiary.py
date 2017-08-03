@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from odoo.addons.sigesalud.common.utils import years
 
 class Beneficiart(models.Model):
 
@@ -23,6 +24,7 @@ class Beneficiart(models.Model):
                         required=True)
 
     bf_age = fields.Integer(string="Edad",
+                        compute="_years",
                         required=True)
 
     bf_sex = fields.Selection([
@@ -38,14 +40,12 @@ class Beneficiart(models.Model):
     ], string="Estado Civil", required=True)
 
     bf_ci = fields.Integer(string="Cedula de identidad",
-                        required=True,
                         unique=True)
 
     bf_celphone = fields.Char(string="Numero telefonico", 
                        required=True)
 
-    bf_email = fields.Char(string="Correo Electronico", 
-                       required=True,
+    bf_email = fields.Char(string="Correo Electronico",
                        unique=True)
 
     bf_address = fields.Char(string="Direccion", 
@@ -71,3 +71,16 @@ class Beneficiart(models.Model):
         "El correo digitado ya se encuentra registrado"),
 
     ]
+
+    @api.depends('bf_birthdate')
+    def _years(self):
+
+        for r in self:
+            
+            if r.bf_birthdate:
+
+                if years(r.bf_birthdate) < 0:
+
+                    raise ValidationError('La fecha de nacimiento es erronea, por favor seleccione una fecha valida')
+
+                r.bf_age = years(r.bf_birthdate)
