@@ -26,7 +26,7 @@
     </template>
 
     <template id="report_project_view">
-      <t t-call="report.html_container">s
+      <t t-call="report.html_container">
         <t t-call="agili.project_header"/>
         <t t-foreach="docs" t-as="o">
           <t t-call="report.external_layout">

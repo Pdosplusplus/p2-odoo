@@ -11,3 +11,4 @@ import load
 import activity
 import advance
 import bitacora
+import type_service

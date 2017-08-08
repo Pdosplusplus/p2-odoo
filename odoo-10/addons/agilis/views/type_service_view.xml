@@ -2,23 +2,21 @@
 <odoo>
   <data>
 
-    <!-- Data file form 
-    @ function: Crear y modificar registros 
-    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo service
-    -->
-    <record model="ir.ui.view" id="service_form_view">
+        <!-- Data file form 
 
-      <field name="name">service.form</field>
-      <field name="model">agilis.service</field>
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo type_service
+    -->
+    <record model="ir.ui.view" id="type_service_form_view">
+
+      <field name="name">type_service.form</field>
+      <field name="model">agilis.type_service</field>
       <field name="arch" type="xml">
 
         <form string="Work Plan Form">
           <sheet>
             <group>
-              <field name="type_service"/>
-              <field name="description"/>
-              <field name="journals_plan"/>
-              <field name="journals_exe"/>
+              <field name="name"/>
             </group>
           </sheet>
         </form>
@@ -32,16 +30,13 @@
 
       @Description: Record para mostrar la información en una tabla, donde cada field es una columna.
     -->
-    <record model="ir.ui.view" id="service_tree_view">
-      <field name="name">service.tree</field>
-      <field name="model">agilis.service</field>
+    <record model="ir.ui.view" id="type_service_tree_view">
+      <field name="name">type_service.tree</field>
+      <field name="model">agilis.type_service</field>
 
       <field name="arch" type="xml">
-        <tree string="service Tree">
-          <field name="type_service"/>
-          <field name="description"/>
-          <field name="journals_plan"/>
-          <field name="journals_exe"/>
+        <tree string="type_service Tree">
+          <field name="name"/>
         </tree>
       </field>
 
@@ -53,10 +48,10 @@
 
       @Descripcion: Una de las cosa que hace este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree> y de ultimo las graficas <form>.
     -->
-    <record model="ir.actions.act_window" id="service_list_action">
+    <record model="ir.actions.act_window" id="type_service_list_action">
 
       <field name="name"> Servicio </field>
-      <field name="res_model">agilis.service</field>
+      <field name="res_model">agilis.type_service</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
      

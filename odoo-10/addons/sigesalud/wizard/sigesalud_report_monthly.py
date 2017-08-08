@@ -61,7 +61,7 @@ class SigesaludReportMounthly(models.TransientModel):
         ('consulta', "Consulta"),
         ('terapia', "Terapia"),
         ('cirugia', "Cirugia"),
-    ], string="Tipo de evento", required=True)
+    ], string="Tipo de evento")
 
     type_repayment = fields.Selection([
         ('En proceso', "En proceso"),

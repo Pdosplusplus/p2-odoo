@@ -15,10 +15,11 @@
         <form string="Activity Form">
           <sheet>
             <group>
-              <field name="deliverable_id" options="{'no_create': True}"/>
+              <field name="deliverable_id"  domain="[('project_id', '=', parent.id)]" options="{'no_create': True}"/>
               <field name="name"/>
-              <field name="cooperativista_ids" widget="many2many_checkboxes" options="{'no_create': True}"/>
-              <field name="journals"/>
+              <field name="journals_plan"/>
+              <field name="journals_exe"/>
+              <field name="cooperativista_ids" domain="[('cooperative_id', 'in', parent.cooperative_ids[0][2])]" options="{'no_create': True}"/>
             </group>
           </sheet>
         </form>

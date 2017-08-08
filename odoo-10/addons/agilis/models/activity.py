@@ -18,9 +18,28 @@ class Activity(models.Model):
                         string="Responsables",
                         required=True)
 
-    journals = fields.Integer(string="N Jornadas Planificadas", 
-                        required=True)
+    journals_plan = fields.Integer(string="N Jornadas Planificadas")
+
+    journals_exe = fields.Integer(string="N Jornadas Ejecutadas",
+                    compute="_journal")
 
     project_id = fields.Many2one('agilis.project',
                         ondelete='cascade', 
                         string="Proyecto")
+
+    def _journal(self):
+
+        for r in self:
+
+            num = 0
+            
+            if r.project_id:
+
+                for advance in r.project_id.advance_ids:
+
+                    if advance.activity_id.id == r.id:
+
+                        num += advance.journals
+
+            r.journals_exe = num
+

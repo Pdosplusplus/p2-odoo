@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from datetime import datetime, date
 
 class Bitacora(models.Model):
 
@@ -12,7 +13,8 @@ class Bitacora(models.Model):
                             required=True )
 
     date = fields.Date(string="Fecha de reporte", 
-                            required=True)
+                            required=True,
+                            default= datetime.now().date())
 
     description = fields.Text(string="Descripcion", 
                             required=True)

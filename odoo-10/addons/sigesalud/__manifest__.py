@@ -34,7 +34,7 @@
 
     # any module necessary for this one to work correctly
     'depends': [
-        'base',
+        'base_setup',
         'report',
         'auditlog',
     ],
