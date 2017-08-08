@@ -15,7 +15,7 @@
         <form string="deliverable Form">
           <sheet>
             <group>
-              <field name="type_service"/>
+              <field name="service_id"/>
               <field name="name"/>
               <field name="description"/>
               <field name="type_measure"/>
@@ -41,7 +41,7 @@
 
       <field name="arch" type="xml">
         <tree string="deliverable Tree">
-          <field name="type_service"/>
+          <field name="service_id"/>
           <field name="name"/>
           <field name="description"/>
           <field name="type_measure"/>

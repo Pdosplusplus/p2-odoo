@@ -6,11 +6,9 @@ class Service(models.Model):
 
     _name = 'agilis.service'
 
-    type_service = fields.Many2one(
-                    'agilis.type_service',
-                    ondelete='set null', 
-                    string="Servicio",  
-                    index=True)
+    name = fields.Char(string="Nombre", 
+                    required=True,
+                    unique=True)
 
     description = fields.Text(string="Descripcion",
                     required=True)
@@ -40,7 +38,7 @@ class Service(models.Model):
 
                 for deliverable in r.project_id.deliverable_ids:
 
-                    if deliverable.type_service == r.type_service:
+                    if deliverable.service_id == r.id:
 
                         num += deliverable.journals_exe
 

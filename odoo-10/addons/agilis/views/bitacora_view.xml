@@ -16,7 +16,7 @@
           <sheet>
             <group>
               <field name="activity_id" options="{'no_create': True}"/>
-              <field name="date"/>
+              <field name="date" readonly="1"/>
               <field name="description"/>
               <field name="journals"/>
             </group>

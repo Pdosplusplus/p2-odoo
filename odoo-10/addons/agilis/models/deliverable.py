@@ -6,14 +6,9 @@ class Deliverable(models.Model):
 
     _name = 'agilis.deliverable'
 
-    type_service = fields.Many2one(
-                    'agilis.type_service',
-                    ondelete='set null', 
-                    string="Servicio",  
-                    index=True)
-
     name = fields.Char(string="Nombre", 
-                    required=True)
+                    required=True,
+                    unique=True)
 
     description = fields.Text(string="Descripcion",
                     required=True)
@@ -31,6 +26,10 @@ class Deliverable(models.Model):
 
     journals_exe = fields.Integer(string="N Jornadas Ejecutadas",
                     compute="_journal")
+
+    service_id = fields.Many2one('agilis.service',
+                            ondelete='cascade', 
+                            string="Servicio")
     
     project_id = fields.Many2one('agilis.project',
                             ondelete='cascade', 

@@ -10,10 +10,27 @@
             <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
         </record>
 
-        <!--
-        <record id="agilis_user_admin_milestone" model="ir.rule">
-            <field name="name"> Usuario Administrador milestone </field>
-            <field name="model_id" ref="model_agilis_milestone"/>
+        <record id="agilis_user_admin_cooperative" model="ir.rule">
+            <field name="name"> Usuario Administrador Cooperative </field>
+            <field name="model_id" ref="model_agilis_cooperative"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
+        </record>
+
+        <record id="agilis_user_admin_trimestre" model="ir.rule">
+            <field name="name"> Usuario Administrador Trimestre </field>
+            <field name="model_id" ref="model_agilis_trimestre"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
+        </record>
+
+        <record id="agilis_user_admin_service" model="ir.rule">
+            <field name="name"> Usuario Administrador Service </field>
+            <field name="model_id" ref="model_agilis_service"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
+        </record>
+
+        <record id="agilis_user_admin_measure" model="ir.rule">
+            <field name="name"> Usuario Administrador Measure </field>
+            <field name="model_id" ref="model_agilis_measure"/>
             <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
         </record>
 
@@ -23,12 +40,118 @@
             <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
         </record>
 
+        <record id="agilis_user_admin_load" model="ir.rule">
+            <field name="name"> Usuario Administrador Load </field>
+            <field name="model_id" ref="model_agilis_load"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
+        </record>
+
         <record id="agilis_user_admin_activity" model="ir.rule">
             <field name="name"> Usuario Administrador Activity </field>
             <field name="model_id" ref="model_agilis_activity"/>
             <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
         </record>
 
+        <record id="agilis_user_admin_advance" model="ir.rule">
+            <field name="name"> Usuario Administrador Advance </field>
+            <field name="model_id" ref="model_agilis_advance"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
+        </record>
+
+        <record id="agilis_user_admin_bitacora" model="ir.rule">
+            <field name="name"> Usuario Administrador Bitacora </field>
+            <field name="model_id" ref="model_agilis_bitacora"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
+        </record>
+
+        <record id="agilis_user_admin_type_service" model="ir.rule">
+            <field name="name"> Usuario Administrador type_service </field>
+            <field name="model_id" ref="model_agilis_type_service"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_manager'))]"/>
+        </record>
+
+
+        <record id="group_agilis_coordinator" model="res.groups">
+            <field name="name">agilis / Coordinator</field>
+        </record>
+
+        <record id="agilis_user_coordinator_project" model="ir.rule">
+            <field name="name"> Usuario Coordinator Proyecto </field>
+            <field name="model_id" ref="model_agilis_project"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">
+                ['|', ('cooperative_ids','=',False),
+                      ('cooperative_ids.id', '=', user.cooperative_id.id)]
+            </field>
+        </record>
+
+        <record id="agilis_user_coordinator_cooperative" model="ir.rule">
+            <field name="name"> Usuario Coordinator Cooperative </field>
+            <field name="model_id" ref="model_agilis_cooperative"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+        </record>
+
+        <record id="agilis_user_coordinator_trimestre" model="ir.rule">
+            <field name="name"> Usuario Coordinator Trimestre </field>
+            <field name="model_id" ref="model_agilis_trimestre"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+        </record>
+
+        <record id="agilis_user_coordinator_service" model="ir.rule">
+            <field name="name"> Usuario Coordinator Service </field>
+            <field name="model_id" ref="model_agilis_service"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+        </record>
+
+        <record id="agilis_user_coordinator_measure" model="ir.rule">
+            <field name="name"> Usuario Coordinator Measure </field>
+            <field name="model_id" ref="model_agilis_measure"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+        </record>
+
+        <record id="agilis_user_coordinator_deliverable" model="ir.rule">
+            <field name="name"> Usuario Coordinator Deliverable </field>
+            <field name="model_id" ref="model_agilis_deliverable"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+        </record>
+
+        <record id="agilis_user_coordinator_load" model="ir.rule">
+            <field name="name"> Usuario Coordinator Load </field>
+            <field name="model_id" ref="model_agilis_load"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+        </record>
+
+        <record id="agilis_user_coordinator_activity" model="ir.rule">
+            <field name="name"> Usuario Coordinator Activity </field>
+            <field name="model_id" ref="model_agilis_activity"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+        </record>
+
+        <record id="agilis_user_coordinator_advance" model="ir.rule">
+            <field name="name"> Usuario Coordinator Advance </field>
+            <field name="model_id" ref="model_agilis_advance"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+        </record>
+
+        <record id="agilis_user_coordinator_bitacora" model="ir.rule">
+            <field name="name"> Usuario Coordinator Bitacora </field>
+            <field name="model_id" ref="model_agilis_bitacora"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+        </record>
+
+        <record id="agilis_user_coordinator_type_service" model="ir.rule">
+            <field name="name"> Usuario Coordinator type_service </field>
+            <field name="model_id" ref="model_agilis_type_service"/>
+            <field name="groups" eval="[(4, ref('agilis.group_agilis_coordinator'))]"/>
+        </record>
+
+
+
+        <!--
         <record id="group_agilis_coordinator" model="res.groups">
             <field name="name">agilis / Coordinador </field>
         </record>

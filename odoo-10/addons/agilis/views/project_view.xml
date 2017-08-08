@@ -60,7 +60,7 @@
             <page string="Servicios">
               <field name="service_ids">
                 <tree string="Añade un servicio al proyecto" editable="bottom">
-                  <field name="type_service"/>
+                  <field name="name"/>
                   <field name="description"/>
                   <field name="journals_plan"/>
                   <field name="journals_exe"/>
@@ -76,7 +76,7 @@
             <page string="Identificación y Planificacion">
               <field name="deliverable_ids">
                 <tree string="Añade un entregable al proyecto" editable="bottom">
-                  <field name="type_service"/>
+                  <field name="service_id"/>
                   <field name="name"/>
                   <field name="description"/>
                   <field name="type_measure"/>

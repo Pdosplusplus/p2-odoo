@@ -1,3 +1,50 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
 project_agilis_admin,agilis.project access admin,model_agilis_project,group_agilis_manager,1,1,1,1
+
 user_agilis_admin,base.res.users access admin,base.model_res_users,group_agilis_manager,1,0,0,0
+
+cooperative_agilis_admin,agilis.cooperative access admin,model_agilis_cooperative,group_agilis_manager,1,1,1,1
+
+trimestre_agilis_admin,agilis.trimestre access admin,model_agilis_trimestre,group_agilis_manager,1,1,1,1
+
+service_agilis_admin,agilis.service access admin,model_agilis_service,group_agilis_manager,1,1,1,1
+
+measure_agilis_admin,agilis.measure access admin,model_agilis_measure,group_agilis_manager,1,1,1,1
+
+deliverable_agilis_admin,agilis.deliverable access admin,model_agilis_deliverable,group_agilis_manager,1,1,1,1
+
+load_agilis_admin,agilis.load access admin,model_agilis_load,group_agilis_manager,1,1,1,1
+
+activity_agilis_admin,agilis.activity access admin,model_agilis_activity,group_agilis_manager,1,1,1,1
+
+advance_agilis_admin,agilis.advance access admin,model_agilis_advance,group_agilis_manager,1,1,1,1
+
+bitacora_agilis_admin,agilis.bitacora access admin,model_agilis_bitacora,group_agilis_manager,1,1,1,1
+
+type_service_agilis_admin,agilis.type_service access admin,model_agilis_type_service,group_agilis_manager,1,1,1,1
+
+
+project_agilis_coordinator,agilis.project access coordinator,model_agilis_project,group_agilis_coordinator,1,1,1,1
+
+user_agilis_coordinator,base.res.users access coordinator,base.model_res_users,group_agilis_coordinator,1,1,1,1
+
+cooperative_agilis_coordinator,agilis.cooperative access coordinator,model_agilis_cooperative,group_agilis_coordinator,1,1,0,0
+
+trimestre_agilis_coordinator,agilis.trimestre access coordinator,model_agilis_trimestre,group_agilis_coordinator,1,1,0,0
+
+service_agilis_coordinator,agilis.service access coordinator,model_agilis_service,group_agilis_coordinator,1,1,1,1
+
+measure_agilis_coordinator,agilis.measure access coordinator,model_agilis_measure,group_agilis_coordinator,1,1,1,1
+
+deliverable_agilis_coordinator,agilis.deliverable access coordinator,model_agilis_deliverable,group_agilis_coordinator,1,1,1,1
+
+load_agilis_coordinator,agilis.load access coordinator,model_agilis_load,group_agilis_coordinator,1,1,1,1
+
+activity_agilis_coordinator,agilis.activity access coordinator,model_agilis_activity,group_agilis_coordinator,1,1,1,1
+
+advance_agilis_coordinator,agilis.advance access coordinator,model_agilis_advance,group_agilis_coordinator,1,1,1,1
+
+bitacora_agilis_coordinator,agilis.bitacora access coordinator,model_agilis_bitacora,group_agilis_coordinator,1,1,1,1
+
+type_service_agilis_coordinator,agilis.type_service access coordinator,model_agilis_type_service,group_agilis_coordinator,1,1,1,1
