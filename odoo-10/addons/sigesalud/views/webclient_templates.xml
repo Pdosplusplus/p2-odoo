@@ -9,7 +9,7 @@
             
             <div class="navbar-header">
               <a class="navbar-brand" href="#">
-                <img alt="Agili" src="#"/>
+                <img alt="SIGESALUD" src="#"/>
               </a>
             </div>
 
@@ -20,7 +20,8 @@
           
           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
           
-          <img src="/sigesalud/static/src/img/sisgesalud.png"/>
+          <img src="/sigesalud/static/src/img/sisgesalud-login.png"/>
+          <br/> <br/>
      
           <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
             

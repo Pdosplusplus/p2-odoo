@@ -59,7 +59,6 @@
         'views/cron_view.xml',
         'views/webclient_templates.xml',
         'wizard/sigesalud_report_monthly_view.xml',
-
     ],
     
     'qweb': [
