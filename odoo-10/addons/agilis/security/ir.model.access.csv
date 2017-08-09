@@ -24,7 +24,6 @@ bitacora_agilis_admin,agilis.bitacora access admin,model_agilis_bitacora,group_a
 
 type_service_agilis_admin,agilis.type_service access admin,model_agilis_type_service,group_agilis_manager,1,1,1,1
 
-
 project_agilis_coordinator,agilis.project access coordinator,model_agilis_project,group_agilis_coordinator,1,1,1,1
 
 user_agilis_coordinator,base.res.users access coordinator,base.model_res_users,group_agilis_coordinator,1,1,1,1
@@ -48,3 +47,28 @@ advance_agilis_coordinator,agilis.advance access coordinator,model_agilis_advanc
 bitacora_agilis_coordinator,agilis.bitacora access coordinator,model_agilis_bitacora,group_agilis_coordinator,1,1,1,1
 
 type_service_agilis_coordinator,agilis.type_service access coordinator,model_agilis_type_service,group_agilis_coordinator,1,1,1,1
+
+
+project_agilis_cooperative,agilis.project access cooperative,model_agilis_project,group_agilis_cooperative,1,0,0,0
+
+user_agilis_cooperative,base.res.users access cooperative,base.model_res_users,group_agilis_cooperative,1,0,0,0
+
+cooperative_agilis_cooperative,agilis.cooperative access cooperative,model_agilis_cooperative,group_agilis_cooperative,1,0,0,0
+
+trimestre_agilis_cooperative,agilis.trimestre access cooperative,model_agilis_trimestre,group_agilis_cooperative,1,0,0,0
+
+service_agilis_cooperative,agilis.service access cooperative,model_agilis_service,group_agilis_cooperative,1,0,0,0
+
+measure_agilis_cooperative,agilis.measure access cooperative,model_agilis_measure,group_agilis_cooperative,1,0,0,0
+
+deliverable_agilis_cooperative,agilis.deliverable access cooperative,model_agilis_deliverable,group_agilis_cooperative,1,0,0,0
+
+load_agilis_cooperative,agilis.load access cooperative,model_agilis_load,group_agilis_cooperative,1,0,0,0
+
+activity_agilis_cooperative,agilis.activity access cooperative,model_agilis_activity,group_agilis_cooperative,1,0,0,0
+
+advance_agilis_cooperative,agilis.advance access cooperative,model_agilis_advance,group_agilis_cooperative,1,0,0,0
+
+bitacora_agilis_cooperative,agilis.bitacora access cooperative,model_agilis_bitacora,group_agilis_cooperative,1,1,1,1
+
+type_service_agilis_cooperative,agilis.type_service access coordinator,model_agilis_type_service,group_agilis_coordinator,1,0,0,0
