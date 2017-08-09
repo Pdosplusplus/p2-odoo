@@ -81,7 +81,7 @@
                   <field name="description"/>
                   <field name="type_measure"/>
                   <field name="advances"/>
-                <field name="journals_plan"/>
+                  <field name="journals_plan"/>
                   <field name="journals_exe"/>
                 </tree>
               </field>

@@ -31,6 +31,7 @@
     'data': [
         'security/agilis_security.xml',
         'security/ir.model.access.csv',
+        'views/webclient_templates.xml',
         'views/res_users_view.xml',
         'views/project_view.xml',
         'views/cooperative_view.xml',

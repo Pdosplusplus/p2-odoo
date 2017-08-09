@@ -20,7 +20,7 @@
           
           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
           
-          <img src="/agili/static/src/img/agili-icon-5.png"/>
+          <img src="/agilis/static/src/img/agili-icon-5.png"/>
      
           <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
             
