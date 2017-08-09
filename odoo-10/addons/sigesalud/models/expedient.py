@@ -44,16 +44,18 @@ class Expedient(models.Model):
         ('viud@', "Viud@"),
     ], string="Estado Civil", required=True)
 
-    ci = fields.Integer(string="Cedula de identidad",
+    ci = fields.Char(string="Cedula de identidad",
+                        size=9,
                         required=True,
                         unique=True)
 
     celphone = fields.Char(string="Numero telefonico", 
-                       required=True)
+                        size=11,
+                        required=True)
 
-    email = fields.Char(string="Correo Electronico", 
-                       required=True,
-                       unique=True)
+    email = fields.Char(string="Correo Electronico",
+                        required=True,
+                        unique=True)
 
     address = fields.Text(string="Direccion", 
                        required=True)
@@ -61,7 +63,8 @@ class Expedient(models.Model):
     bank_id = fields.Many2one(
                     'sigesalud.bank',
                     ondelete='set null', 
-                    string="Banco",  
+                    string="Banco", 
+                    required=True, 
                     index=True)
 
     bank_account = fields.Char(string="Numero de cuenta bancaria",
@@ -141,6 +144,21 @@ class Expedient(models.Model):
         
             raise ValidationError('Por favor digite solo numeros.')
 
+    @api.constrains('celphone')
+    def _check_number(self):
+
+        celphone = self.celphone
+        
+        if celphone and len(celphone) < 11:
+        
+            raise ValidationError('El numero de telefono debe contener 11 digitos, por favor ingrese un numero valido')
+
+        try:
+            return int(celphone)
+
+        except ValueError:
+        
+            raise ValidationError('Por favor el campo telefono solo permite numeros.')
 
     @api.multi
     def send_alert(self):
