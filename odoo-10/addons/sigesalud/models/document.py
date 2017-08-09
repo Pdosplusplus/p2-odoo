@@ -40,14 +40,3 @@ class Document(models.Model):
     repayment_id = fields.Many2one('sigesalud.repayment',
                      ondelete='cascade',
                      string="Reembolso")
-
-    @api.onchange('date')
-    def _check_date(self):
-
-        for r in self:
-            
-            if r.date != False:
-
-                if  workDays(r.date) >= 30:
-                    
-                    raise ValidationError('Este documento no va hacer reembolsando, debido a que ya expiraron sus 30 dias habiles')
