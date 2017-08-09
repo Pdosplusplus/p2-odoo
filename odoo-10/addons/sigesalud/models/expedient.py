@@ -58,12 +58,11 @@ class Expedient(models.Model):
     address = fields.Text(string="Direccion", 
                        required=True)
 
-    bank = fields.Selection([
-        ('venezuela', "Venezuela"),
-        ('banesco', "Banesco"),
-        ('provincial', "Provincial"),
-        ('tesoro', "Tesoro"),
-    ], string="Banco", required=True)
+    bank_id = fields.Many2one(
+                    'sigesalud.bank',
+                    ondelete='set null', 
+                    string="Banco",  
+                    index=True)
 
     bank_account = fields.Char(string="Numero de cuenta bancaria",
                         size=20, 

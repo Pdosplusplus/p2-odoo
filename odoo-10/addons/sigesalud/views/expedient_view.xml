@@ -47,7 +47,7 @@
             </group>
 
             <group string="Datos del seguro">
-              <field name="bank"/>
+              <field name="bank_id"/>
             </group>
 
             <group col="4">
