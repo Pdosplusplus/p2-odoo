@@ -53,6 +53,23 @@ def workDays(start_date):
 
 	return totalDias.count()
 
+def diff_days():
+        
+	start_date = datetime.now().date()
+
+	end_date = "2018-03-10"
+
+	date_ini = datetime.strptime(str(start_date), FORMA_DATE)
+
+	date_fin = datetime.strptime(str(end_date), FORMA_DATE)
+
+	totalDias= rrule.rrule(rrule.DAILY,
+						dtstart=date_ini, 
+						until=date_fin)
+
+	return totalDias.count()
+
+
 def sendEmail(addressee, info, emitter=None):
 
 	message_template = """\

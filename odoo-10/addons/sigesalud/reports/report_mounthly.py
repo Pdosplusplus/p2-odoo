@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models
-from odoo.addons.sigesalud.common.utils import compareMounts
+from odoo.addons.sigesalud.common.utils import compareMounts, diff_days
+
 from datetime import datetime, date
 
 class ReportMounthly(models.AbstractModel):
@@ -39,7 +40,10 @@ class ReportMounthly(models.AbstractModel):
         info['date'] = datetime.now().date() 
         info['event'] = type_event
         info['repayment'] = repayment
+        info['use_days'] = diff_days()
 
+        print(str(info['use_days']))
+        
         cooperatives = {}
         cooperatives["name"] = cooperative
         cooperatives["num_titu"] = 0

@@ -36,7 +36,8 @@
 
               <h4> <strong> Fecha: </strong> <span t-esc="data['date']"/> </h4>
               <h4> <strong> Mes: </strong> <span t-esc="data['month']"/> </h4>
-              
+              <h4> <strong> Dias restantes de la poliza: </strong> <span t-esc="data['use_days']"/> </h4>
+
               <t t-if="data['cooperative']">
 
                 <table class="table table-condensed">
