@@ -57,7 +57,9 @@
         'reports/report_repayment.xml',
         'views/repayment_view.xml',
         'views/cron_view.xml',
+        'views/webclient_templates.xml',
         'wizard/sigesalud_report_monthly_view.xml',
+
     ],
     
     'qweb': [
