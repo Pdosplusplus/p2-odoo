@@ -11,3 +11,4 @@ import repayment
 import document
 import complaint
 import res_users
+import bank

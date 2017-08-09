@@ -50,6 +50,7 @@
         'views/event_view.xml',
         'views/exam_view.xml',
         'views/policy_view.xml',
+        'views/bank_view.xml',
         'views/res_users_view.xml',
         'reports/report_expedient.xml',
         'reports/report_mounthly.xml',

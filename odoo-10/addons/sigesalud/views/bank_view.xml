@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+        <!-- Data file form 
+
+    @ function: Crear y modificar registros 
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo bank
+    -->
+    <record model="ir.ui.view" id="bank_form_view">
+
+      <field name="name">bank.form</field>
+      <field name="model">sigesalud.bank</field>
+      <field name="arch" type="xml">
+
+        <form string="Work bank Form">
+          <sheet>
+        
+            <group>
+              <field name="name"/>
+            </group>
+
+          </sheet>
+        </form>
+
+      </field>
+    </record>
+
+    <!-- Record tree
+
+      @Function: Listar la información en una tabla
+
+      @Description: Record para mostrar la información en una tabla, donde cada field es una columna.
+    -->
+    <record model="ir.ui.view" id="bank_tree_view">
+      <field name="name">bank.tree</field>
+      <field name="model">sigesalud.bank</field>
+
+      <field name="arch" type="xml">
+        <tree string="bank Tree">
+          <field name="name"/>
+        </tree>
+      </field>
+
+    </record>
+
+    <!-- Tag actions.act_window 
+    
+      @Function: Este tag o record tiene como funcion contralar el flujo de los views a las acciones de los mismos
+
+      @Descripcion: Una de las cosa que ahce este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree>, <form>, <calendar> ,y de ultimo las graficas <graph>.
+    -->
+    <record model="ir.actions.act_window" id="bank_list_action">
+
+      <field name="name">Banco</field>
+      <field name="res_model">sigesalud.bank</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+     
+    </record>
+
+    <!-- Añadimos un submenu-->
+    <menuitem id="bank_menu" name="Banco" 
+          parent="sigesalud_menu"
+          action="bank_list_action"/>
+
+  </data>
+</odoo>
