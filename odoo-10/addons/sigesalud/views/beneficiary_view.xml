@@ -20,7 +20,6 @@
             </group>
 
             <group string="Informacion Generica" col="4">
-              <br/><br/>
               <field name="name"/>
               <field name="bf_birthdate"/>
             </group>

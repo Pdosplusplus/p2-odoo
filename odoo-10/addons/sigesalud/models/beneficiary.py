@@ -39,16 +39,18 @@ class Beneficiart(models.Model):
         ('viud@', "Viud@"),
     ], string="Estado Civil", required=True)
 
-    bf_ci = fields.Integer(string="Cedula de identidad",
-                        unique=True)
+    bf_ci = fields.Char(string="Cedula de identidad",
+                        unique=True,
+                        size=9)
 
     bf_celphone = fields.Char(string="Numero telefonico", 
+                        size=11,
                        required=True)
 
     bf_email = fields.Char(string="Correo Electronico",
                        unique=True)
 
-    bf_address = fields.Char(string="Direccion", 
+    bf_address = fields.Text(string="Direccion", 
                        required=True)
 
     expedient_id = fields.Many2one('sigesalud.expedient',
@@ -72,7 +74,7 @@ class Beneficiart(models.Model):
 
     ]
 
-    @api.depends('bf_birthdate')
+    @api.constrains('bf_birthdate')
     def _years(self):
 
         for r in self:
@@ -84,3 +86,39 @@ class Beneficiart(models.Model):
                     raise ValidationError('La fecha de nacimiento es erronea, por favor seleccione una fecha valida')
 
                 r.bf_age = years(r.bf_birthdate)
+
+
+    @api.constrains('bf_celphone')
+    def _check_celphone(self):
+
+        bf_celphone = self.bf_celphone
+        
+        if bf_celphone and len(bf_celphone) < 11:
+        
+            raise ValidationError('El numero de telefono debe contener 11 digitos, por favor ingrese un numero valido')
+
+        try:
+            return int(bf_celphone)
+
+        except ValueError:
+        
+            raise ValidationError('Por favor el campo telefono solo permite numeros.')
+
+
+    @api.constrains('bf_ci')
+    def _check_ci(self):
+
+        for r in self:
+
+            if r.bf_age >= 9:
+
+                if bf_ci == '':
+
+                    raise ValidationError('El campo cedula es requerido')
+
+                try:
+                    return int(bf_ci)
+
+                except ValueError:
+                
+                    raise ValidationError('Por favor el campo cedula solo permite numeros.')

@@ -94,7 +94,7 @@
                 @Function: Añadir un beneficiario al expediente
               -->
 
-              <page string="Grupo Familiar / Beneficiarios" attrs="{'invisible': [('associated', '==', 'no')]}">
+              <page string="Grupo Familiar / Beneficiarios">
                 <field name="beneficiary_ids">
                   <tree string="Añade un beneficiario al expediente">
                     <field name="relationship"/>

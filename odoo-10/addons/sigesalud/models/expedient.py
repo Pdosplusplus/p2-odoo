@@ -118,15 +118,19 @@ class Expedient(models.Model):
 
     ]
 
-    @api.depends('birthdate')
+
+    @api.constrains('birthdate')
     def _years(self):
 
         for r in self:
             
             if r.birthdate:
 
-                r.age = years(r.birthdate)
+                if years(r.birthdate) < 0:
 
+                    raise ValidationError('La fecha de nacimiento es erronea, por favor seleccione una fecha valida')
+
+                r.age = years(r.birthdate)
 
     @api.constrains('bank_account')
     def _check_number(self):
@@ -145,7 +149,7 @@ class Expedient(models.Model):
             raise ValidationError('Por favor digite solo numeros.')
 
     @api.constrains('celphone')
-    def _check_number(self):
+    def _check_celphone(self):
 
         celphone = self.celphone
         
