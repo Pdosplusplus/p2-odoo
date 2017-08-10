@@ -112,12 +112,12 @@ class Beneficiart(models.Model):
 
             if r.bf_age >= 9:
 
-                if bf_ci == '':
+                if r.bf_ci == '':
 
                     raise ValidationError('El campo cedula es requerido')
 
                 try:
-                    return int(bf_ci)
+                    return int(r.bf_ci)
 
                 except ValueError:
                 

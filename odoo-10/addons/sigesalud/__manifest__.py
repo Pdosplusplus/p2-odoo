@@ -36,7 +36,6 @@
     'depends': [
         'base_setup',
         'report',
-        'auditlog',
     ],
 
     # always loaded

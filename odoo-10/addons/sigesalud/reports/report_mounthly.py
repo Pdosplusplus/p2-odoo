@@ -41,8 +41,8 @@ class ReportMounthly(models.AbstractModel):
         info['event'] = type_event
         info['repayment'] = repayment
         info['use_days'] = diff_days()
-
-        print(str(info['use_days']))
+        info['all_titu'] = []
+        info['all_bene'] = []
         
         cooperatives = {}
         cooperatives["name"] = cooperative
@@ -221,4 +221,95 @@ class ReportMounthly(models.AbstractModel):
 
             info['repayment'] = repayments
 
+        if selection == 'all_titu':
+
+            all_expedient = self.env['sigesalud.expedient'].search([('id', '>', 0)])
+
+            for expedient in all_expedient:
+
+                titular = {}
+                titular["name"] = ""
+                titular["cooperative"] = 0
+                titular["num_events"] = 0
+                titular["type_events"] = 0
+                titular["total_events"] = 0
+                titular["mount"] = 0
+                titular["porcentage_use"] = 0
+
+                events = []
+
+                titular["name"] = expedient.name
+                titular["cooperative"] = expedient.cooperative
+                titular["total_events"] = len(expedient.event_ids)
+
+                for event in expedient.event_ids:
+
+                    if event.beneficiary_id != True:
+
+                        #Verificamos si el mes del evento es igual al seleccionado.
+                        if compareMounts(month, event.date):
+
+                            titular["num_events"] += 1
+                            titular["mount"] += float(event.cost)
+
+                            if not event.type_event in events:
+
+                                events.append(event.type_event)
+
+                if titular["total_events"] > 0:
+
+                    titular["porcentage_use"] = titular["num_events"] * 100 / titular["total_events"]
+
+                titular["type_events"] = events
+
+                info['all_titu'].append(titular)
+
+        if selection == 'all_bene':
+
+            all_expedient = self.env['sigesalud.expedient'].search([('id', '>', 0)])
+
+            for expedient in all_expedient:
+
+                for beneficiary in expedient.beneficiary_ids:
+
+                    beneficiaries = {}
+                    beneficiaries["name"] = ""
+                    beneficiaries["cooperative"] = ""
+                    beneficiaries["relationship"] = ""
+                    beneficiaries["num_events"] = 0
+                    beneficiaries["type_events"] = 0
+                    beneficiaries["total_events"] = 0
+                    beneficiaries["mount"] = 0
+                    beneficiaries["porcentage_use"] = 0
+
+                    events = []
+
+                    beneficiaries["name"] = beneficiary.name
+                    beneficiaries["cooperative"] = expedient.cooperative
+                    beneficiaries["relationship"] = beneficiary.relationship
+
+                    for event in expedient.event_ids:
+
+                        if event.beneficiary_id.id == beneficiary.id:
+
+                            beneficiaries["total_events"] += 1
+
+                            #Verificamos si el mes del evento es igual al seleccionado.
+                            if compareMounts(month, event.date):
+
+                                beneficiaries["num_events"] += 1
+                                beneficiaries["mount"] += float(event.cost)
+
+                                if not event.type_event in events:
+
+                                    events.append(event.type_event)
+
+                    if beneficiaries["total_events"] > 0:
+
+                        beneficiaries["porcentage_use"] = beneficiaries["num_events"] * 100 / beneficiaries["total_events"]
+
+                    beneficiaries["type_events"] = events
+
+                    info['all_bene'].append(beneficiaries)
+            
         return info

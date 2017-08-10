@@ -24,8 +24,10 @@ class SigesaludReportMounthly(models.TransientModel):
 
     selection = fields.Selection([
         ('cooperativa', "Cooperativa"),
-        ('titular', "Titular"),
-        ('beneficiario', "Beneficiario"),
+        ('all_titu', "Todos los titulares"),
+        ('titular', "Por Titular"),
+        ('all_bene', "Todos los Beneficiario"),
+        ('beneficiario', "Por Beneficiario"),
         ('evento', "Evento"),
         ('reembolso', "Reembolso"),
     ], string="Reporte por")
@@ -143,5 +145,22 @@ class SigesaludReportMounthly(models.TransientModel):
             self.titular = False
             self.beneficiary = False
             self.type_event = False
+
+        if self.selection ==  'all_titu':
+
+            self.cooperative = False
+            self.titular = False
+            self.beneficiary = False
+            self.type_event = False
+            self.type_repayment = False
+
+        if self.selection ==  'all_bene':
+
+            self.cooperative = False
+            self.titular = False
+            self.beneficiary = False
+            self.type_event = False
+            self.type_repayment = False
+
 
 
