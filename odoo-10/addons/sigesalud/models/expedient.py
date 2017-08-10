@@ -118,8 +118,7 @@ class Expedient(models.Model):
 
     ]
 
-
-    @api.constrains('birthdate')
+    @api.onchange('birthdate')
     def _years(self):
 
         for r in self:

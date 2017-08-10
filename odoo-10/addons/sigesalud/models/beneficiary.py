@@ -74,13 +74,13 @@ class Beneficiart(models.Model):
 
     ]
 
-    @api.constrains('bf_birthdate')
+    @api.onchange('bf_birthdate')
     def _years(self):
 
         for r in self:
             
             if r.bf_birthdate:
-
+                
                 if years(r.bf_birthdate) < 0:
 
                     raise ValidationError('La fecha de nacimiento es erronea, por favor seleccione una fecha valida')
