@@ -59,7 +59,7 @@
           <notebook>
             <page string="Servicios">
               <field name="service_ids">
-                <tree string="Añade un servicio al proyecto" editable="bottom">
+                <tree string="Añade un servicio al proyecto" editable="bottom" class="table_services">
                   <field name="name"/>
                   <field name="description"/>
                   <field name="journals_plan"/>

@@ -43,6 +43,7 @@
         'views/advance_view.xml',
         'views/bitacora_view.xml',
         'views/type_service_view.xml',
+        'views/style_css_view.xml',
     ],
     
     'qweb': [

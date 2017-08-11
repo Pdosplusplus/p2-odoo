@@ -1,0 +1,7 @@
+.table_services th[data-id='name'] { 
+  width: 35%; /* using percentage is recommended for responsive design */ 
+}
+
+.table_services th[data-id='description'] { 
+  width: 35%; /* using percentage is recommended for responsive design */ 
+}
