@@ -62,7 +62,8 @@
     <!-- Añadimos un submenu-->
     <menuitem id="bank_menu" name="Banco" 
           parent="sigesalud_menu"
-          action="bank_list_action"/>
+          action="bank_list_action"
+          groups="group_sigesalud_manager"/>
 
   </data>
 </odoo>
