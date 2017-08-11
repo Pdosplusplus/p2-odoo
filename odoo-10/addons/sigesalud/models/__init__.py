@@ -12,3 +12,4 @@ import document
 import complaint
 import res_users
 import bank
+import range_policy

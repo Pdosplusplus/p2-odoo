@@ -43,6 +43,7 @@ class ReportMounthly(models.AbstractModel):
         info['use_days'] = diff_days()
         info['all_titu'] = []
         info['all_bene'] = []
+        info['all_coope'] = []
         
         cooperatives = {}
         cooperatives["name"] = cooperative
@@ -311,5 +312,56 @@ class ReportMounthly(models.AbstractModel):
                     beneficiaries["type_events"] = events
 
                     info['all_bene'].append(beneficiaries)
-            
+
+
+        if selection == 'all_coope':
+
+            cooperativas = ['Geekos', 'Bmkeros', 'Vultur', 'Tecno Paraguana', 'Sinapsis']
+  
+            for coope in cooperativas:
+
+                #Get all expedient    
+                all_expedient = self.env['sigesalud.expedient'].search([('cooperative', '=', coope)])
+
+                cooperatives = {}
+                cooperatives["name"] = coope
+                cooperatives["num_titu"] = 0
+                cooperatives["num_beneficiaries"] = 0
+                cooperatives["num_events"] = 0
+                cooperatives["type_events"] = 0
+                cooperatives["total_events"] = 0
+                cooperatives["mount"] = 0
+                cooperatives["porcentage_use"] = 0 
+
+                events = []
+
+                cooperatives["num_titu"] = len(all_expedient)
+
+                for expedient in all_expedient:
+
+                    cooperatives["total_events"] += len(expedient.event_ids)
+
+                    #Recorremos los eventos realizados por el titular
+                    for event in expedient.event_ids:
+
+                        #Verificamos si el mes del evento es igual al seleccionado.
+                        if compareMounts(month, event.date):
+
+                            cooperatives["num_events"] += 1
+                            cooperatives["mount"] += float(event.cost)
+
+                            if not event.type_event in events:
+
+                                events.append(event.type_event)
+
+                        cooperatives["num_beneficiaries"] = len(expedient.beneficiary_ids)
+
+                if cooperatives["total_events"] > 0:
+
+                    cooperatives["porcentage_use"] = cooperatives["num_events"] * 100 / cooperatives["total_events"]
+
+                cooperatives["type_events"] = events
+
+                info['all_coope'].append(cooperatives)
+                
         return info

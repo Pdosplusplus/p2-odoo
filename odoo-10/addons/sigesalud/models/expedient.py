@@ -77,7 +77,8 @@ class Expedient(models.Model):
         ('Ahorro', "Ahorro"),
     ], string="Tipo de cuenta", required=True)
 
-    policy_ids = fields.Many2many('sigesalud.policy', string="Polizas")
+    policy_ids = fields.Many2many('sigesalud.policy', 
+                        string="Polizas")
 
     disease_ids = fields.One2many('sigesalud.disease', 
                         'expedient_id', 

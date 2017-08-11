@@ -73,7 +73,11 @@
               -->
 
               <page string="Polizas">
-                <field name="policy_ids" options="{'no_create': True}"/>
+                <field name="policy_ids" options="{'no_create': True}">
+                  <tree string="Añade una poliza">
+                    <field name="name"/>
+                  </tree>
+                </field>
               </page>
 
               <!-- Page Enfermedades 

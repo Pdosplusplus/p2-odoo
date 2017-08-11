@@ -5,21 +5,21 @@
     <!-- Data file form 
 
     @ function: Crear y modificar registros 
-    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo policy
+    @ Descrip: Este data file define como sera el formulario, que datos seran registrados por el usuario etc. En este caso define como sera el orden en que seran registrados los campos del modelo range
     -->
-    <record model="ir.ui.view" id="policy_form_view">
+    <record model="ir.ui.view" id="range_form_view">
 
-      <field name="name">policy.form</field>
-      <field name="model">sigesalud.policy</field>
+      <field name="name">range.form</field>
+      <field name="model">sigesalud.range</field>
       <field name="arch" type="xml">
 
-        <form string="Work policy Form">
+        <form string="Work range Form">
           <sheet>
         
             <group>
+              <field name="population"/>
               <field name="name"/>
-              <field name="sum_assured"/>
-              <field name="range_ids"/>
+              <field name="bounty"/>
             </group>
 
           </sheet>
@@ -34,15 +34,15 @@
 
       @Description: Record para mostrar la información en una tabla, donde cada field es una columna.
     -->
-    <record model="ir.ui.view" id="policy_tree_view">
-      <field name="name">policy.tree</field>
-      <field name="model">sigesalud.policy</field>
+    <record model="ir.ui.view" id="range_tree_view">
+      <field name="name">range.tree</field>
+      <field name="model">sigesalud.range</field>
 
       <field name="arch" type="xml">
-        <tree string="policy Tree">
+        <tree string="range Tree">
+          <field name="population"/>
           <field name="name"/>
-          <field name="sum_assured"/>
-          <field name="range_ids"/>
+          <field name="bounty"/>
         </tree>
       </field>
 
@@ -54,19 +54,14 @@
 
       @Descripcion: Una de las cosa que ahce este record es definir el modo en que las vistas seran mostradas, en este caso sera primero el <tree>, <form>, <calendar> ,y de ultimo las graficas <graph>.
     -->
-    <record model="ir.actions.act_window" id="policy_list_action">
+    <record model="ir.actions.act_window" id="range_list_action">
 
-      <field name="name">Poliza</field>
-      <field name="res_model">sigesalud.policy</field>
+      <field name="name">Rangos</field>
+      <field name="res_model">sigesalud.range</field>
       <field name="view_type">form</field>
       <field name="view_mode">tree,form</field>
+     
     </record>
-
-    <!-- Añadimos un submenu-->
-    <menuitem id="policy_menu" name="Poliza" 
-          parent="sigesalud_menu"
-          action="policy_list_action" 
-          groups="group_sigesalud_manager"/>
 
   </data>
 </odoo>

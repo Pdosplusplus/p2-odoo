@@ -51,6 +51,7 @@
         'views/policy_view.xml',
         'views/bank_view.xml',
         'views/res_users_view.xml',
+        'views/range_view.xml',
         'reports/report_expedient.xml',
         'reports/report_mounthly.xml',
         'reports/sigesalud_report.xml',

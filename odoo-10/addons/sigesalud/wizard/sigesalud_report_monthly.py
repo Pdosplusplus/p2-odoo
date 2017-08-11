@@ -23,7 +23,8 @@ class SigesaludReportMounthly(models.TransientModel):
     ], string="Mes")
 
     selection = fields.Selection([
-        ('cooperativa', "Cooperativa"),
+        ('all_coope', "Todas las Cooperativa"),
+        ('cooperativa', "Por Cooperativa"),
         ('all_titu', "Todos los titulares"),
         ('titular', "Por Titular"),
         ('all_bene', "Todos los Beneficiario"),
@@ -155,6 +156,14 @@ class SigesaludReportMounthly(models.TransientModel):
             self.type_repayment = False
 
         if self.selection ==  'all_bene':
+
+            self.cooperative = False
+            self.titular = False
+            self.beneficiary = False
+            self.type_event = False
+            self.type_repayment = False
+
+        if self.selection ==  'all_coope':
 
             self.cooperative = False
             self.titular = False

@@ -9,14 +9,8 @@ class Policy(models.Model):
     name = fields.Char(string="Nombre", 
                         required=True)
 
-    mount_total = fields.Float(string="Monto total contradado",
+    sum_assured = fields.Float(string="Suma asegurada",
                         required=True)
 
-    mount_coope = fields.Float(string="Monto por cooperativa",
-                        required=True)
-
-    mount_titu = fields.Float('Monto por titular',
-                        required=True)
-
-    mount_bene = fields.Float(string="Monto por beneficiario",
-                        required=True)
+    range_ids = fields.Many2many('sigesalud.range', 
+                        string="Rangos")
