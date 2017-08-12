@@ -75,7 +75,7 @@
           <notebook>
             <page string="Identificación y Planificacion">
               <field name="deliverable_ids">
-                <tree string="Añade un entregable al proyecto" editable="bottom">
+                <tree string="Añade un entregable al proyecto" editable="bottom" class="table_deliverables">
                   <field name="service_id"/>
                   <field name="name"/>
                   <field name="description"/>
@@ -89,7 +89,7 @@
 
             <page string="Asignacion de carga">
               <field name="load_ids">
-                <tree string="Añade un entregable al proyecto" editable="bottom">
+                <tree string="Añade un entregable al proyecto" editable="bottom" class="table_loads">
                   <field name="deliverable_id" domain="[('project_id', '=', parent.id)]" options="{'no_create': True}"/>
                   <field name="cooperative_id" domain="[('id', 'in', parent.cooperative_ids[0][2])]" options="{'no_create': True}"/>
                   <field name="cooperativista_id" domain="[('cooperative_id', '=', cooperative_id)]" options="{'no_create': True}"/>
@@ -116,7 +116,7 @@
 
             <page string="Reporte de Avance">
               <field name="advance_ids">
-                <tree string="Añade un avance al proyecto" editable="bottom">
+                <tree string="Añade un avance al proyecto" editable="bottom" class="table_advances">
                   <field name="activity_id" domain="[('project_id', '=', parent.id)]" options="{'no_create': True}"/>
                   <field name="date" readonly="1"/>
                   <field name="description"/>

@@ -44,6 +44,9 @@
         'views/bitacora_view.xml',
         'views/type_service_view.xml',
         'views/style_css_view.xml',
+        'reports/agilis_report.xml',
+        'reports/report_project_specific.xml',
+        'wizard/agilis_report_project_specific_view.xml',
     ],
     
     'qweb': [

@@ -5,3 +5,35 @@
 .table_services th[data-id='description'] { 
   width: 35%; /* using percentage is recommended for responsive design */ 
 }
+
+.table_deliverables th[data-id='journals_plan'] { 
+  width: 10%; /* using percentage is recommended for responsive design */ 
+}
+
+.table_deliverables th[data-id='journals_exe'] { 
+  width: 10%; /* using percentage is recommended for responsive design */ 
+}
+
+.table_deliverables th[data-id='advances'] { 
+  width: 10%; /* using percentage is recommended for responsive design */ 
+}
+
+.table_deliverables th[data-id='type_measure'] { 
+  width: 10%; /* using percentage is recommended for responsive design */ 
+}
+
+.table_loads th[data-id='journals'] { 
+  width: 10%; /* using percentage is recommended for responsive design */ 
+}
+
+.table_advances th[data-id='percentage'] { 
+  width: 10%; /* using percentage is recommended for responsive design */ 
+}
+
+.table_advances th[data-id='talents'] { 
+  width: 10%; /* using percentage is recommended for responsive design */ 
+}
+
+.table_advances th[data-id='journals'] { 
+  width: 10%; /* using percentage is recommended for responsive design */ 
+}

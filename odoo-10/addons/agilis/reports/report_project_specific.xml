@@ -4,7 +4,7 @@
       <div class="header">
         <div class="row">
           <div class="col-xs-12">
-            <img class="img-responsive" src="/agili/static/src/img/report-header.png" />
+            <img class="img-responsive" src="/agilis/static/src/img/report-header.png" />
           </div>
         </div>
 
@@ -27,10 +27,12 @@
 
     <template id="report_project_specific">
       <t t-call="report.html_container">
-        <t t-call="agili.project_header_specific"/>
+        <t t-call="agilis.project_header_specific"/>
         <t t-call="report.external_layout">
           
           <div class="page">
+
+            <br/><br/><br/><br/><br/><br/><br/><br/>
 
             <t t-if="data['cooperative']">
               <div class="center">
@@ -44,59 +46,52 @@
               </div>
             </t>
 
-            <t t-if="data['projects']">
-              <div class="row"> 
-                
-                <h4> <strong> Proyectos: </strong> </h4>
-                
-                <div class="panel panel-default table-responsive">
+            <t t-if="data['cooperative']">
+
+              <t t-if="data['projects']">
+                <div class="row"> 
                   
-                  <table class="table table-hover ">
+                  <h4> <strong> Proyectos </strong> </h4>
+                                    
+                  <table class="table table-condensed">
                     
-                    <thead>
+                    <thead style="border: 1px solid;">
                       <th> Nombre </th>
                       <th> Fecha Inicio </th>
                       <th> Fecha Fin </th>
-                      <th> Dias Planificadas </th>
-                      <th> Dias Ejecutadas</th>
+                      <th> Jornadas Planificadas </th>
+                      <th> Jornadas Ejecutadas</th>
                       <th> Porcentaje de avance </th>
-                      <th> Reporte de avance real </th>
                     </thead>
 
                     <tbody>
 
                       <t t-foreach="data['projects']" t-as="project">
-
-                        <tr>
-                        
+                        <tr style="border: 1px solid;">
                           <td>
-                            <span t-esc="project.name"/>
+                            <span t-esc="project['name']"/>
                           </td>
 
                           <td>
-                            <span class="badge badge-danger" t-esc="project.start_date"/>
+                            <span class="badge badge-danger" t-esc="project['start_date']"/>
                           </td>
 
                           <td>
-                            <span class="badge badge-danger" t-esc="project.end_date"/>
+                            <span class="badge badge-danger" t-esc="project['end_date']"/>
                           </td>
 
                           <td>
-                            <span class="badge badge-danger" t-esc="project.days_plan"/>
+                            <span class="badge badge-danger" t-esc="project['journal_plan']"/>
                           </td>
 
                           <td>
-                            <span class="badge badge-danger" t-esc="project.days_exe"/>
-                          </td>
-
-                          <td>
-                            <span class="badge badge-danger" t-esc="project.pj_work_real"/>
+                            <span class="badge badge-danger" t-esc="project['journal_exe']"/>
                           </td>
 
                           <td>
                             <div class="progress">
                               <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                                <t t-esc="project.pj_progress"/> %
+                                <t t-esc="project['progress']"/> %
                               </div>
                             </div>
                           </td>
@@ -106,23 +101,58 @@
 
                     </tbody>
                   </table>
+
                 </div>
-
-              </div>
+              </t>
             </t>
 
-            <t t-if="data['days_plan']">
-              <div class="center">
-                <h4> <strong> Dias planificados: </strong> <span class="badge" t-esc="data['days_plan']"/> </h4>
-              </div>
-            </t>
+            <t t-if="data['responsible']">
 
-            <t t-if="data['days_exe']">
-              <div class="center">
-                <h4> <strong> Dias ejecutados: </strong> <span class="badge" t-esc="data['days_exe']"/> </h4> 
-              </div>
-            </t>
+              <t t-foreach="data['projects']" t-as="project">
 
+                <div class="row"> 
+                  
+                  <h4> <strong> Proyecto: <span t-esc="project['name']"/> </strong> </h4>
+                  <hr/>
+
+                  <h4> <strong> Reporte de Avances:  </strong> </h4>
+
+                  <table class="table table-condensed">
+                    
+                    <thead style="border: 1px solid;">
+                      <th> Actividad </th>
+                      <th> Fecha  </th>
+                      <th> Descripcion </th>
+                      <th> Jornadas </th>
+                    </thead>
+
+                    <tbody>
+
+                      <t t-foreach="project['bitacoras']" t-as="bitacora">
+                        <tr style="border: 1px solid;">
+                          <td>
+                            <span t-esc="bitacora['activity']"/>
+                          </td>
+
+                          <td>
+                            <span class="badge badge-danger" t-esc="bitacora['date']"/>
+                          </td>
+
+                          <td>
+                            <span t-esc="bitacora['description']"/>
+                          </td>
+
+                          <td>
+                            <span class="badge badge-danger" t-esc="bitacora['journals']"/>
+                          </td>
+                        </tr>
+                      </t>
+
+                    </tbody>
+                  </table>
+                </div>
+                </t>
+              </t>
           </div>
         </t>
       </t>
@@ -134,7 +164,7 @@
           <div class="row">
         
             <div class="col-xs-12">
-              <img class="img-responsive" src="/agili/static/src/img/report-footer.png" />
+              <img class="img-responsive" src="/agilis/static/src/img/report-footer.png" />
             </div>
 
           </div>

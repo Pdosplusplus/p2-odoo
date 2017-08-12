@@ -38,7 +38,7 @@ class Service(models.Model):
 
                 for deliverable in r.project_id.deliverable_ids:
 
-                    if deliverable.service_id == r.id:
+                    if deliverable.service_id.id == r.id:
 
                         num += deliverable.journals_exe
 

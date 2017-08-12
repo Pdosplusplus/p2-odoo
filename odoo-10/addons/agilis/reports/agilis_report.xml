@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- QWeb Reports -->
+        <!-- QWeb Reports
         <report
             id="action_report_project_view"
-            model="agili.project"
+            model="agilis.project"
             string="Reporte del Proyecto"
             report_type="qweb-pdf" 
             attachment_use="False"
-            name="agili.report_project_view"
-            file="agili.report_project"
+            name="agilis.report_project_view"
+            file="agilis.report_project"
         />
 
         <report 
             id="action_report_project_general" 
-            model="agili.project" 
+            model="agilis.project" 
             string="Reporte de avance"  
             report_type="qweb-pdf" 
-            name="agili.report_project_general" 
-            file="agili.report_project_general"
+            name="agilis.report_project_general" 
+            file="agilis.report_project_general"
         />
-
+         -->
+         
         <report 
             id="action_report_project_specific" 
-            model="agili.report.project.specific" 
+            model="agilis.report.project.specific" 
             string="Reporte Especifico"  
             report_type="qweb-pdf" 
-            name="agili.report_project_specific" 
-            file="agili.report_project_specific"
+            name="agilis.report_project_specific" 
+            file="agilis.report_project_specific"
         />
     </data>
 </odoo>

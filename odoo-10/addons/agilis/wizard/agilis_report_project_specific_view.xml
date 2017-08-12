@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="agilis_report_project_specific_view" model="ir.ui.view">
+        <field name="name">Reporte especifico</field>
+        <field name="model">agilis.report.project.specific</field>
+        <field name="arch" type="xml">
+            <form string="Report Options">
+                
+                <group>
+                    <field name="selection"/>
+                </group>
+
+                <group col="2">
+                    <field name="cooperative_id" options="{'no_create': True}" attrs="{'invisible': [('selection', '!=', 'cooperativa')]}"/>
+                    <field name="responsible_id" options="{'no_create': True}" attrs="{'invisible': [('selection', '!=', 'cooperativista')]}"/>
+                </group>
+
+                <group>
+                    <field name="type_data" widget="radio" attrs="{'invisible': [('responsible_id', '&lt;', 1)]}"/>
+                </group>
+                
+
+                <group>
+                    <field name="project" options="{'no_create': True}" attrs="{'invisible': [('type_data', '!=', 'project')]}"/>
+                    <field name="projects" options="{'no_create': True}" attrs="{'invisible': [('type_data', '!=', 'projects')]}"/>
+                </group>
+
+
+                <footer>
+                    <button name="print_reporte" 
+                    		string="Imprimir" 
+                    		type="object" 
+                    		class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_agilis_report_project_specific_view" model="ir.actions.act_window">
+        <field name="name">Reporte especifico</field>
+        <field name="res_model">agilis.report.project.specific</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="agilis_report_project_specific_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Añadimos el menu del panel izquierdo -->
+    <menuitem id="agilis_report_menu" 
+              name="Reportes"
+              parent="main_agilis_menu"/>
+
+    <!-- Añadimos un submenu al menu anterior creado, el cual nos lleva a las views de nuestro modelo -->
+    <menuitem id="agilis_report_specific_menu" 
+    		name="Reporte especifico" 
+        	parent="agilis_report_menu"
+        	action="action_agilis_report_project_specific_view"/>
+
+</odoo>
