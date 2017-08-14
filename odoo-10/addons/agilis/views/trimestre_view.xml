@@ -65,7 +65,8 @@
     <menuitem id="trimestre_menu" 
           name="Trimestre" 
           parent="project_menu"
-          action="trimestre_list_action"/>
+          action="trimestre_list_action"
+          groups="group_agilis_manager"/>
     
   </data>
 </odoo>

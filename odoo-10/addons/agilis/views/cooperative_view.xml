@@ -66,7 +66,8 @@
     <menuitem id="cooperative_menu" 
           name="Cooperativa" 
           parent="project_menu"
-          action="cooperative_list_action"/>
+          action="cooperative_list_action"
+          groups="group_agilis_manager"/>
     
   </data>
 </odoo>

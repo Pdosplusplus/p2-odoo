@@ -61,7 +61,8 @@
     <menuitem id="measure_menu" 
           name="Tipo de documento" 
           parent="project_menu"
-          action="measure_list_action"/>
+          action="measure_list_action"
+          groups="group_agilis_manager"/>
     
   </data>
 </odoo>
