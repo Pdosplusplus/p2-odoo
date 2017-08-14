@@ -46,6 +46,7 @@
         'views/style_css_view.xml',
         'reports/agilis_report.xml',
         'reports/report_project_specific.xml',
+        'reports/report_project_view.xml',
         'wizard/agilis_report_project_specific_view.xml',
     ],
     

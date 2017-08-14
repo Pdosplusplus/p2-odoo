@@ -4,14 +4,14 @@
       <div class="header">
         <div class="row">
           <div class="col-xs-12">
-            <img class="img-responsive" src="/agili/static/src/img/report-header.png" />
+            <img class="img-responsive" src="/agilis/static/src/img/report-header.png" />
           </div>
         </div>
 
         <div class="row">
           <div class="panel" style="max-height: 50px;">
             <div class="panel-heading">
-              <h3 class="text-center"> Reporte del Proyecto</h3>
+              <h3 class="text-center"> Reporte General del Proyecto</h3>
             </div>
           </div>
         </div>
@@ -27,18 +27,13 @@
 
     <template id="report_project_view">
       <t t-call="report.html_container">
-        <t t-call="agili.project_header"/>
+        <t t-call="agilis.project_header"/>
         <t t-foreach="docs" t-as="o">
           <t t-call="report.external_layout">
 
-            <t t-esc="o"/>
-
             <div class="page">
               
-              Fecha Inicio: <span class="badge" t-field="o.start_date"/> 
-              Fecha entrega: <span class="badge" t-field="o.end_date"/>
-              
-              <br/> <br/>
+              <br/><br/><br/><br/><br/><br/><br/><br/>
               
               <table class="table table-condensed">
                       
@@ -65,68 +60,65 @@
                   </tr>
 
                   <tr>
-                      <td>Responsables:</td>
+                      <td>Cooperativas responsables:</td>
                       <td>
-                          <t t-foreach="o.responsible_ids" t-as="responsible">
+                          <t t-foreach="o.cooperative_ids" t-as="responsible">
                              <span class="badge" t-esc="responsible.name"/> 
                           </t>
                          
                       </td>
                   </tr>
 
+                  <t t-set="journals_plan" t-value="0"/> 
+                  <t t-set="journals_exe" t-value="0"/>
+             
+                  <t t-foreach="o.service_ids" t-as="service">
+                    <t t-set="journals_plan" t-value="journals_plan+service.journals_plan"/>
+                    <t t-set="journals_exe" t-value="journals_exe+service.journals_exe"/>
+                  </t>
+
                   <tr>
-                      <td>Dias Planificados:</td>
+                      <td>Jornadas Planificadas:</td>
                       <td>
-                          <span class="badge" t-esc="o.days_plan"/>
+                          <span class="badge" t-esc="journals_plan"/>
                       </td>
                   </tr>
 
                   <tr>
-                      <td>Dias Ejecutados:</td>
+                      <td>Jornadas Ejecutados:</td>
                       <td>
-                          <span class="badge" t-esc="o.days_exe"/>
+                          <span class="badge" t-esc="journals_exe"/>
                       </td>
                   </tr>
 
-                  <tr>
-                      <td>Reporte de avance real en dias:</td>
-                      <td>
-                        <span class="badge" t-esc="o.pj_work_real"/>
-                    
-                      </td>
-                  </tr>
+                  <t t-set="progress" t-value="0"/>
 
+                  <t t-if="journals_plan">
+                    <t t-set="progress" t-value="journals_exe*100/journals_plan"/>
+                  </t>
                   <tr>
                       <td>Porcentaje de Avance:</td>
                       <td>
-                        
                         <div class="progress">
                           <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                              <t t-esc="o.pj_progress"/>
+                              <t t-esc="progress"/>
                               <span> % </span>
                           </div>
                         </div>
-                    
                       </td>
                   </tr>
 
                 </tbody>
             
               </table>
-             
-              <h4> 
-                <strong> Hitos: </strong> 
-              </h4>
 
-              <div class="row zero_min_height">
-                <div class="col-xs-12">
-                  <div style="border-bottom: 1px solid black;"/>
-                </div>
-              </div>
+              <h4> 
+                <strong> Servicios: </strong> 
+              </h4>
               
               <br/>
 
-              <table class="table table-condensed">
+              <table class="table table-condensed" style="border: 1px solid;">
               
                 <thead>
 
@@ -135,79 +127,130 @@
                   </th>
 
                   <th class="text-center">
-                    Fecha de incio
-                  </th>
-
-                  <th>
-                    Fecha de entrega
-                  </th>
-                  
-                  <th class="text-center">
-                    Dias Planificados
-                  </th>
-
-                  <th class="text-center">
-                    Dias Ejecutados
-                  </th>
-
-                  <th class="text-center">
-                    Reporte de avance real en dias
+                    Descripcion
                   </th>
 
                   <th class="text-center">
                     Porcentaje de avance
                   </th>
 
+                </thead>
+
+                <tbody>
+
+                  <t t-foreach="o.service_ids" t-as="service">
+                    <tr>
+                      <t t-set="progress_service" t-value="0"/>
+                      
+                      <td>
+                         <span t-field="service.name"/>
+                      </td>
+
+                      <td>
+                         <span t-esc="service.description"/>
+                      </td>
+                      
+                      <t t-if="service.journals_plan">
+                        <t t-set="progress_service" t-value="service.journals_exe*100/service.journals_plan"/> 
+                      </t>
+
+                      <td>
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                              <t t-esc="progress_service"/>
+                              <span>%</span>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </t>              
+                 
+                </tbody>
+              </table>
+
+              <h4> 
+                <strong> Entregables: </strong> 
+              </h4>
+              
+              <br/>
+
+              <table class="table table-condensed" style="border: 1px solid;">
+              
+                <thead>
+
                   <th class="text-center">
-                    Responsable
+                    Nombre
+                  </th>
+
+                  <th class="text-center">
+                    Descripcion
+                  </th>
+
+                  <th class="text-center">
+                    Tipo de medida
+                  </th>
+
+                  <th class="text-center">
+                    Numero de avances
+                  </th>
+
+                  <th class="text-center">
+                    Jornadas Planificadas
+                  </th>
+
+                  <th class="text-center">
+                    Jornadas Ejecutadas
+                  </th>
+
+                  <th class="text-center">
+                    Porcentaje de avance
                   </th>
 
                 </thead>
 
                 <tbody>
 
-                  <t t-foreach="o.milestone_ids" t-as="milestone">
+                  <t t-foreach="o.deliverable_ids" t-as="deliverable">
                     <tr>
-
+                      <t t-set="progress_deliverable" t-value="0"/>
+                      
                       <td>
-                         <span t-field="milestone.name"/>
+                         <span t-field="deliverable.name"/>
                       </td>
 
                       <td>
-                         <span class="badge" t-esc="milestone.ms_start_date"/>
-                      </td>
-                     
-                      <td>
-                         <span class="badge" t-esc="milestone.ms_end_date"/>
+                         <span t-esc="deliverable.description"/>
                       </td>
 
                       <td>
-                         <span class="badge" t-esc="milestone.ms_days_plan"/>
+                         <span t-esc="deliverable.type_measure.name"/>
                       </td>
 
                       <td>
-                         <span class="badge" t-esc="milestone.ms_days_exe"/>
+                         <span class="badge" t-esc="deliverable.advances"/>
                       </td>
 
                       <td>
-                        <span class="badge" t-esc="milestone.ms_work_real"/>
+                         <span class="badge" t-esc="deliverable.journals_plan"/>
                       </td>
+
+                      <td>
+                         <span class="badge" t-esc="deliverable.journals_exe"/>
+                      </td>
+
+                      <t t-if="deliverable.journals_plan">
+                        <t t-set="progress_deliverable" t-value="deliverable.journals_exe*100/deliverable.journals_plan"/> 
+                      </t>
 
                       <td>
                         <div class="progress">
                           <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                              <t t-esc="milestone.ms_progress"/>
+                              <t t-esc="progress_deliverable"/>
                               <span>%</span>
                           </div>
                         </div>
                       </td>
-
-                      <td>
-                         <span t-field="milestone.ms_responsible_id.name"/>
-                      </td>
-
                     </tr>
-
                   </t>              
                  
                 </tbody>
@@ -227,7 +270,7 @@
           <div class="row">
         
             <div class="col-xs-12">
-              <img class="img-responsive" src="/agili/static/src/img/report-footer.png" />
+              <img class="img-responsive" src="/agilis/static/src/img/report-footer.png" />
             </div>
 
           </div>

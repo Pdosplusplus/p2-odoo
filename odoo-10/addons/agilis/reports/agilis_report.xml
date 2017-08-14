@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- QWeb Reports
+        
         <report
             id="action_report_project_view"
             model="agilis.project"
@@ -11,7 +11,8 @@
             name="agilis.report_project_view"
             file="agilis.report_project"
         />
-
+        
+        <!-- QWeb Reports
         <report 
             id="action_report_project_general" 
             model="agilis.project" 
