@@ -148,6 +148,16 @@
                         </tr>
                       </t>
 
+                      <tr style="border: 1px solid;">
+                        <td lass="text-right" colspan="3">
+                          <strong class="pull-right"> Total de jornadas: </strong>
+                        </td>
+
+                        <td>
+                          <span class="badge badge-danger"  t-esc="project['journals_bita']"/>
+                        </td>
+                      </tr>
+
                     </tbody>
                   </table>
                 </div>

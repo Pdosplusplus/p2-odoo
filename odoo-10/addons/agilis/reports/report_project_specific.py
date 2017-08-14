@@ -29,18 +29,17 @@ class ReportProjectSpecific(models.AbstractModel):
         type_data = data['form'].get('type_data')
         selection = data['form'].get('selection')
         pj = data['form'].get('project')
+        pjs = data['form'].get('projects')
 
         #Vars for the control of the data
         info['cooperative'] = False
         info['responsible'] = False
         info['projects'] = []
 
-        print(str(cooperative))
-
-        #Get all projects
-        all_projects = self.env['agilis.project'].search([('id', '>', 0)])
-
         if cooperative:
+
+            #Get all projects
+            all_projects = self.env['agilis.project'].search([('id', '>', 0)])
 
             info['cooperative'] = cooperative[1]
 
@@ -98,9 +97,51 @@ class ReportProjectSpecific(models.AbstractModel):
 
             if type_data == 'project':
 
-                for proyecto in all_projects:
+                #Get all projects
+                proyecto = self.env['agilis.project'].search([('id', '=', pj[0])])
 
-                    if proyecto.id == pj[0]:
+                project = {}
+                project["name"] = proyecto.name
+                project["start_date"] = '2017-12-31' 
+                project["end_date"] = '2017-01-01'
+                project["journal_plan"] = 0
+                project["journal_exe"] = 0
+                project["progress"] = 0
+                project["bitacoras"] = []
+                project['journals_bita'] = 0
+
+                for tri in proyecto.trimestre_ids:
+
+                    if compareDates(tri.date_ini, project["start_date"], 'less'):
+
+                        project["start_date"] = tri.date_ini
+
+                    if compareDates(tri.date_end, project["start_date"], 'higher'):
+
+                        project["end_date"] = tri.date_end
+
+                for bita in all_bitacora:
+
+                    if bita.activity_id.project_id.id == proyecto.id:
+
+                        bitacora = {}
+                        bitacora["activity"] = bita.activity_id.name
+                        bitacora["date"] = bita.date
+                        bitacora["description"] = bita.description
+                        bitacora["journals"] = bita.journals
+                        project['journals_bita'] += bita.journals
+                        project["bitacoras"].append(bitacora)
+
+                if project:
+                    info['projects'].append(project)
+
+            if type_data == 'projects':
+
+                for p in pjs:
+
+                    all_projects = self.env['agilis.project'].search([('id', '=', p)])
+
+                    for proyecto in all_projects:
 
                         project = {}
                         project["name"] = proyecto.name
@@ -110,6 +151,7 @@ class ReportProjectSpecific(models.AbstractModel):
                         project["journal_exe"] = 0
                         project["progress"] = 0
                         project["bitacoras"] = []
+                        project['journals_bita'] = 0
 
                         for tri in proyecto.trimestre_ids:
 
@@ -130,11 +172,53 @@ class ReportProjectSpecific(models.AbstractModel):
                                 bitacora["date"] = bita.date
                                 bitacora["description"] = bita.description
                                 bitacora["journals"] = bita.journals
-
+                                project['journals_bita'] += bita.journals
                                 project["bitacoras"].append(bitacora)
 
-                    info['projects'].append(project)
+                        if project:
+                            info['projects'].append(project)
 
-        print(str(info['projects'][0]['name']))
-        
+
+            if type_data == 'advances':
+
+                #Get all projects
+                all_projects = self.env['agilis.project'].search([('id', '>', 0)])
+
+                for proyecto in all_projects:
+
+                    project = {}
+                    project["name"] = proyecto.name
+                    project["start_date"] = '2017-12-31' 
+                    project["end_date"] = '2017-01-01'
+                    project["journal_plan"] = 0
+                    project["journal_exe"] = 0
+                    project["progress"] = 0
+                    project["bitacoras"] = []
+                    project['journals_bita'] = 0
+
+                    for tri in proyecto.trimestre_ids:
+
+                        if compareDates(tri.date_ini, project["start_date"], 'less'):
+
+                            project["start_date"] = tri.date_ini
+
+                        if compareDates(tri.date_end, project["start_date"], 'higher'):
+
+                            project["end_date"] = tri.date_end
+
+                    for bita in all_bitacora:
+
+                        if bita.activity_id.project_id.id == proyecto.id:
+
+                            bitacora = {}
+                            bitacora["activity"] = bita.activity_id.name
+                            bitacora["date"] = bita.date
+                            bitacora["description"] = bita.description
+                            bitacora["journals"] = bita.journals
+                            project['journals_bita'] += bita.journals
+                            project["bitacoras"].append(bitacora)
+
+                    if project["bitacoras"]:
+                        info['projects'].append(project)
+
         return info

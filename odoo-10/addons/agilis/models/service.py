@@ -7,8 +7,7 @@ class Service(models.Model):
     _name = 'agilis.service'
 
     name = fields.Char(string="Nombre", 
-                    required=True,
-                    unique=True)
+                    required=True)
 
     description = fields.Text(string="Descripcion",
                     required=True)
@@ -22,11 +21,6 @@ class Service(models.Model):
                             ondelete='cascade', 
                             string="Proyecto")
 
-    _sql_constraints = [
-        ('name_unique',
-        'UNIQUE(name)',
-        "La cooperativa ya se encuentra registrada"),
-    ]
 
     def _journal(self):
 

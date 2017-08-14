@@ -23,7 +23,8 @@ class AgilisProjectSpecific(models.TransientModel):
 
     type_data= fields.Selection([
         ('project', "En un solo Proyecto"),
-        ('projects', "En varios proyectos")
+        ('projects', "En varios proyectos"),
+        ('advances', "Todos"),
     ], string="Reporte de avances:")
 
     project = fields.Many2one('agilis.project', 
@@ -56,8 +57,13 @@ class AgilisProjectSpecific(models.TransientModel):
             raise UserError("Debe seleccionar a un cooperativista.")
 
         if data['form'].get('selection') == 'cooperativista' and not data['form'].get('type_data'):
-            raise UserError("Debe seleccionar alguno de los filtros para el reporte por cooperativa.")
+            raise UserError("Debe seleccionar alguno de los filtros para el reporte por cooperativista.")
 
+        if data['form'].get('selection') == 'cooperativista' and data['form'].get('type_data') == 'project' and not data['form'].get('project'):
+            raise UserError("Debe seleccionar un proyecto.")
+
+        if data['form'].get('selection') == 'cooperativista' and data['form'].get('type_data') == 'projects' and not data['form'].get('projects'):
+            raise UserError("Debe seleccionar un proyecto.")
                 
         return self.env['report'].get_action(self, 'agilis.report_project_specific', data=data)
 
