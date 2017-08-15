@@ -12,6 +12,7 @@ class Range(models.Model):
     population = fields.Selection([
         ('Hijos y hermanos', "Hijos y hermanos"),
         ('titular o beneficiario', "titular o beneficiario"),
+        ('Todos', 'Todos'),
     ], string="Poblacion", required=True)
 
     bounty = fields.Float(string="Prima de Movimiento",

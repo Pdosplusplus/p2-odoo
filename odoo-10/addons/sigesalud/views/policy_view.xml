@@ -20,6 +20,7 @@
               <field name="name"/>
               <field name="sum_assured"/>
               <field name="range_ids"/>
+              <field name="cost"/>
             </group>
 
           </sheet>
@@ -43,6 +44,7 @@
           <field name="name"/>
           <field name="sum_assured"/>
           <field name="range_ids"/>
+          <field name="cost"/>
         </tree>
       </field>
 

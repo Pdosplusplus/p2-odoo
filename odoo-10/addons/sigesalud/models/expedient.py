@@ -23,7 +23,7 @@ class Expedient(models.Model):
     associated = fields.Selection([
         ('si', "Si"),
         ('no', "No"),
-    ], string="Asociado")
+    ], string="Asociado", required=True)
 
     birthdate = fields.Date(string="Fecha de nacimiento",
                         required=True)
