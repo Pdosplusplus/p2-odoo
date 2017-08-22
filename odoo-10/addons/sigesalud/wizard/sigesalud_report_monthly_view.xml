@@ -16,10 +16,14 @@
                     <field name="cooperative" attrs="{'invisible': [('selection', '!=', 'cooperativa')]}"/>
                     <field name="titular" attrs="{'invisible': [('selection', '!=', 'titular')]}" options="{'no_create': True}"/>
                     <field name="beneficiary" attrs="{'invisible': [('selection', '!=', 'beneficiario')]}" options="{'no_create': True}"/> 
-                    <field name="type_event" attrs="{'invisible': [('selection', '!=', 'evento')]}"/> 
+                    <field name="selection_event" widget="radio" attrs="{'invisible': [('selection', '!=', 'evento')]}"/>
                     <field name="type_repayment" attrs="{'invisible': [('selection', '!=', 'reembolso')]}"/>
                 </group>
                 
+                <group>
+                    <field name="type_event" attrs="{'invisible': [('selection_event', '!=', 'tipo')]}"/> 
+                </group>
+
                 <footer>
                     <button name="print_reporte" 
                     		string="Imprimir" 

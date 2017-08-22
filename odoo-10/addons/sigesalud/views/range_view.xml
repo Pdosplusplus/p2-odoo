@@ -63,5 +63,11 @@
      
     </record>
 
+    <!-- Añadimos un submenu-->
+    <menuitem id="range_menu" name="Rangos" 
+          parent="sigesalud_menu"
+          action="range_list_action"
+          groups="group_sigesalud_manager"/>
+
   </data>
 </odoo>

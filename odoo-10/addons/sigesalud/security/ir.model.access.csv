@@ -15,7 +15,7 @@ beneficiary_sigesalud_coordinator,sigesalud.beneficiary access coordinator,model
 support_sigesalud_coordinator,sigesalud.support access coordinator,model_sigesalud_support,group_sigesalud_coordinator,1,1,1,1
 event_sigesalud_coordinator,sigesalud.event access coordinator,model_sigesalud_event,group_sigesalud_coordinator,1,1,1,1
 exam_sigesalud_coordinator,sigesalud.exam access coordinator,model_sigesalud_exam,group_sigesalud_coordinator,1,1,1,1
-policy_sigesalud_coordinator,sigesalud.policy access coordinator,model_sigesalud_policy,group_sigesalud_coordinator,1,0,0,0
+policy_sigesalud_coordinator,sigesalud.policy access coordinator,model_sigesalud_policy,group_sigesalud_coordinator,1,1,1,0
 repayment_sigesalud_coordinator,sigesalud.repayment access coordinator,model_sigesalud_repayment,group_sigesalud_coordinator,1,1,1,1
 document_sigesalud_coordinator,sigesalud.document access coordinator,model_sigesalud_document,group_sigesalud_coordinator,1,1,1,1
 complaint_sigesalud_coordinator,sigesalud.complaint access coordinator,model_sigesalud_complaint,group_sigesalud_coordinator,1,1,1,1

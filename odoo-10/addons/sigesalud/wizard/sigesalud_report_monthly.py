@@ -57,6 +57,11 @@ class SigesaludReportMounthly(models.TransientModel):
         string="Beneficiario",  
         index=True)
 
+    selection_event = fields.Selection([
+        ('todos', "Todos"),
+        ('tipo', "Por tipo"),
+    ], string="Seleccione una opcion")
+
     type_event = fields.Selection([
         ('hospitalizacion', "Hospitalizacion"),
         ('maternidad', "Maternidad"),
@@ -83,6 +88,7 @@ class SigesaludReportMounthly(models.TransientModel):
                                 'cooperative', 
                                 'titular', 
                                 'beneficiary',
+                                'selection_event',
                                 'type_event',
                                 'type_repayment'])[0]
         
@@ -101,7 +107,10 @@ class SigesaludReportMounthly(models.TransientModel):
         if data['form'].get('selection') == 'beneficiario' and not data['form'].get('beneficiary'):
             raise UserError("Debe seleccionar un beneficiario.")
 
-        if data['form'].get('selection') == 'evento' and not data['form'].get('type_event'):
+        if data['form'].get('selection') == 'evento' and not data['form'].get('selection_event'):
+            raise UserError("Debe seleccionar una opcion para los eventos.")
+
+        if data['form'].get('selection') == 'evento' and data['form'].get('selection_event') == 'tipo' and not data['form'].get('type_event'):
             raise UserError("Debe seleccionar el tipo de evento.")
 
         if data['form'].get('selection') == 'reembolso' and not data['form'].get('type_repayment'):
