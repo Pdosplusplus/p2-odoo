@@ -9,6 +9,9 @@ policy_sigesalud_admin,sigesalud.policy access admin,model_sigesalud_policy,grou
 repayment_sigesalud_admin,sigesalud.repayment access admin,model_sigesalud_repayment,group_sigesalud_manager,1,1,1,1
 document_sigesalud_admin,sigesalud.document access admin,model_sigesalud_document,group_sigesalud_manager,1,1,1,1
 complaint_sigesalud_admin,sigesalud.complaint access admin,model_sigesalud_complaint,group_sigesalud_manager,1,1,1,1
+bank_sigesalud_admin,sigesalud.bank access admin,model_sigesalud_bank,group_sigesalud_manager,1,1,1,1
+range_sigesalud_admin,sigesalud.range access admin,model_sigesalud_range,group_sigesalud_manager,1,1,1,1
+
 expedient_sigesalud_coordinator,sigesalud.expedient access coordinator,model_sigesalud_expedient,group_sigesalud_coordinator,1,1,1,1
 disease_sigesalud_coordinator,sigesalud.disease access coordinator,model_sigesalud_disease,group_sigesalud_coordinator,1,1,1,1
 beneficiary_sigesalud_coordinator,sigesalud.beneficiary access coordinator,model_sigesalud_beneficiary,group_sigesalud_coordinator,1,1,1,1
@@ -19,3 +22,5 @@ policy_sigesalud_coordinator,sigesalud.policy access coordinator,model_sigesalud
 repayment_sigesalud_coordinator,sigesalud.repayment access coordinator,model_sigesalud_repayment,group_sigesalud_coordinator,1,1,1,1
 document_sigesalud_coordinator,sigesalud.document access coordinator,model_sigesalud_document,group_sigesalud_coordinator,1,1,1,1
 complaint_sigesalud_coordinator,sigesalud.complaint access coordinator,model_sigesalud_complaint,group_sigesalud_coordinator,1,1,1,1
+bank_sigesalud_coordinator,sigesalud.bank access coordinator,model_sigesalud_bank,group_sigesalud_coordinator,1,1,1,0
+range_sigesalud_coordinator,sigesalud.range access coordinator,model_sigesalud_range,group_sigesalud_coordinator,1,1,1,0

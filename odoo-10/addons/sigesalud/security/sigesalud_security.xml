@@ -64,6 +64,19 @@
             <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
         </record>
 
+        <record id="sigesalud_user_admin_bank" model="ir.rule">
+            <field name="name"> Usuario Administrador Bank </field>
+            <field name="model_id" ref="model_sigesalud_bank"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
+        </record>
+
+        <record id="sigesalud_user_admin_range" model="ir.rule">
+            <field name="name"> Usuario Administrador Range </field>
+            <field name="model_id" ref="model_sigesalud_range"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_manager'))]"/>
+        </record>
+
+
         <record id="group_sigesalud_coordinator" model="res.groups">
             <field name="name">SIGESALUD / Coordinador </field>
         </record>
@@ -133,6 +146,18 @@
         <record id="sigesalud_user_coordinator_complaint" model="ir.rule">
             <field name="name">Usuario Coordinador Complaint</field>
             <field name="model_id" ref="model_sigesalud_complaint"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
+        </record>
+
+        <record id="sigesalud_user_coordinator_bank" model="ir.rule">
+            <field name="name">Usuario Coordinador Bank</field>
+            <field name="model_id" ref="model_sigesalud_bank"/>
+            <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
+        </record>
+
+        <record id="sigesalud_user_coordinator_range" model="ir.rule">
+            <field name="name">Usuario Coordinador Range</field>
+            <field name="model_id" ref="model_sigesalud_range"/>
             <field name="groups" eval="[(4, ref('sigesalud.group_sigesalud_coordinator'))]"/>
         </record>
 

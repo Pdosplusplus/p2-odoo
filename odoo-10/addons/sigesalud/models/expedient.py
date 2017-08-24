@@ -94,7 +94,7 @@ class Expedient(models.Model):
 
     event_ids = fields.One2many('sigesalud.event', 
                         'expedient_id', 
-                        string="Soportes")
+                        string="Eventos")
 
     repayment_ids = fields.One2many('sigesalud.repayment', 
                         'expedient_id', 
