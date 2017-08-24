@@ -46,7 +46,7 @@
               <field name="address"/>
             </group>
 
-            <group string="Datos del seguro">
+            <group string="Datos Bancarios">
               <field name="bank_id"/>
             </group>
 
