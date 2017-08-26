@@ -654,6 +654,48 @@
                 
               </t>
 
+              <t t-if="data['selection_event'] == 'todos'">
+
+                <table class="table">
+                  <thead>
+                    <th class="text-center" style="border: 1px solid black;">
+                      Name
+                    </th>
+                    <th class="text-center" style="border: 1px solid black;">
+                      Frecuencia de Uso
+                    </th>
+                    <th class="text-center" style="border: 1px solid black;">
+                      Monto
+                    </th>
+                  </thead>
+
+                  <tbody>
+
+                    <t t-foreach="data['events']" t-as="event">
+
+                      <tr>
+                        <td style="border: 1px solid black;"> 
+                          <span class="badge"> <t t-esc="event['name']"/> </span>
+                        </td>
+
+                        <td style="border: 1px solid black;">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                              <t t-esc="event['frequ']"/> %
+                            </div>
+                          </div>
+                        </td>
+
+                        <td style="border: 1px solid black;"> 
+                          <span class="badge"> <t t-esc="event['cost']"/> </span>
+                        </td>
+                      </tr>
+
+                    </t>
+                  </tbody>
+                </table>
+              </t>
+
             </div>
 
           </t>

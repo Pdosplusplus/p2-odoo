@@ -31,6 +31,7 @@ class ReportMounthly(models.AbstractModel):
         beneficiary = data['form'].get('beneficiary')
         type_event = data['form'].get('type_event')
         repayment = data['form'].get('type_repayment')
+        selection_event = data['form'].get('selection_event')
 
         #Vars for the control of the data
         info['month'] = month
@@ -44,6 +45,8 @@ class ReportMounthly(models.AbstractModel):
         info['all_titu'] = []
         info['all_bene'] = []
         info['all_coope'] = []
+        info['selection_event'] = selection_event
+        info['events'] = []
         
         cooperatives = {}
         cooperatives["name"] = cooperative
@@ -363,5 +366,100 @@ class ReportMounthly(models.AbstractModel):
                 cooperatives["type_events"] = events
 
                 info['all_coope'].append(cooperatives)
+
+
+        if selection_event == 'todos':
+            
+            event_hospi = {}
+            event_hospi['name'] = 'Hospitalizacion'
+            event_hospi['num'] = 0
+            event_hospi['cost'] = 0
+            event_hospi['frequ'] = 0
+
+            event_mater = {}
+            event_mater['name'] = 'Maternidad'
+            event_mater['num'] = 0
+            event_mater['cost'] = 0
+            event_mater['frequ'] = 0
+
+            event_emer = {}
+            event_emer['name'] = 'Emergencia'
+            event_emer['num'] = 0
+            event_emer['cost'] = 0
+            event_emer['frequ'] = 0
+
+            event_consul = {}
+            event_consul['name'] = 'Consulta'
+            event_consul['num'] = 0
+            event_consul['cost'] = 0
+            event_consul['frequ'] = 0
+
+            event_tera = {}
+            event_tera['name'] = 'Terapia'
+            event_tera['num'] = 0
+            event_tera['cost'] = 0
+            event_tera['frequ'] = 0
+
+            event_ciru = {}
+            event_ciru['name'] = 'Cirugia'
+            event_ciru['num'] = 0
+            event_ciru['cost'] = 0
+            event_ciru['frequ'] = 0
+
+            all_expedient = self.env['sigesalud.expedient'].search([('id', '>', 0)])
+
+            for expedient in all_expedient:
+
+                all_events = len(expedient.event_ids)
+
+                for event in expedient.event_ids:
+
+                    #Verificamos si el mes del evento es igual al seleccionado.
+                    if compareMounts(month, event.date):
+
+                        if event.type == 'hospitalizacion':
+
+                            event_hospi['num'] += 1
+                            event_hospi['cost'] += event.cost 
+                            event_hospi['frequ'] = event_hospi['num'] * 100 / all_events 
+
+                        if event.type == 'maternidad':
+
+                            event_mater['num'] += 1
+                            event_mater['cost'] += event.cost 
+                            event_mater['frequ'] = event_mater['num'] * 100 / all_events
+
+                        if event.type == 'emergencia':
+
+                            event_emer['num'] += 1
+                            event_emer['cost'] += event.cost
+                            event_emer['frequ'] = event_emer['num'] * 100 / all_events
+
+                        if event.type == 'consulta':
+
+                            event_consul['num'] += 1
+                            event_consul['cost'] += event.cost 
+                            event_consul['frequ'] = event_consul['num'] * 100 / all_events
+
+                        if event.type == 'terapia':
+
+                            event_tera['num'] += 1
+                            event_tera['cost'] += event.cost 
+                            event_tera['frequ'] = event_tera['num'] * 100 / all_events
+
+                        if event.type == 'cirugia':
+
+                            event_ciru['num'] += 1
+                            event_ciru['cost'] += event.cost
+                            event_ciru['frequ'] = event_ciru['num'] * 100 / all_events
+
+
+            info['events'].append(event_hospi)
+            info['events'].append(event_mater)
+            info['events'].append(event_emer)
+            info['events'].append(event_consul)
+            info['events'].append(event_hospi)
+            info['events'].append(event_tera)
+            info['events'].append(event_ciru)
                 
         return info
