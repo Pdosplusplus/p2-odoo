@@ -1,53 +1,47 @@
 # Install ODOO 10 on Debian 8
 
-To install Odoo 10 on Debian-based distribution in mode production execute the following commands as root:
-
-```bash
-$ wget -O - https://nightly.odoo.com/odoo.key | apt-key add -
-$ echo "deb http://nightly.odoo.com/10.0/nightly/deb/ ./" >> /etc/apt/sources.list.d/odoo.list
-$ apt-get update && apt-get install odoo
-```
-
-## Configure Postgresql
-
-Create a user and database to odoo
- 
-```sql
-$ createuser --createdb --username postgres --no-createrole --no-superuser --pwprompt odoo
-```
-
-
+Follow the next steps to install odoo 10 en debian 
 
 ## Install Odoo mode development
 
-
-## Create a user to Odoo
-
-```bash
-$ adduser --system --home=/opt/odoo --group odoo
-```
+I will explain step by step how to install oudoo
 
 
-Login with the user odoo:
+## Install Dependencies
 
 ```bash
-$ su - odoo -s /bin/bash 
-$ cd /opt/
+$ apt install git build-essential git-buildpackage python-all-dev postgresql-9.4 postgresql-client-9.4 libldap2-dev libsasl2-dev libssl-dev libxslt1-dev libxml2-dev libpq-dev libjpeg-dev
 ```
 
-Install git
+## Install dependencies to frontend
 
 ```bash
-$ sudo apt install git
+$ apt install curl
+
+$ sudo curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash 
+
+$ sudo apt install -y nodejs
+
+$ sudo npm install --global npm@latest
+
+$ sudo npm install -g less
+
+$ sudo npm install -g less-plugin-clean-css
 ```
 
-#### Clone the repository
+### Clone the repository
 
 ```bash
 $ git clone https://github.com/odoo/odoo.git --depth 1 --branch 10.0 --single-branch odoo
 ```
 
-#### Create a virtualenv:
+### Clone repository addons of GEEKOS
+
+```
+$ git clone https://github.com/Pdosplusplus/p2-odoo.git
+```
+
+### Create a virtualenv:
 
 First install virtualenv. ```Execute next command as root```:
 
@@ -61,7 +55,7 @@ Now position in your home:
 $ cd
 ```
 
-Create virtualenv. 
+### Create virtualenv. 
 
 ```
 $ virtualenv odoo-dev
@@ -73,131 +67,102 @@ Activate virtualenv.
 $ . odoo-dev/bin/activate
 ```
 
-Make sure you have installed:
-
-```bash
-
-$ apt install curl
-
-$ sudo curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash 
-
-$ sudo apt install -y nodejs
-
-$ sudo npm install --global npm@latest
-
-$ sudo npm install -g less
-
-$ sudo npm install -g less-plugin-clean-css
-```
-
-and
-
-```bash
-$ apt install build-essential git-buildpackage python-all-dev postgresql-9.4 postgresql-client-9.4 libldap2-dev libsasl2-dev libssl-dev libxslt1-dev libxml2-dev libpq-dev libjpeg-dev
-```
-
-Now install dependencies. 
+### Now install dependencies own odoo 10. 
 
 ```bash
 $ pip install -r /opt/odoo/requirements.txt 
 ```
 
-Now move to /opt/
+### Creater user in postgresql
 
-```bash
-$ deactive
+Now we will create a user to manage the databases. In my case the user will be ```victor```
+
 ```
-
-and ```execute this command as root```:
-
-```bash
-$ mv odoo-dev /opt/
+$ createuser --createdb --username postgres --no-createrole --no-superuser --pwprompt victor
 ```
-
-Change owner ```execute this comman as root```:
-
-```bash
-$ sudo choown odoo: odoo-dev
-```
-
 
 ### Configuration Odoo
 
-Copy the configuration base to ```/etc/odoo``` ,execute the following commands as root:
+Now create the file to run the serve of odoo 
 
-
-```
-$ cp /opt/odoo/debian/odoo.conf /etc/odoo/odoo.conf
-```
-
-Change owner 
+Create a file the name ```odoo.conf``` with the following content:
 
 ```
-$ chown odoo: /etc/odoo/odoo.conf
+[options]
+addons_path = /home/victor/Working/odoo/odoo/addons,/home/victor/Working/odoo/addons,/home/victor/Working/p2-odoo/odoo-10/addons
+admin_passwd = admin
+csv_internal_sep = ,
+data_dir = /home/victor/.local/share/Odoo
+db_host = False
+db_maxconn = 64
+db_name = False
+db_password = False
+db_port = False
+db_template = template1
+db_user = victor
+dbfilter = .*
+demo = {}
+email_from = False
+geoip_database = /usr/share/GeoIP/GeoLiteCity.dat
+import_partial = 
+limit_memory_hard = 2684354560
+limit_memory_soft = 2147483648
+limit_request = 8192
+limit_time_cpu = 60
+limit_time_real = 120
+limit_time_real_cron = -1
+list_db = True
+log_db = False
+log_db_level = warning
+log_handler = :INFO
+log_level = info
+logfile = None
+logrotate = False
+longpolling_port = 8072
+max_cron_threads = 2
+osv_memory_age_limit = 1.0
+osv_memory_count_limit = False
+pg_path = None
+pidfile = None
+proxy_mode = False
+reportgz = False
+server_wide_modules = web,web_kanban
+smtp_password = False
+smtp_port = 25
+smtp_server = localhost
+smtp_ssl = False
+smtp_user = False
+syslog = False
+test_commit = False
+test_enable = False
+test_file = False
+test_report_directory = False
+translate_modules = ['all']
+unaccent = False
+without_demo = False
+workers = 0
+xmlrpc = True
+xmlrpc_interface = 
+xmlrpc_port = 8069
+```
+You have change the value of ```addons_path``` for the path where you install odoo example
+
+```
+/home/victor/Working/odoo/odoo/addons for /home/your_user/odoo/odoo/addons
+/home/victor/Working/odoo/addons for /home/your_user/odoo/addons 
+/home/victor/Working/p2-odoo/odoo-10/addons for /home/your_user/p2-odoo/odoo-10/addons 
 ```
 
-Change permissions
+Also yo have change the value of ```db_user``` for you user.
+
+And to finish change the value of ````data_bir``` for ```/home/your_user/.local/share/Odoo```
+
+### Run server
+
+Activate your virtualenv, posicion in the folder of odoo and execute:
 
 ```
-$ chmod 640 /etc/odoo/odoo.conf
-```
-
-### Now edit file ```/etc/odoo/odoo.conf```
-
-Change the field ```db_password = False``` for:
-
-```bash
-db_password = "your-password"
-```
-
-##### NOTE: The password corresponds to the user created in postgres
-
-
-Change the path the addons:
-
-```bash
-addons_path = /opt/odoo/addons
-``` 
-
-Add a log file:
-
-```bash
-logfile = /var/log/odoo/odoo-server.log 
-``` 
-
-Now create the directory:
-
-```
-$ mkdir /var/log/odoo
-```
-
-Change owner
-
-```
-$ chown odoo:root /var/log/odoo/
-```
-
-And finnish the configuration the server
-
-
-## Test the server the Odoo
-
-Login with the user odoo
-
-```bash
-$ su - odoo -s /bin/bash
-```
-
-Activate virtualenv:
-
-```bash
-$ . /opt/odoo-dev/bin/activate
-```
-
-Execute the server
-
-```bash
-$ /opt/odoo/odoo-bin
+./odoo-bin -c odoo.conf
 ```
 
 ##### Check your browser in ```https://your-ip:8069/``` or ```https://localhost:8069/```
